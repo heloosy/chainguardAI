@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChainGuard AI — Early Warning & Disruption Injection Workbench</title>
+  <title>ChainGuard AI — Early Warning & Disruption Injection Studio</title>
   
-  <!-- Editorial Typography: Instrument Serif, Public Sans, JetBrains Mono -->
+  <!-- Modern Typography: Plus Jakarta Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Custom Editorial CSS -->
+  <!-- Flowgen Modern Industrial CSS -->
   <link rel="stylesheet" href="css/styles.css">
   
   <script>
@@ -21,24 +21,25 @@
       theme: {
         extend: {
           fontFamily: {
-            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-            sans: ['"Public Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace']
           },
           colors: {
-            workspace: '#F7F5F0',
-            surface: '#FFFFFF',
-            ink: '#1C201D',
-            muted: '#5A645C',
-            rule: '#D8D5CD',
-            forest: {
-              DEFAULT: '#144336',
-              hover: '#0E3027',
-              subtle: '#E8F1EC'
+            primary: {
+              DEFAULT: '#1D68FE',
+              hover: '#1554D1',
+              subtle: '#EFF6FF',
+              border: '#BFDBFE'
             },
-            terracotta: {
-              DEFAULT: '#8F2718',
-              subtle: '#FAF0EE'
+            slate: {
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+              600: '#475569',
+              500: '#64748B',
+              200: '#E2E8F0',
+              100: '#F1F5F9',
+              50: '#F8FAFC'
             }
           }
         }
@@ -46,54 +47,60 @@
     }
   </script>
 </head>
-<body class="bg-[#F7F5F0] text-[#1C201D] min-h-screen flex flex-col antialiased ledger-grid-bg">
+<body class="bg-[#F8FAFC] text-slate-800 min-h-screen flex flex-col antialiased flow-grid-bg">
 
   <!-- ======================================================== -->
-  <!-- TOP EDITION & TELETYPE RIBBON                            -->
+  <!-- TOP ANNOUNCEMENT RIBBON                                  -->
   <!-- ======================================================== -->
-  <div class="edition-ribbon">
+  <div class="flow-top-ribbon">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <span class="font-bold text-[#144336]">[SIMULATION BENCHMARK]</span>
-        <span>DISPATCH TEST HARNESS · VOL. 2026.11</span>
-        <span class="hidden md:inline">·</span>
-        <span class="hidden md:inline">SYSTEM: FASTAPI PIPELINE REACTION TESTER</span>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#1D68FE] text-white">
+          INJECTION WORKBENCH
+        </span>
+        <span>Independent Disruption Stress Harness · Live Pipeline Reaction Simulator</span>
       </div>
-      <div class="flex items-center space-x-4">
-        <span>SECURITY LEVEL: AUTHORIZED EXERCISE</span>
+      <div class="hidden sm:flex items-center space-x-3 text-[11px] font-mono text-slate-300">
         <span>STATUS: SYNCHRONIZED</span>
+        <span>·</span>
+        <span>TARGET: FASTAPI BUS</span>
       </div>
     </div>
   </div>
 
   <!-- ======================================================== -->
-  <!-- BROADSHEET MASTHEAD HEADER                               -->
+  <!-- FLOWGEN NAVBAR                                           -->
   <!-- ======================================================== -->
-  <header class="masthead-container">
+  <header class="flow-navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between py-4 border-b border-[#D8D5CD] gap-4">
+      <div class="flex items-center justify-between h-20">
         
         <!-- Brand & Product Title -->
-        <div>
-          <div class="flex items-center space-x-2 text-[10px] font-mono tracking-widest text-[#5A645C] uppercase mb-1">
-            <span>Autonomous Supply Chain Resilience</span>
-            <span>·</span>
-            <span>Stress Testing Subsystem</span>
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-[#1D68FE] flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-500/30">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
           </div>
-          <h1 class="masthead-title">Early Warning Disruption Workbench</h1>
-          <p class="text-xs text-[#5A645C] mt-1 max-w-2xl font-sans">
-            Independent shock injection module. Transmits synthetic geopolitical, meteorologic, and operational disturbances directly into the active inference engine.
-          </p>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xl font-extrabold tracking-tight text-slate-900">ChainGuard</span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded bg-amber-50 text-amber-700 border border-amber-200">
+                CRISIS INJECTOR
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-500">Synthetic Disruption Shock Generator</div>
+          </div>
         </div>
 
-        <!-- Links to Main Operations Desk & Reset -->
-        <div class="flex items-center space-x-2.5 pb-1">
-          <a href="index.html" target="_blank" class="btn-craft-primary text-xs uppercase tracking-wider">
-            <span>[ Live Operations Desk ↗ ]</span>
+        <!-- Links to Main Operations Desk & Actions -->
+        <div class="flex items-center space-x-3">
+          <a href="index.html" target="_blank" class="btn-flow-primary text-xs">
+            <span>Open Live Operations Desk ↗</span>
           </a>
 
-          <button onclick="resetInjectedPipeline()" class="btn-craft-secondary text-xs uppercase tracking-wider">
-            [ Reset Baseline Pipeline ]
+          <button onclick="resetInjectedPipeline()" class="btn-flow-secondary text-xs">
+            <span>Reset Baseline Pipeline</span>
           </button>
         </div>
 
@@ -104,184 +111,178 @@
   <!-- ======================================================== -->
   <!-- MAIN INJECTION WORKBENCH                                 -->
   <!-- ======================================================== -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
     
-    <!-- Top Explainer Banner (Editorial Ledger Style) -->
-    <div class="p-4 bg-white border border-[#D8D5CD] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <!-- Explainer Banner -->
+    <div class="flow-card p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div class="space-y-1">
         <div class="flex items-center space-x-2">
-          <span class="stamp-tag stamp-operational">ACTIVE INGESTION HARNESS</span>
-          <h2 class="text-xs font-mono font-bold text-[#1C201D] uppercase tracking-wider">Deterministic Signal Injection Interface</h2>
+          <span class="flow-badge flow-badge-blue">SIMULATION HARNESS</span>
+          <h2 class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Independent Disruption Shock Injection Console</h2>
         </div>
-        <p class="text-xs text-[#5A645C] leading-relaxed max-w-3xl font-sans">
-          Injected shocks feed directly into the backend ReAct agent framework, recalculating cascading impact, trade compliance barriers (EAR § 734, IATA PI 965), and optimal recovery routings in real time.
+        <p class="text-xs text-slate-600 leading-relaxed max-w-3xl">
+          Inject synthetic disruption signals (cyclones, maritime war risk, port dwell spikes, fab outages, or SAP ERP telemetry drift) to test the live autonomous agent ReAct loop in real time.
         </p>
       </div>
       <div class="text-right flex-shrink-0">
-        <span id="injection-status-badge" class="stamp-tag stamp-operational">
-          INGESTION BUS ONLINE
+        <span id="injection-status-badge" class="flow-badge flow-badge-primary">
+          DISPATCH GATEWAY READY
         </span>
       </div>
     </div>
 
     <!-- 1-Click Disruption Presets Grid -->
     <div class="space-y-3">
-      <div class="flex items-center justify-between border-b border-[#D8D5CD] pb-2">
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-[#1C201D]">[ 01. Standardized Shock Profiles ]</h3>
-        <span class="text-[11px] text-[#5A645C] font-mono">Select any profile card to automatically populate and dispatch payload</span>
+      <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
+          1. Quick 1-Click Disruption Presets
+        </h3>
+        <span class="text-[11px] text-slate-500 font-mono">Click any card to automatically populate and dispatch shock</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
         
-        <!-- Preset 1: Cyclone Senyar (Bay of Bengal) -->
-        <button onclick="loadAndInjectPreset('cyclone_chennai')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <!-- Preset 1: Cyclone Senyar -->
+        <button onclick="loadAndInjectPreset('cyclone_chennai')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-01]</span>
-              <span class="stamp-tag stamp-critical">CRITICAL</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-01]</span>
+              <span class="flow-badge flow-badge-danger">CRITICAL</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">Cyclone Senyar</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Bay of Bengal Corridor</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">Cyclone Senyar (Bay of Bengal)</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
               Cat 4 cyclonic storm approaching Chennai port. 125 km/h winds, gantry crane lockdown, 72h container dwell spike.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#8F2718] font-bold">+4.5d Delay</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-red-600 font-bold">+4.5d Delay</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
         <!-- Preset 2: Red Sea Maritime War Risk -->
-        <button onclick="loadAndInjectPreset('red_sea_war')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <button onclick="loadAndInjectPreset('red_sea_war')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-02]</span>
-              <span class="stamp-tag stamp-critical">WAR RISK</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-02]</span>
+              <span class="flow-badge flow-badge-danger">WAR RISK</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">Bab-el-Mandeb Chokepoint</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Southern Red Sea Convoy</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Anti-ship missile strike on container convoy. Carriers reroute around Cape of Good Hope, adding 12–14 days.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">Bab-el-Mandeb Chokepoint</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Anti-ship drone strike on container convoy. Carriers reroute around Cape of Good Hope, adding 12–14 days.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#8F2718] font-bold">+12.0d Delay</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-red-600 font-bold">+12.0d Delay</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
-        <!-- Preset 3: Port of Long Beach Gantry Crane Rupture -->
-        <button onclick="loadAndInjectPreset('port_long_beach')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <!-- Preset 3: Port of Long Beach Gantry Rupture -->
+        <button onclick="loadAndInjectPreset('port_long_beach')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-03]</span>
-              <span class="stamp-tag stamp-disrupted">BERTH CONGESTION</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-03]</span>
+              <span class="flow-badge flow-badge-warning">PORT DWELL</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">Pier T Gantry Failure</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Port of Long Beach, CA</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Hydraulic boom collapse halts ship-to-shore discharge. Transpacific vessels placed in holding anchorage off San Pedro Bay.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">Pier T Gantry Failure</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Hydraulic boom failure halts crane discharge. Transpacific vessels placed in holding pattern off San Pedro Bay.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#78450E] font-bold">+5.5d Delay</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-amber-600 font-bold">+5.5d Delay</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
         <!-- Preset 4: Hsinchu Fab Cleanroom Outage -->
-        <button onclick="loadAndInjectPreset('taiwan_fab')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <button onclick="loadAndInjectPreset('taiwan_fab')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-04]</span>
-              <span class="stamp-tag stamp-critical">FORCE MAJEURE</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-04]</span>
+              <span class="flow-badge flow-badge-danger">FAB OUTAGE</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">Hsinchu Cleanroom Drop</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Northern Taiwan Grid</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Regional transmission drop trips fab cleanroom HVAC. Automotive MCU wafer lot scrapped; capacity allocation slashed 35%.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">Hsinchu Cleanroom Drop</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              345kV grid drop trips fab cleanroom HVAC. Automotive MCU wafer lot scrapped; capacity allocation slashed 35%.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#8F2718] font-bold">+8.0d Delay</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-red-600 font-bold">+8.0d Delay</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
-        <!-- Preset 5: EAR Dual-Use Microelectronics Embargo -->
-        <button onclick="loadAndInjectPreset('trade_embargo')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <!-- Preset 5: EAR Dual-Use Embargo -->
+        <button onclick="loadAndInjectPreset('trade_embargo')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-05]</span>
-              <span class="stamp-tag">EXPORT CONTROL</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-05]</span>
+              <span class="flow-badge">EXPORT CONTROL</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">BIS Regulatory Freeze</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">U.S. Dept of Commerce</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Emergency EAR § 734.4 order issued. Dual-use microcontrollers held for transshipment audit and validated end-user checks.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">BIS Regulatory Freeze</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Emergency EAR § 734.4 order issued. Dual-use microcontrollers held for transshipment audit and license checks.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#78450E] font-bold">+6.5d Delay</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-amber-600 font-bold">+6.5d Delay</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
         <!-- Preset 6: Detroit SMT Feeder Scrap Spike -->
-        <button onclick="loadAndInjectPreset('plant_scrap')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <button onclick="loadAndInjectPreset('plant_scrap')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-06]</span>
-              <span class="stamp-tag stamp-disrupted">INTERNAL SCRAP</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-06]</span>
+              <span class="flow-badge flow-badge-warning">INTERNAL SCRAP</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">SMT Feeder Line Jam</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Detroit Plant 1010</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              High-speed feeder destroys 180 critical microcontroller packages, depleting on-hand safety buffer 3.2 days earlier than scheduled.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">SMT Feeder Line Jam</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Surface-mount feeder destroys 180 microcontroller packages, depleting on-hand safety buffer 3.2 days earlier.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#78450E] font-bold">+3.2d Shortage</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-amber-600 font-bold">+3.2d Shortage</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
-        <!-- Preset 7: Silent Internal Operational Drift (SAP S/4HANA & IBP) -->
-        <button onclick="loadAndInjectPreset('internal_lead_time_drift')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <!-- Preset 7: Silent Internal Lead-Time Drift -->
+        <button onclick="loadAndInjectPreset('internal_lead_time_drift')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-07]</span>
-              <span class="stamp-tag stamp-critical">ERP TELEMETRY</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-07]</span>
+              <span class="flow-badge flow-badge-danger">SAP TELEMETRY</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">SAP Lead-Time Creep</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Apex Semi (SUP-007)</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Zero public news alerts. SAP EKBE/EKPO transaction audit reveals steady delivery creep (+59%) across 4 consecutive PO cycles.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">SAP Lead-Time Creep</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Zero public news alerts. SAP EKBE/EKPO transaction audit reveals steady delivery creep (+59%) across 4 PO cycles.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#8F2718] font-bold">+8.4d Drift</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-red-600 font-bold">+8.4d Drift</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
         <!-- Preset 8: Compound Multi-Stream Threat -->
-        <button onclick="loadAndInjectPreset('compound_risk')" class="p-3 bg-white hover:bg-[#F7F5F0] border border-[#D8D5CD] hover:border-[#144336] text-left transition-all cursor-pointer flex flex-col justify-between space-y-2.5">
+        <button onclick="loadAndInjectPreset('compound_risk')" class="flow-card p-4 text-left transition-all cursor-pointer group flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] font-bold text-[#5A645C]">[SIM-08]</span>
-              <span class="stamp-tag stamp-critical">COMPOUND THREAT</span>
+              <span class="text-[10px] font-mono font-bold text-slate-400">[SIM-08]</span>
+              <span class="flow-badge flow-badge-danger">COMPOUND THREAT</span>
             </div>
-            <div class="font-serif font-bold text-base text-[#1C201D] mt-1.5 leading-snug">Drift + Cyclone Collision</div>
-            <div class="text-[10px] font-mono text-[#5A645C]">Internal + External Vectors</div>
-            <p class="text-[11px] text-[#2C332D] mt-1.5 leading-relaxed font-sans line-clamp-3">
-              Internal buffer was already depleted (+4.5d SAP lead-time drift) when Category 4 Cyclone Senyar forces Chennai port shutdown.
+            <div class="font-bold text-sm text-slate-900 group-hover:text-[#1D68FE] mt-1.5 leading-snug">Drift + Cyclone Collision</div>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+              Internal buffer was already depleted (+4.5d SAP lead-time drift) when Category 4 Cyclone Senyar strikes Chennai.
             </p>
           </div>
-          <div class="pt-2 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] font-mono">
-            <span class="text-[#8F2718] font-bold">+9.5d Compound</span>
-            <span class="text-[#144336] font-bold">[ INJECT → ]</span>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span class="text-red-600 font-bold">+9.5d Compound</span>
+            <span class="text-[#1D68FE] font-bold group-hover:translate-x-0.5 transition-transform">Inject Shock →</span>
           </div>
         </button>
 
@@ -291,24 +292,24 @@
     <!-- Custom Disruption Shock Builder Form & Log Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       
-      <!-- Custom Builder Form (7 cols / 60%) -->
-      <div class="lg:col-span-7 bg-white border border-[#D8D5CD] p-5 space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#D8D5CD]">
+      <!-- Custom Builder Form (7 cols) -->
+      <div class="lg:col-span-7 flow-card p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
           <div>
-            <h3 class="text-xs font-mono font-bold text-[#1C201D] uppercase tracking-wider">[ 02. Custom Shock Authoring Console ]</h3>
-            <p class="text-[11px] text-[#5A645C] mt-0.5 font-sans">Author custom external intelligence shock signals with granular attributes.</p>
+            <h3 class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">2. Custom Disruption Shock Authoring</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Author custom external intelligence shock signals with granular attributes.</p>
           </div>
-          <span class="stamp-tag">
-            RAW INGESTION BUS
+          <span class="flow-badge flow-badge-blue">
+            RAW INGESTION API
           </span>
         </div>
 
-        <form id="custom-shock-form" onsubmit="handleCustomSubmit(event)" class="space-y-3.5 text-xs">
+        <form id="custom-shock-form" onsubmit="handleCustomSubmit(event)" class="space-y-4 text-xs">
           
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Source Platform</label>
-              <select id="form-platform" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Source Platform</label>
+              <select id="form-platform" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
                 <option value="X_TWITTER">X (Twitter Observer)</option>
                 <option value="IMD_METEOROLOGICAL">Official Meteorological Bureau (IMD / NOAA)</option>
                 <option value="PORT_AUTHORITY">Harbor Master Operations Notice</option>
@@ -318,8 +319,8 @@
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Disruption Category</label>
-              <select id="form-category" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Disruption Category</label>
+              <select id="form-category" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
                 <option value="Severe Cyclone / Storm">Severe Cyclone / Storm</option>
                 <option value="Geopolitical War / Conflict">Geopolitical War / Conflict</option>
                 <option value="Port Closure / Berth Congestion">Port Closure / Berth Congestion</option>
@@ -329,15 +330,15 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Source Handle / Reporter</label>
-              <input id="form-handle" type="text" value="@ChennaiFisherWatch" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono" required>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Source Handle / Reporter</label>
+              <input id="form-handle" type="text" value="@ChennaiFisherWatch" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono" required>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Urgency Tier</label>
-              <select id="form-urgency" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Urgency Tier</label>
+              <select id="form-urgency" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
                 <option value="CRITICAL">CRITICAL (Immediate Impact)</option>
                 <option value="HIGH">HIGH (Elevated Threat)</option>
                 <option value="MODERATE">MODERATE (Warning State)</option>
@@ -346,99 +347,99 @@
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Signal Headline</label>
-            <input id="form-headline" type="text" value="Deep depression intensifies into cyclonic storm 180nm off Chennai" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-sans" required>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Signal Headline</label>
+            <input id="form-headline" type="text" value="Deep depression intensifies into cyclonic storm 180nm off Chennai" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE]" required>
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Detailed Signal Narrative / Telegram Content</label>
-            <textarea id="form-content" rows="3" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] text-xs font-sans" required>Rough swells picking up fast. Container terminal gantry operations suspended. Vessel pilots aborting approach outside Ennore anchorage.</textarea>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Detailed Signal Narrative</label>
+            <textarea id="form-content" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] text-xs" required>Rough swells picking up fast. Container terminal gantry operations suspended. Vessel pilots aborting approach outside Ennore anchorage.</textarea>
           </div>
 
           <div class="grid grid-cols-3 gap-3">
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Location Name</label>
-              <input id="form-location" type="text" value="Chennai Coastal Corridor, India" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Location Name</label>
+              <input id="form-location" type="text" value="Chennai Coastal Corridor, India" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Latitude</label>
-              <input id="form-lat" type="number" step="0.0001" value="13.0827" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Latitude</label>
+              <input id="form-lat" type="number" step="0.0001" value="13.0827" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Longitude</label>
-              <input id="form-lng" type="number" step="0.0001" value="80.2707" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Longitude</label>
+              <input id="form-lng" type="number" step="0.0001" value="80.2707" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
           </div>
 
           <div class="grid grid-cols-3 gap-3">
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Target Shipment</label>
-              <input id="form-shipment" type="text" value="SHP-801" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Target Shipment</label>
+              <input id="form-shipment" type="text" value="SHP-801" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Affected Component</label>
-              <input id="form-component" type="text" value="CMP-MCU-01" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Component</label>
+              <input id="form-component" type="text" value="CMP-MCU-01" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono font-semibold text-[#1C201D] mb-1">Delay Impact (Days)</label>
-              <input id="form-delay" type="number" step="0.5" value="4.5" class="w-full bg-[#F7F5F0] border border-[#D8D5CD] px-2.5 py-1.5 text-[#1C201D] focus:outline-none focus:border-[#144336] font-mono">
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Delay Impact (Days)</label>
+              <input id="form-delay" type="number" step="0.5" value="4.5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-800 focus:outline-none focus:border-[#1D68FE] font-mono">
             </div>
           </div>
 
-          <div class="pt-3 border-t border-[#D8D5CD] flex items-center justify-between">
-            <span class="text-[11px] text-[#5A645C] font-mono">Direct push to active FastAPI pipeline bus</span>
-            <button type="submit" id="btn-submit-shock" class="btn-craft-primary text-xs uppercase tracking-wider">
-              <span>[ Inject Disruption Shock ]</span>
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-mono">Direct push to FastAPI pipeline bus</span>
+            <button type="submit" id="btn-submit-shock" class="btn-flow-primary text-xs shadow-md">
+              <span>⚡ Inject Disruption Shock</span>
             </button>
           </div>
 
         </form>
       </div>
 
-      <!-- Transmission Monitor & Log (5 cols / 40%) -->
+      <!-- Transmission Monitor & Log (5 cols) -->
       <div class="lg:col-span-5 flex flex-col space-y-4">
         
         <!-- Live Dispatch Feedback Box -->
-        <div id="dispatch-feedback-card" class="hidden p-4 bg-[#E8F1EC] border border-[#144336] text-xs space-y-2">
+        <div id="dispatch-feedback-card" class="hidden p-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-xs space-y-2">
           <div class="flex items-center justify-between">
-            <span class="font-mono font-bold text-[#144336] text-[11px]">
-              [PAYLOAD DELIVERED TO REASONING ENGINE]
+            <span class="font-bold text-emerald-900 flex items-center">
+              ✓ SHOCK DELIVERED TO ACTIVE PIPELINE
             </span>
-            <span id="feedback-timestamp" class="font-mono text-[#5A645C] text-[10px]"></span>
+            <span id="feedback-timestamp" class="font-mono text-emerald-700 text-[10px]"></span>
           </div>
-          <p id="feedback-text" class="text-[#1C201D] leading-relaxed font-sans"></p>
+          <p id="feedback-text" class="text-emerald-950 leading-relaxed"></p>
           <div class="pt-1">
-            <a href="index.html" target="_blank" class="inline-flex items-center text-[11px] font-mono font-bold text-[#144336] hover:underline">
-              <span>[ Review Live Consequence Cascading On Dashboard → ]</span>
+            <a href="index.html" target="_blank" class="inline-flex items-center text-xs font-bold text-[#1D68FE] hover:underline">
+              <span>Review Agentic Response on Main Console →</span>
             </a>
           </div>
         </div>
 
         <!-- Transmission Log History Card -->
-        <div class="flex-1 bg-white border border-[#D8D5CD] p-4 flex flex-col">
-          <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#D8D5CD]">
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#1C201D]">[ 03. Disruption Dispatch Audit ]</span>
-            <span id="log-count" class="stamp-tag">0 Dispatched</span>
+        <div class="flex-1 flow-card p-5 flex flex-col">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-200">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-900 font-mono">Disruption Transmission Log</span>
+            <span id="log-count" class="flow-badge">0 Dispatched</span>
           </div>
 
-          <div id="injection-log-list" class="flex-1 overflow-y-auto space-y-2 max-h-[380px] text-xs">
-            <div class="p-6 text-center text-[#5A645C] font-mono text-xs">
-              Zero synthetic shocks dispatched during current session.<br>Select any standardized profile or transmit custom signal above.
+          <div id="injection-log-list" class="flex-1 overflow-y-auto space-y-2.5 max-h-[380px] text-xs">
+            <div class="p-6 text-center text-slate-400 font-mono text-xs">
+              No custom shocks injected yet.<br>Click any preset or submit a custom signal above.
             </div>
           </div>
         </div>
 
         <!-- Fast Navigation Card -->
-        <div class="p-3.5 bg-white border border-[#D8D5CD] text-xs flex items-center justify-between">
-          <div class="text-[11px] text-[#5A645C] font-mono">
-            Host Gateway: <strong class="text-[#1C201D]">http://127.0.0.1:8000</strong>
+        <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 text-xs flex items-center justify-between">
+          <div class="text-slate-600 font-mono text-[11px]">
+            Server: <strong class="text-slate-900 font-semibold">http://127.0.0.1:8000</strong>
           </div>
-          <a href="index.html" class="btn-craft-secondary text-xs uppercase tracking-wider">
-            [ Return to Operations Desk ]
+          <a href="index.html" class="btn-flow-secondary text-xs">
+            <span>Back to Dashboard →</span>
           </a>
         </div>
 
@@ -448,11 +449,10 @@
 
   </main>
 
-  <!-- Editorial Colophon Footer -->
-  <footer class="mt-auto border-t border-[#D8D5CD] bg-[#F7F5F0] py-6 text-center text-xs text-[#5A645C] font-mono">
+  <footer class="mt-auto border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div>ChainGuard AI Early Warning & Disruption Injection Harness · ISO 22301 & EAR § 734 Compliant</div>
-      <div class="text-[10px]">OPERATIONAL BENCHMARK EDITION · DETROIT LINE PRESERVATION</div>
+      <div>ChainGuard AI Early Warning & Disruption Injection Harness</div>
+      <div class="font-mono text-[11px]">FLOWGEN INDUSTRIAL EDITION</div>
     </div>
   </footer>
 

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChainGuard AI — Operational Supply-Chain Intelligence & Trade Policy Dispatch</title>
+  <title>ChainGuard AI — Autonomous Supply Chain Intelligence Platform</title>
   
-  <!-- Editorial Humanist & Monospace Typography: Instrument Serif, Public Sans, JetBrains Mono -->
+  <!-- Modern Typography: Plus Jakarta Sans (Display & Body) + JetBrains Mono (Telemetry & Metrics) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
-  <!-- Custom Editorial CSS -->
+  <!-- Flowgen Modern Industrial CSS -->
   <link rel="stylesheet" href="css/styles.css">
   
   <script>
@@ -25,41 +25,27 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Public Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-            serif: ['Instrument Serif', 'Georgia', 'serif'],
-            mono: ['JetBrains Mono', 'Consolas', 'monospace']
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
           },
           colors: {
-            parchment: {
-              DEFAULT: '#F7F5F0',
-              light: '#FAF9F5',
-              dark: '#EBE7DC'
+            primary: {
+              DEFAULT: '#1D68FE',
+              hover: '#1554D1',
+              subtle: '#EFF6FF',
+              border: '#BFDBFE'
             },
-            charcoal: {
-              DEFAULT: '#1C201D',
-              light: '#48524B',
-              muted: '#707A72'
-            },
-            forest: {
-              DEFAULT: '#144336',
-              hover: '#0E3027',
-              subtle: '#E8F1EC',
-              border: '#B2CDC2'
-            },
-            rust: {
-              DEFAULT: '#8F2718',
-              subtle: '#FAF0EE',
-              border: '#E8BFB7'
-            },
-            umber: {
-              DEFAULT: '#78450E',
-              subtle: '#FDF7EB',
-              border: '#E8D3A8'
-            },
-            steel: {
-              DEFAULT: '#1D3557',
-              subtle: '#F0F4F8',
-              border: '#CCD9E8'
+            slate: {
+              950: '#0B0F17',
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+              600: '#475569',
+              500: '#64748B',
+              400: '#94A3B8',
+              200: '#E2E8F0',
+              100: '#F1F5F9',
+              50: '#F8FAFC'
             }
           }
         }
@@ -67,538 +53,577 @@
     }
   </script>
 </head>
-<body class="bg-[#F7F5F0] text-[#1C201D] min-h-screen flex antialiased">
+<body class="bg-[#F8FAFC] text-slate-800 min-h-screen flex flex-col antialiased flow-grid-bg">
 
   <!-- ======================================================== -->
-  <!-- PERSISTENT LEFT SIDEBAR / EDITORIAL INDEX                -->
+  <!-- TOP ANNOUNCEMENT / TELEMETRY RIBBON                      -->
   <!-- ======================================================== -->
-  <aside id="app-sidebar" class="w-64 bg-[#FFFFFF] border-r border-[#D5CEBF] flex-shrink-0 flex flex-col justify-between min-h-screen sticky top-0 h-screen z-50">
-    <div class="flex flex-col">
-      
-      <!-- Brand & Masthead Title -->
-      <div class="h-16 px-4 py-3 border-b border-[#D5CEBF] bg-[#FAF9F5] flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-[2px] bg-[#144336] flex items-center justify-center text-white font-mono font-bold text-xs tracking-wider border border-[#0E3027]">
-          CG
-        </div>
-        <div class="truncate">
-          <div class="font-serif italic text-lg text-[#1C201D] tracking-tight leading-none">ChainGuard AI</div>
-          <div class="text-[9px] font-mono text-[#707A72] uppercase tracking-wider mt-1">Autonomous Intelligence</div>
-        </div>
+  <div class="flow-top-ribbon">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center space-x-3 truncate">
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#1D68FE] text-white">
+          SENTRY LIVE
+        </span>
+        <span class="truncate">Autonomous Multi-Agent Supply Chain Defense · ISO 22301 & EAR § 734 Enforced</span>
       </div>
-
-      <!-- Navigation Index -->
-      <nav class="p-3 space-y-1 overflow-y-auto">
-        
-        <div class="nav-group-label">
-          01 / OPERATIONS
-        </div>
-
-        <!-- 1. Incident Resilience -->
-        <button id="nav-btn-resilience" onclick="switchNavPanel('panel-resilience')" class="rail-nav-item active w-full">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#144336] font-bold">[01]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight">Incident Resilience</div>
-              <div class="text-[10px] text-[#707A72] font-normal">ReAct Agent & Decision Gate</div>
-            </div>
-          </div>
-          <span id="sidebar-agent-pill" class="stamp-tag stamp-nominal">
-            LIVE
-          </span>
-        </button>
-
-        <div class="nav-group-label pt-3">
-          02 / DATA ARCHIVE
-        </div>
-
-        <!-- 2. Supply Chain Data -->
-        <button id="nav-btn-data" onclick="switchNavPanel('panel-data')" class="rail-nav-item w-full">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#707A72]">[02]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight">Supply Chain Data</div>
-              <div class="text-[10px] text-[#707A72] font-normal">Suppliers, POs, Inventory</div>
-            </div>
-          </div>
-          <span class="stamp-tag stamp-neutral">
-            7 TABLES
-          </span>
-        </button>
-
-        <!-- 3. Incident Memory -->
-        <button id="nav-btn-history" onclick="switchNavPanel('panel-history')" class="rail-nav-item w-full">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#707A72]">[03]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight">Incident Memory</div>
-              <div class="text-[10px] text-[#707A72] font-normal">Retrospective Case Audit</div>
-            </div>
-          </div>
-          <span class="stamp-tag stamp-neutral">
-            SQLITE
-          </span>
-        </button>
-
-        <div class="nav-group-label pt-3">
-          03 / STATUTORY COMPLIANCE
-        </div>
-
-        <!-- 4. Policy Generator -->
-        <button id="nav-btn-policy" onclick="switchNavPanel('panel-policy')" class="rail-nav-item w-full">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#707A72]">[04]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight">Policy Generator</div>
-              <div class="text-[10px] text-[#707A72] font-normal">Enforceable SOPs & Rules</div>
-            </div>
-          </div>
-          <span class="stamp-tag stamp-sap">
-            SOP
-          </span>
-        </button>
-
-        <!-- 5. Supply Exchange -->
-        <button id="nav-btn-exchange" onclick="switchNavPanel('panel-exchange')" class="rail-nav-item w-full">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#707A72]">[05]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight">Supply Exchange</div>
-              <div class="text-[10px] text-[#707A72] font-normal">Nearest Country & Laws</div>
-            </div>
-          </div>
-          <span class="stamp-tag stamp-nominal">
-            LEGAL
-          </span>
-        </button>
-
-        <div class="nav-group-label pt-3">
-          04 / SIMULATION
-        </div>
-
-        <!-- 6. Early Warning Injector Link -->
-        <a href="injector.html" target="_blank" class="rail-nav-item w-full group">
-          <div class="flex items-center space-x-2.5 truncate">
-            <span class="font-mono text-[10px] text-[#78450E]">[06]</span>
-            <div class="truncate text-left">
-              <div class="text-xs font-semibold leading-tight group-hover:text-[#78450E]">Warning Injector</div>
-              <div class="text-[10px] text-[#707A72] font-normal">Simulation Studio ↗</div>
-            </div>
-          </div>
-          <span class="stamp-tag stamp-warning">
-            STUDIO
-          </span>
-        </a>
-
-      </nav>
-    </div>
-
-    <!-- Sidebar Technical Dispatch Stamp -->
-    <div class="p-3 border-t border-[#D5CEBF] bg-[#FAF9F5] text-[10px] font-mono space-y-1">
-      <div class="flex items-center justify-between text-[#707A72]">
-        <span>ENVIRONMENT:</span>
-        <span class="text-[#144336] font-semibold">BENCHMARK LIVE</span>
-      </div>
-      <div class="flex items-center justify-between text-[#707A72]">
-        <span>ENGINE:</span>
-        <span class="text-[#144336] font-semibold">AUTONOMOUS ReAct</span>
-      </div>
-      <div class="flex items-center justify-between text-[#98A19A] pt-1 border-t border-[#E3DED4] text-[9px]">
-        <span>PORT: 8000</span>
-        <span>FASTAPI & ML</span>
+      <div class="hidden md:flex items-center space-x-4 text-[11px] text-slate-300 font-mono">
+        <span>SAP S/4HANA: CONNECTED</span>
+        <span>·</span>
+        <span class="text-emerald-400 font-bold">0 ACTIVE DELAYS</span>
+        <span>·</span>
+        <span>DETROIT PLANT BUFFER: 18.5d</span>
       </div>
     </div>
-  </aside>
+  </div>
 
   <!-- ======================================================== -->
-  <!-- MAIN EDITORIAL WORKSPACE                                 -->
+  <!-- FLOWGEN MAIN NAVBAR                                      -->
   <!-- ======================================================== -->
-  <div class="flex-1 flex flex-col min-w-0 overflow-y-auto min-h-screen">
-    
-    <!-- Top Editorial Masthead Bar -->
-    <header class="bg-[#FFFFFF] border-b border-[#D5CEBF] sticky top-0 z-40">
-      
-      <!-- Top Gazette Edition Ribbon -->
-      <div class="px-6 py-1 bg-[#FAF9F5] border-b border-[#E3DED4] text-[9px] font-mono text-[#707A72] flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <span>DISPATCH NO. CG-2026-11-04</span>
-          <span>·</span>
-          <span>EDITION: GLOBAL MARITIME & CARRIER RESILIENCE</span>
-          <span>·</span>
-          <span>CLASSIFICATION: OPERATIONAL INTEL</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <span>SYSTEM CADENCE: CONTINUOUS</span>
-          <span>·</span>
-          <span class="text-[#144336] font-bold">100% TRADE COMPLIANCE</span>
-        </div>
-      </div>
-
-      <!-- Main Header Control Bar -->
-      <div class="px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+  <header class="flow-navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
         
-        <div class="flex items-center space-x-3">
-          <h1 id="page-title" class="font-serif italic text-2xl text-[#1C201D] tracking-tight">Incident Resilience Console</h1>
-          <span id="pipeline-status-pill" class="stamp-tag stamp-neutral">
-            [ STATUS: IDLE ]
-          </span>
-        </div>
-
-        <!-- Controls: Scenario Selector & Agent Actions -->
-        <div class="flex items-center space-x-2.5">
-          <div class="flex items-center space-x-1.5">
-            <label for="scenario-select" class="text-[11px] font-mono text-[#707A72] uppercase hidden sm:inline">Scenario:</label>
-            <select id="scenario-select" class="text-xs bg-[#FAF9F5] border border-[#D5CEBF] rounded-[2px] px-2.5 py-1.5 font-medium text-[#1C201D]">
-              <option value="INTERNAL_LEAD_TIME_DRIFT">[INTERNAL] Silent Supplier Lead-Time Creep (SAP S/4HANA & IBP)</option>
-              <option value="COMPOUND_RISK">[COMPOUND] Unannounced Supplier Drift + External Cyclone</option>
-              <option value="CYCLONE_CHENNAI">[WEATHER] Cyclone in Bay of Bengal (Chennai Port & Tier-2 Fab)</option>
-              <option value="PORT_CLOSURE_LONG_BEACH">[PORT] Port of Long Beach Gantry Crane Disruption</option>
-              <option value="SUPPLIER_SHUTDOWN_TAIWAN">[FAB] Hsinchu Science Park Cleanroom Outage</option>
-              <option value="TRANSPORT_RED_SEA">[CHOKEPOINT] Red Sea Maritime War Risk Deviation</option>
-            </select>
+        <!-- Flowgen Style Logo & Brand -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchNavPanel('panel-resilience')">
+          <div class="w-10 h-10 rounded-xl bg-[#1D68FE] flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-500/30">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
           </div>
-
-          <div class="h-4 w-px bg-[#D5CEBF]"></div>
-
-          <button id="btn-run-pipeline" class="btn-craft-primary">
-            <span>Execute Agentic Cycle</span>
-          </button>
-
-          <button id="btn-step-pipeline" class="btn-craft-secondary">
-            <span>Next Step</span>
-          </button>
-
-          <button id="btn-reset-pipeline" class="btn-craft-secondary px-2" title="Reset Data & Pipeline">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          </button>
-        </div>
-
-      </div>
-    </header>
-
-    <!-- ======================================================== -->
-    <!-- PANEL 1: INCIDENT RESILIENCE (AGENTIC AI WORKSPACE)      -->
-    <!-- ======================================================== -->
-    <div id="panel-resilience" class="p-6 space-y-5">
-      
-      <!-- Incident Status Teletype Banner -->
-      <div class="editorial-card p-4 space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-[#D5CEBF]">
           <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-mono text-xs font-bold text-[#8F2718]">[ALERT]</span>
-              <h2 id="incident-title" class="font-serif italic text-xl text-[#1C201D] leading-tight">
-                Severe Cyclonic Storm in Bay of Bengal (Chennai Port & Tier-2 Fab)
-              </h2>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-xl font-extrabold tracking-tight text-slate-900">ChainGuard</span>
+              <span class="px-1.5 py-0.5 text-[10px] font-extrabold bg-[#EFF6FF] text-[#1D68FE] border border-[#BFDBFE] rounded-md font-mono">AI</span>
             </div>
-            <p id="incident-summary" class="text-xs text-[#48524B] mt-1 leading-relaxed">
-              Autonomous multi-source loop: Grassroots Signals ➔ Disruption Clustering ➔ Verification ➔ Exposure Mapping ➔ Calibrated ML Risk ➔ Mitigations ➔ Human Authorization ➔ Outcome Store.
-            </p>
-          </div>
-          <div class="flex items-center space-x-2 flex-shrink-0">
-            <span id="incident-phase-badge" class="stamp-tag stamp-warning">
-              PHASE: INITIALIZING
-            </span>
+            <div class="text-[10px] text-slate-400 font-medium tracking-wide">Autonomous Resilience Engine</div>
           </div>
         </div>
 
-        <!-- Operational Lifecycle Progress & Quick Data Access Bar -->
-        <div class="flex items-center justify-between pt-1">
-          <div class="flex items-center space-x-2 text-xs">
-            <span id="lifecycle-mode-pill" class="stamp-tag stamp-nominal">
-              [ STATUS: NOMINAL MONITORING ]
-            </span>
-            <span id="lifecycle-stage-name" class="text-[#707A72] font-mono text-[11px]">
-              Baseline Corridor Telemetry Active
-            </span>
-          </div>
+        <!-- Center Nav Links -->
+        <nav class="hidden lg:flex items-center space-x-1 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/80 text-xs font-semibold text-slate-600">
+          <button id="nav-btn-resilience" onclick="switchNavPanel('panel-resilience')" class="flow-tab-btn active">
+            Resilience Sentry
+          </button>
+          <button id="nav-btn-data" onclick="switchNavPanel('panel-data')" class="flow-tab-btn">
+            Supply Chain Data
+          </button>
+          <button id="nav-btn-history" onclick="switchNavPanel('panel-history')" class="flow-tab-btn">
+            Incident Memory
+          </button>
+          <button id="nav-btn-policy" onclick="switchNavPanel('panel-policy')" class="flow-tab-btn">
+            Trade Policies
+          </button>
+          <button id="nav-btn-exchange" onclick="switchNavPanel('panel-exchange')" class="flow-tab-btn">
+            Supply Exchange
+          </button>
+        </nav>
 
-          <div class="flex items-center space-x-3">
-            <!-- Stage Progress Indicator Bar -->
-            <div class="hidden sm:flex items-center space-x-1.5">
-              <span class="text-[10px] font-mono text-[#707A72]">CADENCE:</span>
-              <div class="w-32 h-1.5 bg-[#EBE7DC] border border-[#D5CEBF] overflow-hidden">
-                <div id="lifecycle-progress-bar" class="h-full bg-[#144336] transition-all duration-300" style="width: 12%;"></div>
-              </div>
-              <span id="lifecycle-progress-text" class="text-[10px] font-mono text-[#1C201D] font-bold">STAGE 0 / 8</span>
-            </div>
+        <!-- Right Header Actions -->
+        <div class="flex items-center space-x-3">
+          <a href="injector.html" target="_blank" class="btn-flow-secondary text-xs">
+            <span class="text-[#1D68FE] font-bold mr-1">⚡</span>
+            <span>Injector Studio ↗</span>
+          </a>
 
-            <!-- Direct Quick Jump to Supply Chain Data Side Panel -->
-            <button onclick="switchNavPanel('panel-data')" class="btn-craft-secondary text-[11px] py-1">
-              <span>Inspect Operational Data (7 Tables)</span>
-            </button>
-          </div>
+          <button onclick="document.getElementById('btn-step-pipeline')?.click()" class="btn-flow-primary text-xs">
+            <span>Next Stage →</span>
+          </button>
         </div>
+
       </div>
+    </div>
+  </header>
 
-      <!-- Asymmetric Editorial Grid (Left Column 65% / Right Column 35%) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
-        <!-- Left/Center Column: Operational Ledger (7 cols) -->
-        <div class="lg:col-span-8 flex flex-col space-y-4">
+  <!-- ======================================================== -->
+  <!-- MAIN WORKSPACE CONTENT CONTAINER                         -->
+  <!-- ======================================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- ======================================================== -->
+    <!-- PANEL 1: RESILIENCE SENTRY (HERO + 8-STAGE WORKFLOW)     -->
+    <!-- ======================================================== -->
+    <div id="panel-resilience" class="space-y-8">
+      
+      <!-- ====================================================== -->
+      <!-- THE SIGNATURE FLOWGEN HERO SHOWCASE                    -->
+      <!-- ====================================================== -->
+      <section class="flow-hero-container p-6 lg:p-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- Section 1: Geospatial Impact Map -->
-          <div class="editorial-card overflow-hidden">
-            <div class="editorial-header">
-              <div class="flex items-center space-x-2">
-                <span class="font-mono text-xs text-[#144336] font-bold">[CORRIDOR]</span>
-                <span id="map-header-title" class="text-xs font-semibold text-[#1C201D]">Geospatial Supply Corridor & Telemetry Track</span>
-              </div>
-              <span id="map-route-label" class="text-[10px] font-mono text-[#707A72]">Chennai Port (Origin) → Detroit Plant 1010</span>
+          <!-- Left Hero Column: Punchy Headline & Controls (7 cols) -->
+          <div class="lg:col-span-6 space-y-6">
+            
+            <!-- Eyebrow Tag -->
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-[#1D68FE]">
+              <span class="w-2 h-2 rounded-full bg-[#1D68FE] animate-pulse"></span>
+              <span>Smarter Supply Chains, Delivered Fast</span>
             </div>
 
-            <div id="operational-map" class="h-64 w-full bg-[#EBE7DC]"></div>
+            <!-- Display Headline -->
+            <div class="space-y-1">
+              <h1 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+                Automate.<br>
+                Optimize. Scale<br>
+                <span class="text-[#1D68FE]">with confidence.</span>
+              </h1>
+            </div>
 
-            <!-- Impact Snapshot Ledger under Map -->
-            <div class="p-3 bg-[#FAF9F5] border-t border-[#D5CEBF] grid grid-cols-3 gap-2.5 text-xs">
-              <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF]">
-                <div class="text-[9px] uppercase font-mono text-[#707A72]">Cargo Consignment</div>
-                <div id="map-snapshot-cargo" class="font-bold text-[#144336] mt-0.5 font-mono">SHP-801 (5,000 MCUs)</div>
-                <div id="map-snapshot-cargo-sub" class="text-[10px] text-[#707A72]">Aboard MV Pacific Trader</div>
+            <!-- Subtitle Description -->
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl font-normal">
+              We help businesses transform their manufacturing operations using intelligent agent automation and real-time insights. Our tailored solutions streamline supply chains, eliminate coverage gaps, and drive lasting efficiency.
+            </p>
+
+            <!-- Interactive Quick Controls Bar -->
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+                
+                <div class="flex-1">
+                  <label for="scenario-select" class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Select Active Scenario Benchmark:
+                  </label>
+                  <select id="scenario-select" class="w-full text-xs font-semibold bg-white border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:outline-none focus:border-[#1D68FE] shadow-2xs">
+                    <option value="INTERNAL_LEAD_TIME_DRIFT">[INTERNAL] Silent Supplier Lead-Time Creep (SAP S/4HANA & IBP)</option>
+                    <option value="COMPOUND_RISK">[COMPOUND] Unannounced Supplier Drift + External Cyclone</option>
+                    <option value="CYCLONE_CHENNAI">[WEATHER] Cyclone in Bay of Bengal (Chennai Port & Tier-2 Fab)</option>
+                    <option value="PORT_CLOSURE_LONG_BEACH">[PORT] Port of Long Beach Gantry Crane Disruption</option>
+                    <option value="SUPPLIER_SHUTDOWN_TAIWAN">[FAB] Hsinchu Science Park Cleanroom Outage</option>
+                    <option value="TRANSPORT_RED_SEA">[CHOKEPOINT] Red Sea Maritime War Risk Deviation</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center space-x-2 sm:self-end pt-1 sm:pt-0">
+                  <button id="btn-run-pipeline" class="btn-flow-primary text-xs shadow-md">
+                    <span>Run Sentry Cycle</span>
+                  </button>
+
+                  <button id="btn-step-pipeline" class="btn-flow-secondary text-xs">
+                    <span>Step Stage</span>
+                  </button>
+
+                  <button id="btn-reset-pipeline" class="btn-flow-secondary px-2.5 py-2 text-slate-500 hover:text-slate-800" title="Reset Data & Pipeline">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                  </button>
+                </div>
+
               </div>
-              <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF]">
-                <div class="text-[9px] uppercase font-mono text-[#707A72]">Assembly Buffer Runway</div>
-                <div id="map-snapshot-buffer" class="font-bold text-[#144336] mt-0.5 font-mono">18.5 Days Runway</div>
-                <div id="map-snapshot-buffer-sub" class="text-[10px] text-[#707A72]">Plant 1010 Detroit</div>
+
+              <!-- Sentry Status Strip -->
+              <div class="flex items-center justify-between pt-2 border-t border-slate-200 text-xs">
+                <div class="flex items-center space-x-2">
+                  <span id="pipeline-status-pill" class="flow-badge flow-badge-primary">
+                    [ STATUS: IDLE ]
+                  </span>
+                  <span id="lifecycle-stage-name" class="text-slate-500 font-mono text-[11px]">
+                    Baseline Nominal Monitoring Active
+                  </span>
+                </div>
+                <div class="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono text-slate-500">
+                  <span>PROGRESS:</span>
+                  <span id="lifecycle-progress-text" class="text-[#1D68FE] font-bold">STAGE 0 / 8</span>
+                </div>
               </div>
-              <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF]">
-                <div class="text-[9px] uppercase font-mono text-[#707A72]">Contractual Liquidated Risk</div>
-                <div id="map-snapshot-contract" class="font-bold text-[#144336] mt-0.5 font-mono">$0.00 At Risk</div>
-                <div id="map-snapshot-contract-sub" class="text-[10px] text-[#707A72]">Titan OEM SLA On Schedule</div>
+
+            </div>
+
+          </div>
+
+          <!-- Right Hero Column: Framed Industrial Visual & Floating Glass Cards (5 cols) -->
+          <div class="lg:col-span-6">
+            <div class="flow-visual-frame h-[420px] sm:h-[460px] relative bg-slate-900">
+              
+              <!-- Clean High-Tech Industrial Automation & Smart Robotics Graphic / Imagery -->
+              <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80');">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+              </div>
+
+              <!-- Floating Top-Right Corner Arrow Badge (Exact match to reference image) -->
+              <a href="#operational-section" class="flow-corner-arrow" title="Inspect Live Telemetry & Actions">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+              </a>
+
+              <!-- Center Highlight Label -->
+              <div class="absolute top-6 left-6 z-10">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-900/70 backdrop-blur-md border border-white/20 text-white text-xs font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>Detroit Plant 1010 SMT Line</span>
+                </div>
+              </div>
+
+              <!-- Floating Frosted Glass Pills Bar (Across bottom of visual, matching reference image) -->
+              <div class="glass-pill-bar">
+                
+                <div class="glass-pill-item">
+                  <div class="flex items-center space-x-2 text-slate-800">
+                    <div class="w-6 h-6 rounded-lg bg-blue-100 flex items-center justify-center text-[#1D68FE] font-bold text-xs">
+                      🎯
+                    </div>
+                    <span class="text-xs font-bold text-slate-900 truncate">Founded With Purpose</span>
+                  </div>
+                  <div class="text-[11px] text-slate-600 mt-1 font-medium font-mono">
+                    98.5% Forecast Accuracy
+                  </div>
+                </div>
+
+                <div class="glass-pill-item">
+                  <div class="flex items-center space-x-2 text-slate-800">
+                    <div class="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xs">
+                      🚀
+                    </div>
+                    <span class="text-xs font-bold text-slate-900 truncate">Growth Through Tech</span>
+                  </div>
+                  <div class="text-[11px] text-emerald-700 mt-1 font-semibold font-mono">
+                    Zero Line Shutdowns
+                  </div>
+                </div>
+
+                <div class="glass-pill-item">
+                  <div class="flex items-center space-x-2 text-slate-800">
+                    <div class="w-6 h-6 rounded-lg bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-xs">
+                      🌐
+                    </div>
+                    <span class="text-xs font-bold text-slate-900 truncate">Global Reach</span>
+                  </div>
+                  <div class="text-[11px] text-slate-600 mt-1 font-medium font-mono">
+                    8 Shipping Corridors
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- 8-STAGE AUTONOMOUS PIPELINE PROGRESSION RAIL           -->
+      <!-- ====================================================== -->
+      <section class="flow-card p-5 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
+              Autonomous Agent Lifecycle Stages
+            </h3>
+          </div>
+          <span id="incident-phase-badge" class="flow-badge flow-badge-blue">
+            PHASE: NOMINAL MONITORING
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 pt-1">
+          
+          <div class="flow-stage-step active-step" data-stage="0">
+            <div class="text-[10px] font-mono font-bold text-[#1D68FE]">01</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Nominal Baseline</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calm Monitoring</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="1">
+            <div class="text-[10px] font-mono font-bold text-slate-400">02</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Signal Collect</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Dual-Stream Ingest</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="2">
+            <div class="text-[10px] font-mono font-bold text-slate-400">03</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Early Warnings</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Pattern Detection</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="3">
+            <div class="text-[10px] font-mono font-bold text-slate-400">04</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Verification</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Cross-Source Audit</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="4">
+            <div class="text-[10px] font-mono font-bold text-slate-400">05</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">BOM Impact</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Graph Mapping</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="5">
+            <div class="text-[10px] font-mono font-bold text-slate-400">06</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Risk Forecast</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calibrated ML VaR</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="6">
+            <div class="text-[10px] font-mono font-bold text-slate-400">07</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Preventive Actions</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Gemini + Trade Law</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="7">
+            <div class="text-[10px] font-mono font-bold text-slate-400">08</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Decision Gate</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Human Supervisor</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- MAIN OPERATIONAL WORKBENCH GRID (MAP + PREDICTIVE + LOG)-->
+      <!-- ====================================================== -->
+      <div id="operational-section" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Operations, Map & Recommendations (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col space-y-6">
+          
+          <!-- Geospatial Radar Map Frame -->
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
+                <span id="map-header-title" class="text-xs font-bold text-slate-900 font-mono uppercase">
+                  Global Maritime & Inter-Plant Shipping Radar
+                </span>
+              </div>
+              <span id="map-route-label" class="text-[11px] font-mono text-slate-500">
+                Chennai Port (Origin) → Detroit Assembly Plant 1010
+              </span>
+            </div>
+
+            <div id="operational-map" class="h-72 w-full rounded-xl overflow-hidden border border-slate-200"></div>
+
+            <!-- Live Corridor Metrics Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-xs">
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Active Consignment</div>
+                <div id="map-snapshot-cargo" class="font-bold text-[#1D68FE] mt-0.5 font-mono text-sm">SHP-801 (5,000 MCUs)</div>
+                <div id="map-snapshot-cargo-sub" class="text-[11px] text-slate-500">Aboard MV Pacific Trader</div>
+              </div>
+
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Plant Buffer Runway</div>
+                <div id="map-snapshot-buffer" class="font-bold text-emerald-700 mt-0.5 font-mono text-sm">18.5 Days Runway</div>
+                <div id="map-snapshot-buffer-sub" class="text-[11px] text-slate-500">Detroit Plant 1010 Healthy</div>
+              </div>
+
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Liquidated Damages Risk</div>
+                <div id="map-snapshot-contract" class="font-bold text-emerald-700 mt-0.5 font-mono text-sm">$0.00 At Risk</div>
+                <div id="map-snapshot-contract-sub" class="text-[11px] text-slate-500">Titan OEM SLA Preserved</div>
               </div>
             </div>
           </div>
 
-          <!-- Section 2: Predictive Forecasting & Consequences (Financial Ledger Style) -->
-          <div class="editorial-card p-4 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
+          <!-- Predictive Horizon & Consequence Cascade -->
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
               <div>
-                <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-wider">Predictive Horizon & Consequence Cascade</span>
-                <span class="text-[10px] font-mono text-[#707A72] ml-2">Calibrated Quantile Regressor [P10–P90]</span>
+                <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">
+                  Predictive Consequence Cascade
+                </span>
+                <span class="text-[10px] font-mono text-slate-500 ml-2">Calibrated Quantile Regressor [P10–P90]</span>
               </div>
-              <span class="stamp-tag stamp-nominal">ML ENGINE v1.2</span>
+              <span class="flow-badge flow-badge-primary">ML MODEL v1.2</span>
             </div>
 
-            <!-- 4 Metric Cards Styled as Ledger Blocks -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div id="metric-card-prob" class="p-3 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono uppercase font-bold text-[#707A72]">Delay Probability</div>
-                <div id="metric-delay-prob" class="text-xl font-bold font-mono text-[#1C201D] mt-0.5">2.1%</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Calibrated Classifier</div>
+            <!-- 4 Metric Cards in Flowgen Style -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              
+              <div id="metric-card-prob" class="flow-metric-block">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Delay Probability</div>
+                <div id="metric-delay-prob" class="text-2xl font-bold font-mono text-slate-900 mt-1">2.1%</div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calibrated Classifier</div>
               </div>
 
-              <div id="metric-card-delay" class="p-3 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono uppercase font-bold text-[#707A72]">Arrival Deviation</div>
-                <div id="metric-delay-days" class="text-xl font-bold font-mono text-[#1C201D] mt-0.5">+0.0d</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Nominal Schedule</div>
+              <div id="metric-card-delay" class="flow-metric-block">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Arrival Deviation</div>
+                <div id="metric-delay-days" class="text-2xl font-bold font-mono text-slate-900 mt-1">+0.0d</div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5">Nominal Schedule</div>
               </div>
 
-              <div id="metric-card-gap" class="p-3 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono uppercase font-bold text-[#707A72]">Assembly Coverage Gap</div>
-                <div id="metric-coverage-gap" class="text-xl font-bold font-mono text-[#1C201D] mt-0.5">0.0 Days</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Buffer Unbreached</div>
+              <div id="metric-card-gap" class="flow-metric-block">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Assembly Gap</div>
+                <div id="metric-coverage-gap" class="text-2xl font-bold font-mono text-slate-900 mt-1">0.0 Days</div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5">Buffer Unbreached</div>
               </div>
 
-              <div id="metric-card-var" class="p-3 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono uppercase font-bold text-[#707A72]">Value at Risk (VaR)</div>
-                <div id="metric-var" class="text-xl font-bold font-mono text-[#144336] mt-0.5">$0.00</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Line Loss Avoided</div>
+              <div id="metric-card-var" class="flow-metric-block">
+                <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Value at Risk (VaR)</div>
+                <div id="metric-var" class="text-2xl font-bold font-mono text-emerald-700 mt-1">$0.00</div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5">Downtime Loss Avoided</div>
               </div>
+
             </div>
 
-            <p id="predictive-narrative" class="text-xs text-[#48524B] leading-relaxed bg-[#FAF9F5] p-3 border border-[#D5CEBF] font-mono">
+            <p id="predictive-narrative" class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-200 font-mono">
               All corridors nominal. Calibrated baseline risk is 2.1% (standard maritime variance). Detroit plant has 18.5 days of inventory buffer ($0.00 VaR).
             </p>
           </div>
 
-          <!-- Section 3: Preventive Recommendations, Alternative Issues Analysis & Decision Governance -->
-          <div class="editorial-card p-4 space-y-4">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
+          <!-- Preventive Actions & Alternative Analysis -->
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
               <div>
-                <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-wider">Alternative Paths & Regulatory Analysis</span>
-                <p class="text-[10px] text-[#707A72] mt-0.5 font-mono">
-                  Multi-variable trade-off analysis (Air vs. Rail vs. Sourcing) with statutory compliance checks.
+                <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">
+                  Preventive Alternatives & Statutory Analysis
+                </span>
+                <p class="text-[11px] text-slate-500 mt-0.5">
+                  Multi-variable recovery paths (Air vs. Rail vs. Sourcing) evaluated with Google Gemini AI & trade law engine.
                 </p>
               </div>
-              <span id="recommendation-engine-badge" class="stamp-tag stamp-neutral">
-                OPTIMIZER ACTIVE
+              <span id="recommendation-engine-badge" class="flow-badge flow-badge-blue">
+                GEMINI AI ACTIVE
               </span>
             </div>
 
-            <!-- Alternative Options Container -->
+            <!-- Alternative Options Dynamic Container -->
             <div id="alternatives-container" class="space-y-3">
               <!-- Rendered dynamically -->
             </div>
 
-            <!-- Autonomous Actions Taken by Agent -->
-            <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] space-y-1.5">
-              <div class="flex items-center space-x-1.5 text-xs font-bold text-[#144336] font-mono">
-                <span>[AUTONOMOUS ACTIONS EXECUTED BY AGENT]</span>
+            <!-- Autonomous Routine Actions Taken by Agent -->
+            <div class="p-4 bg-emerald-50/60 border border-emerald-200 rounded-xl space-y-2">
+              <div class="flex items-center space-x-1.5 text-xs font-bold text-emerald-900 font-mono">
+                <span>[✓] AUTONOMOUS ZERO-LIABILITY ACTIONS EXECUTED</span>
               </div>
-              <div id="autonomous-actions-list" class="space-y-1 text-xs text-[#48524B]">
+              <div id="autonomous-actions-list" class="space-y-1 text-xs text-emerald-950 font-sans">
                 <!-- Rendered dynamically -->
               </div>
             </div>
 
-            <!-- Human Authorization Gate (High-Contrast Dispatch Form) -->
-            <div id="human-gate-card" class="p-4 border-2 border-[#78450E] bg-[#FDF7EB] space-y-3">
-              <div class="flex items-start justify-between">
+            <!-- Human Authorization Gate -->
+            <div id="human-gate-card" class="p-5 border-2 border-amber-300 bg-amber-50/60 rounded-2xl space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
-                  <span class="stamp-tag stamp-warning">
-                    HUMAN APPROVAL REQUIRED · FISCAL DELEGATION THRESHOLD EXCEEDED
+                  <span class="flow-badge flow-badge-warning">
+                    HUMAN APPROVAL REQUIRED · FISCAL CEILING EXCEEDED
                   </span>
-                  <h3 id="proposed-action-title" class="font-serif italic text-lg text-[#1C201D] mt-1.5 leading-snug">
+                  <h3 id="proposed-action-title" class="text-base font-bold text-slate-900 mt-2 leading-snug">
                     Expedite Alternative Air Charter via Frankfurt Hub ($95,000)
                   </h3>
-                  <p class="text-xs text-[#48524B] mt-0.5 leading-relaxed">
-                    Expenditure exceeds $50,000 threshold. Compresses lead time from 21d to 3.2d, eliminating the 4.1-day coverage gap and avoiding $1,815,000 in plant idle downtime and customer SLA penalties.
+                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Expenditure exceeds $50,000 threshold. Compresses lead time from 21d to 3.2d, eliminating the 4.1-day coverage gap and avoiding $1,815,000 in plant idle downtime.
                   </p>
                 </div>
-                <div class="text-right pl-4">
-                  <span class="text-[9px] font-mono text-[#707A72] uppercase">Authorized Amount</span>
-                  <div class="text-lg font-bold text-[#1C201D] font-mono">$95,000.00</div>
+                <div class="text-right sm:pl-4 flex-shrink-0">
+                  <span class="text-[10px] font-mono text-slate-500 uppercase">Authorized Amount</span>
+                  <div class="text-xl font-bold text-slate-900 font-mono">$95,000.00</div>
                 </div>
               </div>
 
-              <!-- Interactive Tactile Decision Buttons -->
-              <div id="decision-buttons-row" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
-                <button onclick="submitDecision('approve')" class="btn-craft-primary p-3 flex-col items-start text-left">
-                  <div class="text-xs font-bold font-mono">[+] AUTHORIZE AIR CHARTER</div>
-                  <div class="text-[10px] text-emerald-100 font-normal mt-0.5">Commit $95k · Preserve $1.82M</div>
+              <!-- Interactive Decision Buttons -->
+              <div id="decision-buttons-row" class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                <button onclick="submitDecision('approve')" class="btn-flow-primary p-3 flex-col items-start text-left shadow-sm">
+                  <div class="text-xs font-bold font-mono">[+] AUTHORIZE EXPENDITURE</div>
+                  <div class="text-[11px] text-blue-100 font-normal mt-0.5">Commit $95k · Protect $1.82M</div>
                 </button>
 
-                <button onclick="submitDecision('request_evidence')" class="btn-craft-secondary p-3 flex-col items-start text-left border-[#BAB2A1]">
-                  <div class="text-xs font-bold font-mono text-[#78450E]">[?] REQUEST EVIDENCE</div>
-                  <div class="text-[10px] text-[#707A72] font-normal mt-0.5">Verify Doppler radar & charter quotes</div>
+                <button onclick="submitDecision('request_evidence')" class="btn-flow-secondary p-3 flex-col items-start text-left border-amber-300 bg-white">
+                  <div class="text-xs font-bold font-mono text-amber-700">[?] REQUEST EVIDENCE</div>
+                  <div class="text-[11px] text-slate-500 font-normal mt-0.5">Verify radar & charter quotes</div>
                 </button>
 
-                <button onclick="submitDecision('block')" class="btn-craft-danger p-3 flex-col items-start text-left">
-                  <div class="text-xs font-bold font-mono">[-] VETO ACTION</div>
-                  <div class="text-[10px] text-red-100 font-normal mt-0.5">Veto expenditure · Accept plant delay</div>
-                </button>
-              </div>
-
-              <!-- Cross-Border Nearest Country Sourcing Callout Banner -->
-              <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
-                <div>
-                  <span class="font-bold text-[#1C201D] font-mono">[CROSS-BORDER SOURCING]:</span>
-                  <span class="text-[#48524B] text-[11px] ml-1">Evaluate rerouting to Japan, Germany, USA, or Mexico with validated trade statutes (USMCA, EAR STA) and SAP BAPI PO staging.</span>
-                </div>
-                <button onclick="openSupplyExchangeForCurrentIssue()" class="btn-craft-secondary text-[11px] py-1 px-3 whitespace-nowrap">
-                  <span>Explore Supply Exchange ↗</span>
+                <button onclick="submitDecision('block')" class="btn-flow-danger p-3 flex-col items-start text-left">
+                  <div class="text-xs font-bold font-mono">[-] VETO EXPENDITURE</div>
+                  <div class="text-[11px] text-red-700 font-normal mt-0.5">Reject spend · Record downtime</div>
                 </button>
               </div>
 
-              <!-- Completed decision display -->
-              <div id="decision-completed-banner" class="hidden p-3 bg-[#EDF5F1] border border-[#BEDBCF] text-xs font-semibold text-[#144336] flex items-center justify-between">
+              <!-- Completed decision display banner -->
+              <div id="decision-completed-banner" class="hidden p-3.5 bg-emerald-100 border border-emerald-300 rounded-xl text-xs font-semibold text-emerald-950 flex items-center justify-between">
                 <span id="decision-completed-text">✓ Action authorized by supervisor. Staged in SAP ERP.</span>
-                <span class="text-[10px] font-mono">[ RECORDED TO SQLITE STORE ]</span>
+                <span class="text-[10px] font-mono">[ RECORDED TO SQLITE ]</span>
               </div>
             </div>
+
           </div>
 
-          <!-- Section 4: Dual-Stream Risk Detection & Continuous Telemetry -->
-          <div class="editorial-card p-4 space-y-3.5">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-2 border-b border-[#D5CEBF]">
+          <!-- Dual-Stream Risk Telemetry Stream -->
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-slate-200">
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-wider">Dual-Stream Correlation Engine</span>
-                  <span id="threat-class-badge" class="stamp-tag stamp-warning">
+                  <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">Dual-Stream Correlation Engine</span>
+                  <span id="threat-class-badge" class="flow-badge flow-badge-blue">
                     DUAL-STREAM ACTIVE
                   </span>
                 </div>
-                <p class="text-[10px] text-[#707A72] mt-0.5 font-mono">
-                  Correlates silent SAP manufacturing drift with grassroots social and weather intelligence.
+                <p class="text-[11px] text-slate-500 mt-0.5">
+                  Correlates silent SAP S/4HANA delivery drift with external maritime and weather shock signals.
                 </p>
               </div>
 
               <!-- Stream Filter Tabs -->
-              <div class="flex items-center space-x-1 bg-[#FAF9F5] p-1 border border-[#D5CEBF] text-[10px] font-mono">
-                <button id="stream-tab-all" onclick="filterSignalsStream('ALL')" class="px-2.5 py-1 bg-[#144336] text-white font-bold cursor-pointer">
-                  ALL STREAMS
+              <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold text-slate-600">
+                <button id="stream-tab-all" onclick="filterSignalsStream('ALL')" class="px-3 py-1 rounded-lg bg-white text-[#1D68FE] font-bold shadow-2xs cursor-pointer">
+                  All
                 </button>
-                <button id="stream-tab-internal" onclick="filterSignalsStream('INTERNAL')" class="px-2.5 py-1 text-[#48524B] hover:text-[#1C201D] cursor-pointer">
-                  INTERNAL SAP
+                <button id="stream-tab-internal" onclick="filterSignalsStream('INTERNAL')" class="px-3 py-1 rounded-lg hover:text-slate-900 cursor-pointer">
+                  Internal ERP
                 </button>
-                <button id="stream-tab-external" onclick="filterSignalsStream('EXTERNAL')" class="px-2.5 py-1 text-[#48524B] hover:text-[#1C201D] cursor-pointer">
-                  EXTERNAL SHOCKS
+                <button id="stream-tab-external" onclick="filterSignalsStream('EXTERNAL')" class="px-3 py-1 rounded-lg hover:text-slate-900 cursor-pointer">
+                  External Threats
                 </button>
               </div>
             </div>
 
-            <!-- Dynamic 6-Step Internal Detection Breakdown -->
-            <div id="internal-detection-breakdown" class="hidden">
-              <!-- Rendered dynamically -->
-            </div>
-
-            <!-- External Calm Intelligence Banner -->
-            <div id="external-calm-banner" class="hidden p-3 bg-[#FAF9F5] border border-[#D5CEBF] text-xs text-[#1C201D] flex items-center justify-between">
-              <div>
-                <span class="font-bold font-mono">[EXTERNAL CALM]:</span>
-                <span class="text-[#48524B] text-[11px] ml-1">Zero weather warnings, social reports, or carrier exceptions. Disruption detected purely through internal SAP S/4HANA goods receipt deviations.</span>
-              </div>
-              <span class="stamp-tag stamp-nominal">
-                0 EXTERNAL ALERTS
-              </span>
-            </div>
-
-            <!-- Stream Cards Grid -->
-            <div id="incoming-signals-stream" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+            <!-- Dynamic Stream Cards Grid -->
+            <div id="incoming-signals-stream" class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <!-- Rendered dynamically -->
             </div>
           </div>
 
         </div>
 
-        <!-- Right Column: Live Teletype Agent Stream & Context (5 cols / 35%) -->
-        <div class="lg:col-span-4 flex flex-col space-y-4">
+        <!-- Right Column: Live ReAct Agent Stream & Telemetry (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col space-y-6">
           
-          <!-- Live ReAct Agent Stream (Teletype Terminal Layout) -->
-          <div class="editorial-card flex flex-col h-[560px]">
-            <div class="editorial-header">
+          <!-- Live ReAct Agent Thought Stream -->
+          <div class="flow-card flex flex-col h-[600px] overflow-hidden">
+            <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
               <div class="flex items-center space-x-2">
-                <span class="font-mono text-xs text-[#144336] font-bold">[TELETYPE]</span>
-                <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-wider">Agent Reasoning Log</span>
+                <span class="w-2 h-2 rounded-full bg-[#1D68FE] animate-ping"></span>
+                <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">ReAct Agent Thought Stream</span>
               </div>
-              <span class="stamp-tag stamp-neutral">RE-ACT v1.2</span>
+              <span class="flow-badge flow-badge-blue">LIVE TRACE</span>
             </div>
 
-            <div id="agent-thought-stream" class="flex-1 p-3 space-y-2 overflow-y-auto bg-[#FAF9F5] font-mono text-[11px] border-t border-[#D5CEBF]">
+            <div id="agent-thought-stream" class="flex-1 p-4 space-y-2.5 overflow-y-auto bg-slate-50/50 font-mono text-xs">
               <!-- Rendered dynamically -->
             </div>
           </div>
 
-          <!-- Underlying Operational Data Summary Box -->
-          <div class="editorial-card p-4 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-wider">Active Baseline Ledger</span>
-              <span class="stamp-tag stamp-nominal">VERIFIED</span>
+          <!-- Active Enterprise Master Data Snapshot Card -->
+          <div class="flow-card p-5 space-y-3.5">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+              <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">Enterprise Baseline Nodes</span>
+              <span class="flow-badge flow-badge-primary">ACTIVE</span>
             </div>
             
-            <div class="space-y-1.5 text-xs font-mono text-[#48524B]">
-              <div class="flex justify-between">
+            <div class="space-y-2 text-xs font-mono text-slate-600">
+              <div class="flex justify-between py-1 border-b border-slate-100">
                 <span>Suppliers Monitored:</span>
-                <strong class="text-[#1C201D]">8 Global Fabs</strong>
+                <strong class="text-slate-900">8 Global Fabs</strong>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between py-1 border-b border-slate-100">
                 <span>Finished System:</span>
-                <strong class="text-[#144336]">FG-EV-MOTOR-01</strong>
+                <strong class="text-[#1D68FE]">FG-EV-MOTOR-01</strong>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between py-1 border-b border-slate-100">
                 <span>Critical Component:</span>
-                <strong class="text-[#144336]">CMP-MCU-01</strong>
+                <strong class="text-[#1D68FE]">CMP-MCU-01</strong>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between py-1 border-b border-slate-100">
                 <span>Detroit On-Hand Stock:</span>
-                <strong class="text-[#1C201D]">1,200 units (4.8d)</strong>
+                <strong class="text-slate-900">1,200 units (4.8d)</strong>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between py-1 border-b border-slate-100">
                 <span>Active Ocean Cargo:</span>
-                <strong class="text-[#1C201D]">SHP-801 (5k units)</strong>
+                <strong class="text-slate-900">SHP-801 (5k units)</strong>
               </div>
             </div>
 
-            <button onclick="switchNavPanel('panel-data')" class="btn-craft-secondary w-full justify-center text-xs py-2 mt-2">
-              <span>Open Operational Data Tables →</span>
+            <button onclick="switchNavPanel('panel-data')" class="btn-flow-secondary w-full justify-center text-xs py-2 mt-2">
+              <span>View All 7 Master Data Tables →</span>
             </button>
           </div>
 
@@ -611,53 +636,52 @@
     <!-- ======================================================== -->
     <!-- PANEL 2: SUPPLY CHAIN DATA                               -->
     <!-- ======================================================== -->
-    <div id="panel-data" class="hidden p-6 space-y-4">
-      
-      <div class="editorial-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div id="panel-data" class="hidden space-y-6">
+      <div class="flow-card p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 class="font-serif italic text-xl text-[#1C201D]">Supply Chain Operational Data Tables</h2>
-          <p class="text-xs text-[#707A72] mt-0.5 font-mono">
+          <h2 class="text-xl font-bold text-slate-900">Supply Chain Master Data Repository</h2>
+          <p class="text-xs text-slate-500 mt-1 font-mono">
             Ground-truth enterprise master records: suppliers, bill of materials, inventory buffers, and active shipments.
           </p>
         </div>
 
         <div class="flex items-center space-x-2">
-          <input id="data-table-search" type="text" placeholder="Filter rows..." class="text-xs px-3 py-1.5 bg-[#FAF9F5] border border-[#D5CEBF] font-mono text-[#1C201D]">
-          <button onclick="refreshActiveDataTable()" class="btn-craft-secondary px-2.5 py-1.5" title="Refresh Table">
+          <input id="data-table-search" type="text" placeholder="Search rows..." class="text-xs px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-800 focus:outline-none focus:border-[#1D68FE]">
+          <button onclick="refreshActiveDataTable()" class="btn-flow-secondary text-xs">
             <span>Refresh</span>
           </button>
         </div>
       </div>
 
-      <!-- Table Sub-Tabs (Clean Swiss Grid Tabs) -->
-      <div class="flex border-b border-[#D5CEBF] space-x-1 font-mono text-xs">
-        <button id="tab-btn-suppliers" onclick="loadDataTable('suppliers')" class="data-sub-tab px-4 py-2 font-semibold border-b-2 border-[#144336] text-[#144336] cursor-pointer">
+      <!-- Table Sub-Tabs -->
+      <div class="flex border-b border-slate-200 space-x-2 font-mono text-xs overflow-x-auto pb-1">
+        <button id="tab-btn-suppliers" onclick="loadDataTable('suppliers')" class="flow-tab-btn active">
           Suppliers (8)
         </button>
-        <button id="tab-btn-components" onclick="loadDataTable('components')" class="data-sub-tab px-4 py-2 font-medium text-[#707A72] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer">
+        <button id="tab-btn-components" onclick="loadDataTable('components')" class="flow-tab-btn">
           Components & Inventory (6)
         </button>
-        <button id="tab-btn-shipments" onclick="loadDataTable('shipments')" class="data-sub-tab px-4 py-2 font-medium text-[#707A72] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer">
+        <button id="tab-btn-shipments" onclick="loadDataTable('shipments')" class="flow-tab-btn">
           Active Shipments (4)
         </button>
-        <button id="tab-btn-customer_orders" onclick="loadDataTable('customer_orders')" class="data-sub-tab px-4 py-2 font-medium text-[#707A72] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer">
+        <button id="tab-btn-customer_orders" onclick="loadDataTable('customer_orders')" class="flow-tab-btn">
           Customer Orders (3)
         </button>
-        <button id="tab-btn-bom" onclick="loadDataTable('bom')" class="data-sub-tab px-4 py-2 font-medium text-[#707A72] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer">
+        <button id="tab-btn-bom" onclick="loadDataTable('bom')" class="flow-tab-btn">
           Bill of Materials (11)
         </button>
       </div>
 
       <!-- Data Table Display Card -->
-      <div class="editorial-card overflow-hidden">
-        <div class="editorial-header">
-          <span id="data-table-title" class="text-xs font-bold text-[#1C201D] font-mono uppercase">Table: suppliers</span>
-          <span id="data-table-count" class="text-[10px] font-mono text-[#707A72]">Loading records...</span>
+      <div class="flow-card overflow-hidden">
+        <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+          <span id="data-table-title" class="text-xs font-bold text-slate-900 font-mono uppercase">Table: suppliers</span>
+          <span id="data-table-count" class="text-xs font-mono text-slate-500">Loading records...</span>
         </div>
 
         <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
-          <table class="ledger-table w-full">
-            <thead id="data-table-head" class="sticky top-0">
+          <table class="flow-table w-full">
+            <thead id="data-table-head" class="sticky top-0 z-10">
               <!-- Rendered dynamically -->
             </thead>
             <tbody id="data-table-body">
@@ -666,29 +690,27 @@
           </table>
         </div>
       </div>
-
     </div>
 
     <!-- ======================================================== -->
     <!-- PANEL 3: INCIDENT HISTORY & MEMORY                       -->
     <!-- ======================================================== -->
-    <div id="panel-history" class="hidden p-6 space-y-4">
-      
-      <div class="editorial-card p-4 flex items-center justify-between">
+    <div id="panel-history" class="hidden space-y-6">
+      <div class="flow-card p-6 flex items-center justify-between">
         <div>
-          <h2 class="font-serif italic text-xl text-[#1C201D]">Incident Memory & Retrospective Audit Store</h2>
-          <p class="text-xs text-[#707A72] mt-0.5 font-mono">
+          <h2 class="text-xl font-bold text-slate-900">Incident Memory & Retrospective Audit Store</h2>
+          <p class="text-xs text-slate-500 mt-1 font-mono">
             Persistent SQLite audit log of past disruptions, authorized mitigations, and model retraining calibration records.
           </p>
         </div>
-        <span class="stamp-tag stamp-nominal">
+        <span class="flow-badge flow-badge-primary">
           SQLite Persistent Store
         </span>
       </div>
 
-      <div class="editorial-card overflow-hidden">
+      <div class="flow-card overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="ledger-table w-full">
+          <table class="flow-table w-full">
             <thead>
               <tr>
                 <th>Incident ID</th>
@@ -705,49 +727,37 @@
           </table>
         </div>
       </div>
-
     </div>
 
     <!-- ======================================================== -->
     <!-- PANEL 4: POLICY GENERATOR & GOVERNANCE                   -->
     <!-- ======================================================== -->
-    <div id="panel-policy" class="hidden p-6 space-y-5">
-      
-      <!-- Policy Header Banner -->
-      <div class="editorial-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div id="panel-policy" class="hidden space-y-6">
+      <div class="flow-card p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div class="flex items-center space-x-2">
-            <span class="font-mono text-xs text-[#1D3557] font-bold">[SOP COMPLIANCE]</span>
-            <h2 class="font-serif italic text-xl text-[#1C201D]">Enterprise Resilience Policy & SOP Generator</h2>
-          </div>
-          <p class="text-xs text-[#707A72] mt-0.5 font-mono">
-            Drafts legally enforceable Standard Operating Procedures and automated SAP S/4HANA escalation rules based on live operational telemetry.
+          <h2 class="text-xl font-bold text-slate-900">Resilience Policy & Standard Operating Procedure Generator</h2>
+          <p class="text-xs text-slate-500 mt-1 font-mono">
+            Drafts legally enforceable SOPs and automated SAP S/4HANA escalation rules based on live operational telemetry.
           </p>
         </div>
-
-        <div class="flex items-center space-x-2">
-          <button onclick="generatePolicyForCurrentIssue()" class="btn-craft-primary">
-            <span>Generate Policy for Active Issue</span>
-          </button>
-        </div>
+        <button onclick="generatePolicyForCurrentIssue()" class="btn-flow-primary text-xs">
+          <span>Generate Policy for Active Issue</span>
+        </button>
       </div>
 
-      <!-- Generator Controls & Preview Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Left: Policy Generator Form & Archetypes (4 cols) -->
-        <div class="lg:col-span-4 flex flex-col space-y-4">
-          
-          <div class="editorial-card p-4 space-y-3.5">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <span class="text-xs font-bold text-[#1C201D] uppercase font-mono">Generator Configuration</span>
-              <span class="text-[10px] font-mono text-[#707A72]">ISO 22301 / EAR</span>
+        <!-- Left: Configuration Form (4 cols) -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+              <span class="text-xs font-bold text-slate-900 uppercase font-mono">Generator Settings</span>
+              <span class="text-[10px] font-mono text-slate-500">ISO 22301 / EAR</span>
             </div>
 
-            <!-- Target Scenario / Context -->
             <div>
-              <label class="text-[11px] font-bold font-mono text-[#1C201D] uppercase">Target Operational Context</label>
-              <select id="policy-scenario-select" class="w-full mt-1 text-xs bg-[#FAF9F5] border border-[#D5CEBF] p-2 text-[#1C201D]">
+              <label class="text-xs font-bold font-mono text-slate-800 uppercase">Target Context</label>
+              <select id="policy-scenario-select" class="w-full mt-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-800">
                 <option value="CURRENT">Active Live Incident (Auto-Detect)</option>
                 <option value="INTERNAL_LEAD_TIME_DRIFT">[INTERNAL] Lead-Time Drift & Dual-Sourcing Mandate</option>
                 <option value="CYCLONE_CHENNAI">[METEOROLOGICAL] Severe Cyclone & Evacuation Routing SOP</option>
@@ -758,470 +768,334 @@
             </div>
 
             <!-- Pre-configured Archetype Cards -->
-            <div class="space-y-1.5">
-              <label class="text-[11px] font-bold font-mono text-[#1C201D] uppercase">Policy Archetypes</label>
-              <div class="grid grid-cols-1 gap-1.5">
-                <button type="button" onclick="selectPolicyArchetype('dual_sourcing')" class="p-2.5 border border-[#D5CEBF] hover:border-[#144336] bg-[#FAF9F5] text-left text-xs transition-all cursor-pointer">
-                  <div class="font-bold text-[#1C201D] text-[11px] font-mono">1. Dual-Sourcing & BAPI Auto-Trigger Mandate</div>
-                  <div class="text-[10px] text-[#707A72] mt-0.5">Triggers secondary PO when lead-time drift &gt; 15%</div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold font-mono text-slate-800 uppercase">Policy Archetypes</label>
+              <div class="grid grid-cols-1 gap-2">
+                <button type="button" onclick="selectPolicyArchetype('dual_sourcing')" class="p-3 border border-slate-200 hover:border-[#1D68FE] bg-slate-50 rounded-xl text-left text-xs transition-all cursor-pointer">
+                  <div class="font-bold text-slate-900 text-xs">1. Dual-Sourcing & BAPI Auto-Trigger Mandate</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Triggers secondary PO when lead-time drift &gt; 15%</div>
                 </button>
-                <button type="button" onclick="selectPolicyArchetype('hazardous_iata')" class="p-2.5 border border-[#D5CEBF] hover:border-[#144336] bg-[#FAF9F5] text-left text-xs transition-all cursor-pointer">
-                  <div class="font-bold text-[#1C201D] text-[11px] font-mono">2. IATA PI 965 Battery Air Cargo Safety SOP</div>
-                  <div class="text-[10px] text-[#707A72] mt-0.5">Enforces &lt;= 30% SoC & Cargo-Only freighters</div>
+                <button type="button" onclick="selectPolicyArchetype('hazardous_iata')" class="p-3 border border-slate-200 hover:border-[#1D68FE] bg-slate-50 rounded-xl text-left text-xs transition-all cursor-pointer">
+                  <div class="font-bold text-slate-900 text-xs">2. IATA PI 965 Battery Air Cargo Safety SOP</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Enforces &lt;= 30% SoC & Cargo-Only freighters</div>
                 </button>
-                <button type="button" onclick="selectPolicyArchetype('ear_compliance')" class="p-2.5 border border-[#D5CEBF] hover:border-[#144336] bg-[#FAF9F5] text-left text-xs transition-all cursor-pointer">
-                  <div class="font-bold text-[#1C201D] text-[11px] font-mono">3. EAR Dual-Use Transshipment Protocol</div>
-                  <div class="text-[10px] text-[#707A72] mt-0.5">Blocks unlicensed microelectronics routing</div>
+                <button type="button" onclick="selectPolicyArchetype('ear_compliance')" class="p-3 border border-slate-200 hover:border-[#1D68FE] bg-slate-50 rounded-xl text-left text-xs transition-all cursor-pointer">
+                  <div class="font-bold text-slate-900 text-xs">3. EAR Dual-Use Transshipment Protocol</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Blocks unlicensed microelectronics routing</div>
                 </button>
-                <button type="button" onclick="selectPolicyArchetype('fiscal_ceiling')" class="p-2.5 border border-[#D5CEBF] hover:border-[#144336] bg-[#FAF9F5] text-left text-xs transition-all cursor-pointer">
-                  <div class="font-bold text-[#1C201D] text-[11px] font-mono">4. Expedited Freight Fiscal Ceiling Policy</div>
-                  <div class="text-[10px] text-[#707A72] mt-0.5">Mandates human approval for freight &gt; $50k</div>
+                <button type="button" onclick="selectPolicyArchetype('fiscal_ceiling')" class="p-3 border border-slate-200 hover:border-[#1D68FE] bg-slate-50 rounded-xl text-left text-xs transition-all cursor-pointer">
+                  <div class="font-bold text-slate-900 text-xs">4. Expedited Freight Fiscal Ceiling Policy</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Mandates human approval for freight &gt; $50k</div>
                 </button>
               </div>
             </div>
 
-            <!-- Custom Instructions -->
             <div>
-              <label class="text-[11px] font-bold font-mono text-[#1C201D] uppercase">Custom Guardrails (Optional)</label>
-              <textarea id="policy-custom-prompt" rows="2" placeholder="e.g. Page Operations Commander (7736215631) on threshold breach..." class="w-full mt-1 text-xs bg-[#FAF9F5] border border-[#D5CEBF] p-2 text-[#1C201D] font-mono"></textarea>
+              <label class="text-xs font-bold font-mono text-slate-800 uppercase">Custom Prompt / Rules</label>
+              <textarea id="policy-custom-prompt" rows="2" placeholder="e.g. Page Operations Commander (7736215631) on threshold breach..." class="w-full mt-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-slate-800 font-mono"></textarea>
             </div>
 
-            <!-- Emergency Telephony Alert Checkbox -->
-            <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF] text-xs flex items-center space-x-2">
-              <input type="checkbox" id="policy-telephony-check" checked class="text-[#144336] focus:ring-[#144336]">
-              <div>
-                <span class="font-bold text-[#1C201D] font-mono">[TELEPHONY DISPATCH PAGING]</span>
-                <div class="text-[10px] text-[#707A72]">Auto-page Incident Commander (+1-773-621-5631)</div>
-              </div>
-            </div>
-
-            <button onclick="triggerGeneratePolicy()" class="btn-craft-primary w-full justify-center py-2.5">
+            <button onclick="triggerGeneratePolicy()" class="btn-flow-primary w-full justify-center py-2.5">
               <span>Generate Formal SOP Document</span>
             </button>
           </div>
 
-          <!-- Active Enterprise Policies List -->
-          <div class="editorial-card p-4 space-y-2.5">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <span class="text-xs font-bold text-[#1C201D] font-mono uppercase">Enforced Policies</span>
-              <span id="active-policies-count" class="stamp-tag stamp-nominal">2 ENFORCED</span>
+          <!-- Active Enforced Policies -->
+          <div class="flow-card p-5 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+              <span class="text-xs font-bold text-slate-900 font-mono uppercase">Enforced Policies</span>
+              <span id="active-policies-count" class="flow-badge flow-badge-primary">2 ENFORCED</span>
             </div>
-            <div id="active-policies-list" class="space-y-1.5">
+            <div id="active-policies-list" class="space-y-2">
               <!-- Rendered dynamically -->
             </div>
           </div>
-
         </div>
 
-        <!-- Right: Policy Document Preview (8 cols) -->
-        <div class="lg:col-span-8 flex flex-col space-y-4">
-          
-          <div class="editorial-card p-5 space-y-4">
-            
-            <!-- Document Meta Header -->
-            <div class="flex items-start justify-between pb-4 border-b border-[#D5CEBF]">
+        <!-- Right: Policy Preview (8 cols) -->
+        <div class="lg:col-span-8">
+          <div class="flow-card p-6 space-y-5">
+            <div class="flex items-start justify-between pb-4 border-b border-slate-200">
               <div>
                 <div class="flex items-center space-x-2">
-                  <span id="preview-policy-id" class="stamp-tag stamp-neutral">POL-RES-2026-001</span>
-                  <span id="preview-policy-status" class="stamp-tag stamp-nominal">ACTIVE_ENFORCED</span>
-                  <span id="preview-policy-category" class="stamp-tag stamp-sap">SUPPLIER_RELIABILITY</span>
+                  <span id="preview-policy-id" class="flow-badge flow-badge-blue">POL-RES-2026-001</span>
+                  <span id="preview-policy-status" class="flow-badge flow-badge-primary">ACTIVE_ENFORCED</span>
+                  <span id="preview-policy-category" class="flow-badge">SUPPLIER_RELIABILITY</span>
                 </div>
-                <h3 id="preview-policy-title" class="font-serif italic text-2xl text-[#1C201D] mt-2 leading-snug">
+                <h3 id="preview-policy-title" class="text-2xl font-bold text-slate-900 mt-2 leading-snug">
                   Autonomous BAPI Procurement & Secondary Fab Dual-Sourcing Mandate
                 </h3>
-                <div class="text-[11px] font-mono text-[#707A72] mt-1 flex items-center space-x-3">
-                  <span>FRAMEWORK: <strong id="preview-policy-framework" class="text-[#1C201D]">ISO 22301 / SAP S/4HANA</strong></span>
+                <div class="text-xs font-mono text-slate-500 mt-1 flex items-center space-x-3">
+                  <span>FRAMEWORK: <strong id="preview-policy-framework" class="text-slate-800">ISO 22301 / SAP S/4HANA</strong></span>
                   <span>·</span>
-                  <span>EFFECTIVE: <strong id="preview-policy-date" class="text-[#1C201D]">2026-01-15</strong></span>
+                  <span>EFFECTIVE: <strong id="preview-policy-date" class="text-slate-800">2026-01-15</strong></span>
                 </div>
               </div>
 
-              <!-- Action Buttons -->
               <div class="flex items-center space-x-2">
-                <button onclick="activateCurrentPolicy()" id="btn-activate-policy" class="btn-craft-primary">
+                <button onclick="activateCurrentPolicy()" id="btn-activate-policy" class="btn-flow-primary text-xs">
                   <span>Activate Policy</span>
                 </button>
-                <button onclick="copyPolicyMarkdown()" class="btn-craft-secondary px-2.5 py-1.5" title="Copy Markdown Document">
-                  <span class="font-mono text-xs">Copy MD</span>
+                <button onclick="copyPolicyMarkdown()" class="btn-flow-secondary text-xs" title="Copy Markdown Document">
+                  <span>Copy MD</span>
                 </button>
               </div>
             </div>
 
-            <!-- Scope & Jurisdiction -->
-            <div class="space-y-1">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-[#707A72]">1. Scope & Operational Jurisdiction</span>
-              <p id="preview-policy-scope" class="text-xs text-[#1C201D] bg-[#FAF9F5] p-3 border border-[#D5CEBF] font-mono">
+            <!-- Scope -->
+            <div class="space-y-1.5">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">1. Scope & Operational Jurisdiction</span>
+              <p id="preview-policy-scope" class="text-xs text-slate-800 bg-slate-50 p-3.5 rounded-xl border border-slate-200 font-mono">
                 All Tier-1 and Tier-2 Semiconductor & MCU suppliers (SUP-001 through SUP-008).
               </p>
             </div>
 
             <!-- Quantitative Triggers -->
-            <div class="space-y-1.5">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-[#707A72]">2. Quantitative Activation Triggers</span>
-              <div id="preview-policy-triggers" class="space-y-1 text-xs">
-                <!-- Rendered dynamically -->
-              </div>
-            </div>
-
-            <!-- Mandatory Enforcement Rules -->
-            <div class="space-y-1.5">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-[#707A72]">3. Mandatory Enforcement Rules & Automated ERP Actions</span>
-              <div id="preview-policy-rules" class="space-y-1.5 text-xs">
-                <!-- Rendered dynamically -->
-              </div>
-            </div>
-
-            <!-- Statutory Compliance & Contractual SLA -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-              <div class="space-y-1">
-                <span class="text-[10px] font-mono uppercase tracking-wider text-[#707A72]">4. Statutory & Trade Policy Guardrails</span>
-                <div id="preview-policy-guardrails" class="text-xs text-[#48524B] bg-[#FAF9F5] p-3 border border-[#D5CEBF] space-y-1">
-                  <!-- Rendered dynamically -->
-                </div>
-              </div>
-
-              <div class="space-y-1">
-                <span class="text-[10px] font-mono uppercase tracking-wider text-[#707A72]">5. Contractual Liquidated Damages & SLA</span>
-                <p id="preview-policy-penalties" class="text-xs text-[#48524B] bg-[#FAF9F5] p-3 border border-[#D5CEBF] font-mono">
-                  Contractual liquidated damages equal to 1.5% of PO gross line item per day of unnotified vendor delay.
-                </p>
-              </div>
-            </div>
-
-            <!-- Emergency Telephony Paging Recipient -->
-            <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] text-xs text-[#1C201D] flex items-center justify-between">
-              <div>
-                <span class="font-bold font-mono">[TELEPHONY DISPATCH PAGING PROTOCOL]:</span>
-                <span id="preview-policy-paging" class="text-[#144336] ml-1 font-mono">Operations Commander (+1-773-621-5631)</span>
-              </div>
-              <span class="stamp-tag stamp-nominal">
-                ACTIVE GATEWAY
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- PANEL 5: SUPPLY EXCHANGE & CROSS-BORDER LEGAL BRIDGE     -->
-    <!-- ======================================================== -->
-    <div id="panel-exchange" class="hidden p-6 space-y-5">
-      
-      <!-- Top Title & Overview Banner -->
-      <div class="editorial-card p-4 space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-[#D5CEBF]">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-mono text-xs text-[#144336] font-bold">[CROSS-BORDER BRIDGE]</span>
-              <h2 class="font-serif italic text-xl text-[#1C201D]">Cross-Border Supply Exchange & Statutory Legal Bridge</h2>
-              <span class="stamp-tag stamp-sap">
-                15 CFR § 740 · USMCA · CBAM
-              </span>
-            </div>
-            <p class="text-xs text-[#707A72] mt-0.5 font-mono">
-              Evaluates exchanging disrupted primary supply to qualified alternative fabs in nearest countries (Japan, Germany, USA, Mexico, South Korea) with strict statutory trade clearance.
-            </p>
-          </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="runSupplyExchangeEvaluation()" class="btn-craft-primary">
-              <span>Re-Evaluate Corridor</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Disrupted Node Baseline Context -->
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
-          <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-            <span class="text-[9px] font-mono text-[#8F2718] uppercase font-bold">Disrupted Component Node</span>
-            <div id="exchange-disrupted-node" class="font-bold font-mono text-[#8F2718] mt-0.5">CMP-101 (Microcontrollers)</div>
-            <div id="exchange-disrupted-supplier" class="text-[10px] text-[#707A72] font-mono">Vendor: Apex Fab 3 (Taiwan)</div>
-          </div>
-          <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-            <span class="text-[9px] font-mono text-[#78450E] uppercase font-bold">Assembly Buffer Runway</span>
-            <div id="exchange-stockout-runway" class="font-bold font-mono text-[#78450E] mt-0.5">5.2 Days Depletion</div>
-            <div class="text-[10px] text-[#707A72] font-mono">Detroit Plant 1010</div>
-          </div>
-          <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-            <span class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Potential Downtime Loss</span>
-            <div id="exchange-downtime-loss" class="font-bold font-mono text-[#8F2718] mt-0.5">$2.604M Net Risk</div>
-            <div class="text-[10px] text-[#707A72] font-mono">At $420k/day idle shutdown</div>
-          </div>
-          <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-            <span class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Target Exchange Quantity</span>
-            <div class="flex items-center space-x-1.5 mt-0.5">
-              <input id="exchange-qty-input" type="number" value="5000" min="500" max="25000" step="500" class="w-24 px-2 py-0.5 border border-[#D5CEBF] font-mono font-bold text-xs bg-white text-[#1C201D]">
-              <span class="text-[10px] font-mono text-[#707A72]">units</span>
-            </div>
-            <div class="text-[9px] text-[#707A72] font-mono mt-0.5">Sourcing lot allocation</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Nearest Country Candidate Selection Grid -->
-      <div class="editorial-card p-4 space-y-3">
-        <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-          <div>
-            <h3 class="text-xs font-bold text-[#1C201D] font-mono uppercase">1. Select Nearest Qualified Country Partner</h3>
-            <p class="text-[10px] text-[#707A72] font-mono">Prequalified Tier-1 suppliers filtered by production buffer and trade treaties.</p>
-          </div>
-          <span class="stamp-tag stamp-neutral">
-            5 QUALIFIED PARTNERS
-          </span>
-        </div>
-
-        <div id="exchange-candidates-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          <!-- Dynamically populated candidate cards -->
-        </div>
-      </div>
-
-      <!-- Sourcing Feasibility & Trade Law Analysis Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
-        <!-- Column 1: Sourcing Feasibility & Economics (7 cols) -->
-        <div class="lg:col-span-7 flex flex-col space-y-4">
-          
-          <div class="editorial-card p-4 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <div class="flex items-center space-x-2">
-                <span class="text-xs font-bold text-[#1C201D] font-mono uppercase">2. Operational Sourcing Feasibility</span>
-                <span id="feasibility-status-badge" class="stamp-tag stamp-nominal">
-                  FEASIBLE
-                </span>
-              </div>
-              <span id="feasibility-score-pill" class="stamp-tag stamp-neutral">
-                Score: 94 / 100
-              </span>
-            </div>
-
-            <!-- 4 Sourcing Metrics -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Transit Lead Time</div>
-                <div id="feasibility-lead-time" class="text-lg font-bold font-mono text-[#1C201D] mt-0.5">3.8 Days</div>
-                <div id="feasibility-lead-time-sub" class="text-[9px] text-[#707A72] font-mono">Via Haneda Air Express</div>
-              </div>
-
-              <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Buffer Margin</div>
-                <div id="feasibility-buffer-margin" class="text-lg font-bold font-mono text-[#144336] mt-0.5">+1.4 Days</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Beats Stockout Window</div>
-              </div>
-
-              <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Freight Differential</div>
-                <div id="feasibility-cost-delta" class="text-lg font-bold font-mono text-[#1C201D] mt-0.5">+$65,000</div>
-                <div id="feasibility-unit-cost" class="text-[9px] text-[#707A72] font-mono">+$13.00/unit (+18%)</div>
-              </div>
-
-              <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] font-mono text-[#707A72] uppercase font-bold">Net Loss Avoided</div>
-                <div id="feasibility-net-gain" class="text-lg font-bold font-mono text-[#144336] mt-0.5">+$2.539M</div>
-                <div class="text-[9px] text-[#707A72] font-mono">Preserves Assembly Line</div>
-              </div>
-            </div>
-
-            <!-- Feasibility Assessment Breakdown -->
-            <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] text-xs space-y-2 font-mono">
-              <div class="font-bold text-[#1C201D] flex items-center justify-between">
-                <span>Supply Runway vs Delivery Comparison:</span>
-                <span id="feasibility-verdict" class="text-[#144336]">[+] 1.4-day safety cushion before Detroit plant shutdown</span>
-              </div>
-              <p id="feasibility-explanation" class="text-[#48524B] text-[11px] leading-relaxed">
-                Kyoto Microelectronics (Japan) can fulfill 5,000 units within 3.8 days via Kansai Air Cargo to Detroit Willow Run Airport. Plant 1010 inventory runs out in 5.2 days, yielding +1.4 days of buffer headroom and eliminating $2.604M in downtime penalties.
-              </p>
-            </div>
-          </div>
-
-          <!-- Step-by-Step Transition Roadmap -->
-          <div class="editorial-card p-4 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <h3 class="text-xs font-bold text-[#1C201D] font-mono uppercase">3. Five-Step Operational & Statutory Transition Roadmap</h3>
-              <span class="text-[10px] font-mono text-[#707A72]">Customs Clearance: 24–48 Hours</span>
-            </div>
-
-            <div id="exchange-roadmap-container" class="space-y-2">
-              <!-- Dynamically populated roadmap steps -->
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Column 2: Governing Trade Laws & Required Documents (5 cols) -->
-        <div class="lg:col-span-5 flex flex-col space-y-4">
-          
-          <div class="editorial-card p-4 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-[#D5CEBF]">
-              <div class="flex items-center space-x-1.5">
-                <span class="font-mono text-xs text-[#1D3557] font-bold">[STATUTE]</span>
-                <h3 class="text-xs font-bold text-[#1C201D] font-mono uppercase">4. Governing Trade Laws & Treaties</h3>
-              </div>
-              <span class="stamp-tag stamp-sap">
-                EXPORT CONTROLS
-              </span>
-            </div>
-
-            <!-- Active Statute Card -->
-            <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] text-xs space-y-1.5">
-              <div class="text-[9px] font-mono font-bold text-[#707A72] uppercase">Primary Governing Legal Authority</div>
-              <div id="statute-title" class="font-serif italic text-base text-[#1C201D] leading-snug">
-                U.S. Export Administration Regulations (EAR) 15 CFR § 740.20 — License Exception STA
-              </div>
-              <p id="statute-description" class="text-[11px] text-[#48524B] leading-relaxed font-mono">
-                Authorizes exports and transfers of high-performance semiconductor components among Country Group A:5 allied partner nations (United States, Japan, Germany) without standard 30-day individual BIS license review.
-              </p>
-            </div>
-
-            <!-- Mandatory Documents & Regulatory Filings -->
             <div class="space-y-2">
-              <div class="text-[10px] font-mono uppercase font-bold text-[#707A72]">Required Statutory Documents & Declarations</div>
-              <div id="exchange-documents-container" class="space-y-1.5">
-                <!-- Dynamically populated document badges -->
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">2. Quantitative Activation Triggers</span>
+              <div id="preview-policy-triggers" class="space-y-1.5 text-xs">
+                <!-- Rendered dynamically -->
               </div>
             </div>
 
-            <!-- Tariff & Fast-Track Customs Timeline -->
-            <div class="pt-2 border-t border-[#D5CEBF] grid grid-cols-2 gap-2 text-xs font-mono">
-              <div class="p-2 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] text-[#707A72] uppercase">Applicable Duty Rate</div>
-                <div id="exchange-tariff-rate" class="font-bold text-[#1C201D] mt-0.5">0.0% (ITA / MFN)</div>
-                <div class="text-[9px] text-[#144336]">WTO Info Tech Agreement</div>
-              </div>
-              <div class="p-2 bg-[#FAF9F5] border border-[#D5CEBF]">
-                <div class="text-[9px] text-[#707A72] uppercase">Customs Clearance Speed</div>
-                <div id="exchange-clearance-speed" class="font-bold text-[#1C201D] mt-0.5">24 – 48 Hours</div>
-                <div class="text-[9px] text-[#1D3557]">ACE Expedited Entry 7501</div>
+            <!-- Mandatory Rules -->
+            <div class="space-y-2">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">3. Mandatory Enforcement Rules & Automated ERP Actions</span>
+              <div id="preview-policy-rules" class="space-y-2 text-xs">
+                <!-- Rendered dynamically -->
               </div>
             </div>
 
-            <!-- Action Buttons: Execute SAP Exchange & Generate Policy -->
-            <div class="pt-3 border-t border-[#D5CEBF] space-y-2">
-              <button id="btn-execute-exchange" onclick="commitSupplyExchange()" class="btn-craft-primary w-full justify-center py-2.5">
-                <span>Authorize & Stage SAP BAPI Purchase Order</span>
-              </button>
-
-              <button onclick="generatePolicyFromActiveExchange()" class="btn-craft-secondary w-full justify-center py-2">
-                <span>Draft Cross-Border Enforceable SOP Policy</span>
-              </button>
+            <!-- Penalties & SLA -->
+            <div class="space-y-1.5">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">4. Contractual Liquidated Damages & SLA</span>
+              <p id="preview-policy-penalties" class="text-xs text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200 font-mono">
+                Contractual liquidated damages equal to 1.5% of PO gross line item per day of unnotified vendor delay.
+              </p>
             </div>
-
           </div>
-
         </div>
 
       </div>
-
     </div>
 
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- EMERGENCY ALERT & SMS NOTIFICATION DISPATCH MODAL        -->
-  <!-- ======================================================== -->
-  <div id="emergency-alert-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-[#1C201D]/60 p-4">
-    <div class="bg-[#FFFFFF] border-2 border-[#8F2718] max-w-lg w-full overflow-hidden shadow-lg">
-      
-      <!-- Top Alert Dispatch Header -->
-      <div class="bg-[#8F2718] px-5 py-3 flex items-center justify-between text-white">
-        <div class="flex items-center space-x-2">
-          <span class="font-mono text-xs font-bold uppercase tracking-wider">[URGENT DISPATCH: CRITICAL SUPPLY CHAIN ISSUE]</span>
-        </div>
-        <button onclick="closeEmergencyPopup()" class="text-white/80 hover:text-white font-mono text-sm leading-none cursor-pointer" title="Dismiss">[X]</button>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="p-5 space-y-4">
-        
-        <!-- Issue Headline & Corridor -->
+    <!-- ======================================================== -->
+    <!-- PANEL 5: SUPPLY EXCHANGE & LEGAL BRIDGE                  -->
+    <!-- ======================================================== -->
+    <div id="panel-exchange" class="hidden space-y-6">
+      <div class="flow-card p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h3 id="modal-issue-title" class="font-serif italic text-xl text-[#1C201D] leading-snug">
-            Silent Supplier Delivery Creep Detected (+59% Lead-Time Drift)
-          </h3>
-          <p id="modal-issue-summary" class="text-xs text-[#48524B] mt-1 leading-relaxed font-mono">
-            Historical goods receipt records flag 8.4 days of unannounced supplier delay. Combined with factory burn surge, Detroit buffer will exhaust in 5.2 days.
+          <h2 class="text-xl font-bold text-slate-900">Cross-Border Supply Exchange & Statutory Legal Bridge</h2>
+          <p class="text-xs text-slate-500 mt-1 font-mono">
+            Evaluates exchanging disrupted primary supply to qualified alternative fabs in nearest countries (Japan, Germany, USA, Mexico, South Korea).
           </p>
         </div>
+        <button onclick="runSupplyExchangeEvaluation()" class="btn-flow-primary text-xs">
+          <span>Re-Evaluate Sourcing Options</span>
+        </button>
+      </div>
 
-        <!-- 3 Metrics Ledger -->
-        <div class="grid grid-cols-3 gap-2 text-center font-mono">
-          <div class="p-2.5 bg-[#FAF0EE] border border-[#E8BFB7]">
-            <div class="text-[9px] text-[#8F2718] uppercase font-bold">Delay Impact</div>
-            <div id="modal-metric-delay" class="text-base font-bold text-[#8F2718] mt-0.5">+8.4d</div>
+      <!-- Nearest Country Candidates -->
+      <div class="flow-card p-5 space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+          <div>
+            <h3 class="text-xs font-bold text-slate-900 font-mono uppercase">1. Nearest Qualified Country Suppliers</h3>
+            <p class="text-xs text-slate-500 font-mono">Prequalified Tier-1 suppliers filtered by buffer capacity and trade treaties.</p>
           </div>
-          <div class="p-2.5 bg-[#FDF7EB] border border-[#E8D3A8]">
-            <div class="text-[9px] text-[#78450E] uppercase font-bold">Coverage Gap</div>
-            <div id="modal-metric-gap" class="text-base font-bold text-[#78450E] mt-0.5">6.2 Days</div>
-          </div>
-          <div class="p-2.5 bg-[#FAF9F5] border border-[#D5CEBF]">
-            <div class="text-[9px] text-[#707A72] uppercase font-bold">Value at Risk</div>
-            <div id="modal-metric-var" class="text-base font-bold text-[#8F2718] mt-0.5">$2.60M</div>
-          </div>
+          <span class="flow-badge flow-badge-blue">5 QUALIFIED PARTNERS</span>
         </div>
 
-        <!-- Telephony SMS Dispatch Confirmation Ledger -->
-        <div class="p-3 bg-[#FAF9F5] border border-[#D5CEBF] text-xs space-y-2">
-          <div class="flex items-center justify-between">
-            <div class="font-mono font-bold text-[#144336] text-[11px]">
-              [SMS PAGING TRANSMITTED TO +1-773-621-5631]
+        <div id="exchange-candidates-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 pt-1">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Feasibility & Law Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Feasibility Metrics (7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-slate-900 font-mono uppercase">2. Operational Sourcing Feasibility</span>
+                <span id="feasibility-status-badge" class="flow-badge flow-badge-primary">FEASIBLE</span>
+              </div>
+              <span id="feasibility-score-pill" class="flow-badge flow-badge-blue">Score: 94 / 100</span>
             </div>
-            <span id="modal-sms-status" class="stamp-tag stamp-nominal">
-              VERIFIED
-            </span>
-          </div>
 
-          <!-- Message Body Box -->
-          <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF] text-[11px] font-mono text-[#1C201D] leading-relaxed">
-            <span class="text-[#707A72] select-none">&gt; </span>
-            <span id="modal-sms-body">
-              [CHAINGUARD AI ALERT] Critical disruption detected. Impact: +8.4d delay, 6.2d coverage gap. VaR: $2.60M. Autonomous BAPI PO staged. Action: Human approval required.
-            </span>
-          </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="flow-metric-block">
+                <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">Transit Lead Time</div>
+                <div id="feasibility-lead-time" class="text-lg font-bold font-mono text-slate-900 mt-1">3.8 Days</div>
+                <div id="feasibility-lead-time-sub" class="text-[10px] text-slate-500 font-mono">Via Haneda Express</div>
+              </div>
 
-          <div class="flex items-center justify-between text-[10px] text-[#707A72] font-mono">
-            <span>CARRIER: <strong id="modal-sms-carrier" class="text-[#1C201D]">Airtel / Jio Enterprise Gateway</strong></span>
-            <span id="modal-sms-time">T-0s</span>
+              <div class="flow-metric-block">
+                <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">Buffer Margin</div>
+                <div id="feasibility-buffer-margin" class="text-lg font-bold font-mono text-emerald-700 mt-1">+1.4 Days</div>
+                <div class="text-[10px] text-slate-500 font-mono">Beats Stockout Window</div>
+              </div>
+
+              <div class="flow-metric-block">
+                <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">Freight Delta</div>
+                <div id="feasibility-cost-delta" class="text-lg font-bold font-mono text-slate-900 mt-1">+$65,000</div>
+                <div id="feasibility-unit-cost" class="text-[10px] text-slate-500 font-mono">+$13.00/unit (+18%)</div>
+              </div>
+
+              <div class="flow-metric-block">
+                <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">Net Loss Avoided</div>
+                <div id="feasibility-net-gain" class="text-lg font-bold font-mono text-emerald-700 mt-1">+$2.539M</div>
+                <div class="text-[10px] text-slate-500 font-mono">Line Loss Prevented</div>
+              </div>
+            </div>
+
+            <!-- Transition Roadmap -->
+            <div class="pt-2 border-t border-slate-200 space-y-2">
+              <h3 class="text-xs font-bold text-slate-900 font-mono uppercase">Transition Roadmap Steps</h3>
+              <div id="exchange-roadmap-container" class="space-y-2">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Modal Actions Row -->
-        <div class="flex flex-col sm:flex-row items-center gap-2 pt-2 border-t border-[#D5CEBF]">
-          <button onclick="openSupplyExchangeFromModal()" class="btn-craft-primary w-full sm:flex-1 justify-center py-2">
-            <span>Explore Supply Exchange</span>
-          </button>
+        <!-- Right: Legal & Staging (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <h3 class="text-xs font-bold text-slate-900 font-mono uppercase">Governing Trade Laws & Documents</h3>
+              <span class="flow-badge flow-badge-blue">EXPORT CONTROL</span>
+            </div>
 
-          <button onclick="openPolicyGeneratorFromModal()" class="btn-craft-secondary w-full sm:flex-1 justify-center py-2">
-            <span>Generate Policy</span>
-          </button>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1.5">
+              <div class="text-[10px] font-mono font-bold text-slate-500 uppercase">Governing Authority</div>
+              <div id="statute-title" class="font-bold text-slate-900 leading-snug">
+                U.S. Export Administration Regulations (EAR) 15 CFR § 740.20 — License Exception STA
+              </div>
+              <p id="statute-description" class="text-[11px] text-slate-600 leading-relaxed font-sans">
+                Authorizes exports and transfers of high-performance semiconductor components among Country Group A:5 allied partner nations without standard 30-day individual review.
+              </p>
+            </div>
 
-          <button onclick="reviewInConsoleFromModal()" class="btn-craft-secondary w-full sm:flex-1 justify-center py-2">
-            <span>Review in Console</span>
-          </button>
+            <!-- Documents -->
+            <div class="space-y-2">
+              <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Required Permits & Clearances</div>
+              <div id="exchange-documents-container" class="space-y-2">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
 
-          <button onclick="closeEmergencyPopup()" class="py-2 px-3 text-[#707A72] hover:text-[#1C201D] text-xs font-mono cursor-pointer">
-            Dismiss
-          </button>
+            <!-- Action: Execute SAP BAPI -->
+            <div class="pt-3 border-t border-slate-200 space-y-2">
+              <button id="btn-execute-exchange" onclick="commitSupplyExchange()" class="btn-flow-primary w-full justify-center py-3 text-xs">
+                <span>Authorize & Stage SAP BAPI Purchase Order</span>
+              </button>
+            </div>
+          </div>
         </div>
 
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- EMERGENCY ALERT & SMS DISPATCH POPUP MODAL               -->
+  <!-- ======================================================== -->
+  <div id="emergency-alert-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-lg w-full p-6 space-y-5 animate-in fade-in zoom-in duration-200">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div class="flex items-center space-x-2.5">
+          <span class="w-3 h-3 rounded-full bg-red-600 animate-ping"></span>
+          <span class="text-xs font-mono font-bold text-red-600 uppercase tracking-wider">
+            Critical Incident Alert & Telephony Dispatch
+          </span>
+        </div>
+        <button onclick="closeEmergencyPopup()" class="text-slate-400 hover:text-slate-700 text-lg leading-none cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div>
+        <h3 id="modal-issue-title" class="text-lg font-bold text-slate-900 leading-snug">
+          Critical Supply Chain Disruption Detected
+        </h3>
+        <p id="modal-issue-summary" class="text-xs text-slate-600 mt-1 leading-relaxed">
+          Autonomous sentry detected critical risk in supply corridor. Immediate supervisor review recommended.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-3 gap-2.5 text-center text-xs">
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+          <div class="text-[10px] font-mono text-slate-500 uppercase">Delay Shock</div>
+          <div id="modal-metric-delay" class="text-base font-bold font-mono text-red-600 mt-0.5">+4.5d</div>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+          <div class="text-[10px] font-mono text-slate-500 uppercase">Coverage Gap</div>
+          <div id="modal-metric-gap" class="text-base font-bold font-mono text-amber-600 mt-0.5">4.1 Days</div>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+          <div class="text-[10px] font-mono text-slate-500 uppercase">Financial VaR</div>
+          <div id="modal-metric-var" class="text-base font-bold font-mono text-red-600 mt-0.5">$2.40M</div>
+        </div>
+      </div>
+
+      <!-- SMS Telephony Message Payload -->
+      <div class="p-3.5 bg-blue-50/70 border border-blue-200 rounded-2xl text-xs space-y-1.5 font-mono">
+        <div class="flex items-center justify-between text-blue-900 font-bold text-[11px]">
+          <span>TELEPHONY GATEWAY PAYLOAD:</span>
+          <span id="modal-sms-time" class="text-blue-700 font-normal text-[10px]">Just Now</span>
+        </div>
+        <p id="modal-sms-body" class="text-blue-950 text-xs leading-relaxed font-sans"></p>
+        <div class="pt-1 flex items-center justify-between text-[10px] text-blue-700 border-t border-blue-200/60">
+          <span>Target: <strong>+91 7736215631</strong></span>
+          <span id="modal-sms-carrier">Status: DELIVERED</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center space-x-3 pt-2">
+        <button onclick="reviewInConsoleFromModal()" class="btn-flow-primary flex-1 justify-center py-2.5 text-xs">
+          <span>Review & Authorize Action</span>
+        </button>
+        <button onclick="closeEmergencyPopup()" class="btn-flow-secondary text-xs py-2.5">
+          <span>Dismiss</span>
+        </button>
       </div>
 
     </div>
   </div>
 
-  <!-- Sticky SMS Toast Notification -->
-  <div id="sms-toast" class="fixed bottom-5 right-5 z-40 hidden p-3 bg-[#FFFFFF] text-[#1C201D] border-2 border-[#144336] flex items-center space-x-3 text-xs shadow-md font-mono">
-    <div>
-      <div class="font-bold text-[#144336]">[EMERGENCY SMS DISPATCHED]</div>
-      <div id="sms-toast-text" class="text-[11px] text-[#48524B]">Delivered to +1-773-621-5631 via Telephony Gateway</div>
+  <!-- Sticky SMS Toast -->
+  <div id="sms-toast" class="hidden fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900 text-white rounded-2xl p-4 shadow-xl border border-slate-700 flex items-center space-x-3 animate-in slide-in-from-bottom-5">
+    <div class="w-8 h-8 rounded-full bg-[#1D68FE] flex items-center justify-center text-white text-xs font-bold shrink-0">
+      SMS
     </div>
-    <button onclick="document.getElementById('sms-toast').classList.add('hidden')" class="text-[#707A72] hover:text-[#1C201D] cursor-pointer font-bold ml-2">[X]</button>
+    <div class="flex-1 text-xs leading-snug">
+      <div class="font-bold text-white">Emergency Alert Dispatched</div>
+      <div id="sms-toast-text" class="text-slate-300 text-[11px] truncate mt-0.5">Paging Incident Commander (7736215631)...</div>
+    </div>
+    <button onclick="document.getElementById('sms-toast').classList.add('hidden')" class="text-slate-400 hover:text-white">✕</button>
   </div>
 
-  <!-- Scripts -->
+  <!-- Flowgen Footer -->
+  <footer class="mt-auto border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-slate-900">ChainGuard AI</span>
+        <span>·</span>
+        <span>Autonomous Multi-Agent Supply Chain Resilience</span>
+      </div>
+      <div class="text-[11px] font-mono">FLOWGEN INDUSTRIAL EDITION · DETROIT ASSEMBLY SENTRY</div>
+    </div>
+  </footer>
+
+  <!-- Script Includes -->
   <script src="js/api.js"></script>
   <script src="js/workflow.js"></script>
+  <script src="js/map_view.js"></script>
 </body>
 </html>

@@ -338,49 +338,67 @@ function renderStatusAndPhase() {
   if (pill) {
     const st = workflowState.status;
     if (st === "RUNNING") {
-      pill.className = "stamp-tag stamp-sap";
-      pill.innerHTML = `[ RUNNING: STAGE ${currentIdx} OF 8 ]`;
+      pill.className = "flow-badge flow-badge-info";
+      pill.innerHTML = `RUNNING: STAGE ${currentIdx} OF 8`;
     } else if (st === "AWAITING_HUMAN_APPROVAL") {
-      pill.className = "stamp-tag stamp-warning";
-      pill.innerHTML = `[ AWAITING HUMAN AUTHORIZATION ]`;
+      pill.className = "flow-badge flow-badge-warning";
+      pill.innerHTML = `AWAITING HUMAN AUTHORIZATION`;
     } else if (st === "COMPLETED") {
-      pill.className = "stamp-tag stamp-nominal";
-      pill.innerHTML = `[ RESOLVED & RETRAINED ]`;
+      pill.className = "flow-badge flow-badge-success";
+      pill.innerHTML = `RESOLVED & RETRAINED`;
     }
   }
+
+  // Update Active Stage Cards in Progression Rail
+  document.querySelectorAll(".flow-stage-step").forEach(el => {
+    const stg = parseInt(el.getAttribute("data-stage"));
+    if (stg === currentIdx) {
+      el.className = "flow-stage-step active-step";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-[#1D68FE]";
+    } else if (stg < currentIdx) {
+      el.className = "flow-stage-step";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-emerald-600";
+    } else {
+      el.className = "flow-stage-step";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-slate-400";
+    }
+  });
 
   // Update Phase Badge
   if (badge) {
     if (currentIdx === 1) {
       badge.innerText = "PHASE: SIGNALS INGESTED";
-      badge.className = "stamp-tag stamp-neutral";
+      badge.className = "flow-badge flow-badge-blue";
     } else if (currentIdx === 2) {
       badge.innerText = "PHASE: EARLY WARNING DETECTED";
-      badge.className = "stamp-tag stamp-warning";
+      badge.className = "flow-badge flow-badge-warning";
     } else if (currentIdx === 3) {
       badge.innerText = "PHASE: TRIANGULATED & CONFIRMED (94%)";
-      badge.className = "stamp-tag stamp-sap";
+      badge.className = "flow-badge flow-badge-primary";
     } else if (currentIdx === 4) {
       badge.innerText = "PHASE: IMPACT EXPOSURE MAPPED";
-      badge.className = "stamp-tag stamp-sap";
+      badge.className = "flow-badge flow-badge-blue";
     } else if (currentIdx === 5) {
       badge.innerText = "PHASE: DELAY & SHORTAGE PREDICTED";
-      badge.className = "stamp-tag stamp-critical";
+      badge.className = "flow-badge flow-badge-danger";
     } else if (currentIdx === 6) {
       badge.innerText = "PHASE: RECOMMENDATIONS & ISSUES ANALYZED";
-      badge.className = "stamp-tag stamp-nominal";
+      badge.className = "flow-badge flow-badge-primary";
     } else if (currentIdx === 7) {
       badge.innerText = "PHASE: HUMAN APPROVAL REQUIRED";
-      badge.className = "stamp-tag stamp-warning";
+      badge.className = "flow-badge flow-badge-warning";
     } else if (currentIdx === 8) {
       badge.innerText = "PHASE: RESOLVED & RECORDED TO MEMORY";
-      badge.className = "stamp-tag stamp-nominal";
+      badge.className = "flow-badge flow-badge-primary";
     }
   }
 
   // Update Lifecycle ribbon
   if (modePill) {
-    modePill.className = "stamp-tag stamp-critical";
+    modePill.className = "flow-badge flow-badge-danger";
     modePill.innerText = "[ ALERT: ACTIVE DISRUPTION ]";
   }
   if (stageName) {
@@ -391,7 +409,7 @@ function renderStatusAndPhase() {
     progressBar.style.width = `${pct}%`;
   }
   if (progressText) {
-    progressText.innerText = `Stage ${currentIdx} / 8`;
+    progressText.innerText = `STAGE ${currentIdx} / 8`;
   }
 
   // Snapshot cards under map in disruption
@@ -403,18 +421,18 @@ function renderStatusAndPhase() {
   const snapContractSub = document.getElementById("map-snapshot-contract-sub");
 
   if (isInternalDrift) {
-    if (snapCargo) { snapCargo.innerText = "PO-501 (Apex Semi SUP-007)"; snapCargo.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
+    if (snapCargo) { snapCargo.innerText = "PO-501 (Apex Semi SUP-007)"; snapCargo.className = "font-bold text-red-600 mt-0.5 font-mono text-sm"; }
     if (snapCargoSub) snapCargoSub.innerText = "Lead time: 14.1d → 22.4d (+59% drift)";
-    if (snapBuffer) { snapBuffer.innerText = "5.2 Days Runout (Critical Gap)"; snapBuffer.className = "font-bold text-[#78450E] mt-0.5 font-mono"; }
+    if (snapBuffer) { snapBuffer.innerText = "5.2 Days Runout (Critical Gap)"; snapBuffer.className = "font-bold text-amber-600 mt-0.5 font-mono text-sm"; }
     if (snapBufferSub) snapBufferSub.innerText = "Detroit burn: 315 units/day (+26%)";
-    if (snapContract) { snapContract.innerText = "$2.60M Contract at Risk"; snapContract.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
+    if (snapContract) { snapContract.innerText = "$2.60M Contract at Risk"; snapContract.className = "font-bold text-red-600 mt-0.5 font-mono text-sm"; }
     if (snapContractSub) snapContractSub.innerText = "Titan OEM Production Order ORD-OEM-901";
   } else {
-    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
+    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-red-600 mt-0.5 font-mono text-sm"; }
     if (snapCargoSub) snapCargoSub.innerText = "Aboard MV Pacific Trader (Stranded)";
-    if (snapBuffer) { snapBuffer.innerText = "4.8 Days Remaining"; snapBuffer.className = "font-bold text-[#78450E] mt-0.5 font-mono"; }
+    if (snapBuffer) { snapBuffer.innerText = "4.8 Days Remaining"; snapBuffer.className = "font-bold text-amber-600 mt-0.5 font-mono text-sm"; }
     if (snapBufferSub) snapBufferSub.innerText = "Detroit Plant 1010 (1,200 on hand)";
-    if (snapContract) { snapContract.innerText = "$2.40M Contract at Risk"; snapContract.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
+    if (snapContract) { snapContract.innerText = "$2.40M Contract at Risk"; snapContract.className = "font-bold text-red-600 mt-0.5 font-mono text-sm"; }
     if (snapContractSub) snapContractSub.innerText = "Titan OEM SLA delivery due in 12 days";
   }
 }
@@ -442,12 +460,12 @@ function renderPredictiveMetrics() {
   if (narrativeEl) narrativeEl.innerText = rp.prediction_summary;
 
   if (currentIdx === 0) {
-    if (cardProb) cardProb.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
-    if (cardDelay) cardDelay.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
-    if (cardGap) cardGap.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
-    if (varEl) varEl.className = "text-xl font-bold font-mono text-[#144336] mt-0.5";
+    if (cardProb) cardProb.className = "flow-metric-block";
+    if (cardDelay) cardDelay.className = "flow-metric-block";
+    if (cardGap) cardGap.className = "flow-metric-block";
+    if (varEl) varEl.className = "text-2xl font-bold font-mono text-emerald-700 mt-1";
   } else {
-    if (cardProb) cardProb.className = "p-3 bg-[#FAF0EE] border border-[#E8BFB7]";
+    if (cardProb) cardProb.className = "flow-metric-block border-red-200 bg-red-50/50";
     if (cardDelay) cardDelay.className = "p-3 bg-[#FAF0EE] border border-[#E8BFB7]";
     if (cardGap) cardGap.className = "p-3 bg-[#FDF7EB] border border-[#E8D3A8]";
     if (varEl) varEl.className = "text-xl font-bold font-mono text-[#8F2718] mt-0.5";
@@ -494,13 +512,13 @@ function renderSignalsAndVerification() {
   if (threatClassBadge) {
     if (classification === "INTERNAL_OPERATIONAL_DRIFT") {
       threatClassBadge.innerText = "[INTERNAL] OPERATIONAL DRIFT (SAP S/4HANA & IBP)";
-      threatClassBadge.className = "stamp-tag stamp-warning";
+      threatClassBadge.className = "flow-badge flow-badge-warning";
     } else if (classification === "COMPOUND_MULTI_STREAM_RISK") {
       threatClassBadge.innerText = "[COMPOUND] INTERNAL DRIFT + EXTERNAL SHOCK";
-      threatClassBadge.className = "stamp-tag stamp-critical";
+      threatClassBadge.className = "flow-badge flow-badge-danger";
     } else {
       threatClassBadge.innerText = "[EXTERNAL] CHOKEPOINT / WEATHER DISRUPTION";
-      threatClassBadge.className = "stamp-tag stamp-sap";
+      threatClassBadge.className = "flow-badge flow-badge-info";
     }
   }
 
@@ -509,15 +527,15 @@ function renderSignalsAndVerification() {
     if ((classification === "INTERNAL_OPERATIONAL_DRIFT" || classification === "COMPOUND_MULTI_STREAM_RISK") && sixSteps.length > 0 && currentIdx > 0) {
       breakdownEl.classList.remove("hidden");
       breakdownEl.innerHTML = `
-        <div class="p-3.5 bg-[#FAF9F5] border border-[#D5CEBF] space-y-2.5">
+        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
-              <span class="font-mono text-xs font-bold text-[#144336]">[AUDIT]</span>
-              <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-tight">
+              <span class="font-mono text-xs font-bold text-[#1D68FE]">[AUDIT]</span>
+              <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-tight">
                 6-Step Internal Operational Detection (SAP S/4HANA & IBP)
               </span>
             </div>
-            <span class="stamp-tag stamp-sap">
+            <span class="flow-badge flow-badge-info">
               AUTOMATED ERP AUDIT
             </span>
           </div>
@@ -532,12 +550,12 @@ function renderSignalsAndVerification() {
               const stepTitle = parts[0] || `Step ${idx + 1}`;
               const stepDesc = parts.slice(1).join(":");
               return `
-                <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF] space-y-1">
+                <div class="p-3 bg-white border border-slate-200 rounded-xl space-y-1">
                   <div class="flex items-center justify-between text-[10px]">
-                    <span class="font-bold text-[#144336] font-mono">${stepTitle}</span>
-                    <span class="font-mono font-bold text-[#144336] text-[10px]">[OK]</span>
+                    <span class="font-bold text-[#1D68FE] font-mono">${stepTitle}</span>
+                    <span class="font-mono font-bold text-emerald-600 text-[10px]">[OK]</span>
                   </div>
-                  <p class="text-[11px] text-[#1C201D] leading-snug font-mono">${stepDesc}</p>
+                  <p class="text-xs text-slate-800 leading-snug font-sans">${stepDesc}</p>
                 </div>
               `;
             }).join("")}
@@ -565,36 +583,36 @@ function renderSignalsAndVerification() {
   if (activeStreamFilter === "ALL" || activeStreamFilter === "INTERNAL") {
     const internalSignals = internal.signals || [];
     internalSignals.forEach(s => {
-      let borderClass = s.severity === "CRITICAL" ? "border-[#E8BFB7] bg-[#FAF0EE]" : "border-[#D5CEBF] bg-[#FFFFFF]";
-      let badgeTag = s.severity === "CRITICAL" ? "stamp-tag stamp-critical" : "stamp-tag stamp-neutral";
+      let borderClass = s.severity === "CRITICAL" ? "border-red-200 bg-red-50/50" : "border-slate-200 bg-white";
+      let badgeTag = s.severity === "CRITICAL" ? "flow-badge flow-badge-danger" : "flow-badge";
       
       renderedCards.push(`
-        <div class="p-3 border ${borderClass} flex flex-col justify-between space-y-2">
+        <div class="p-4 rounded-2xl border ${borderClass} flex flex-col justify-between space-y-3 shadow-2xs hover:border-[#1D68FE] transition-all">
           <div>
             <div class="flex items-center justify-between text-[10px]">
               <div class="flex items-center space-x-1.5">
-                <span class="font-bold font-mono text-[#1C201D]">[${s.system}]</span>
+                <span class="font-bold font-mono text-[#1D68FE]">[${s.system}]</span>
               </div>
-              <span class="font-mono text-[#707A72]">${s.timestamp}</span>
+              <span class="font-mono text-slate-400">${s.timestamp}</span>
             </div>
             
-            <div class="mt-1.5">
-              <div class="text-xs font-bold font-mono text-[#1C201D]">${s.metric}</div>
-              <div class="text-[10px] font-mono mt-0.5 space-x-1">
-                <span class="text-[#707A72]">Baseline: ${s.baseline_value}</span>
-                <span class="text-[#707A72]">→</span>
-                <span class="font-bold ${s.severity === 'CRITICAL' ? 'text-[#8F2718]' : 'text-[#78450E]'}">${s.observed_value}</span>
+            <div class="mt-2">
+              <div class="text-xs font-bold text-slate-900">${s.metric}</div>
+              <div class="text-[11px] font-mono mt-1 space-x-1">
+                <span class="text-slate-500">Baseline: ${s.baseline_value}</span>
+                <span class="text-slate-400">→</span>
+                <span class="font-bold ${s.severity === 'CRITICAL' ? 'text-red-600' : 'text-amber-600'}">${s.observed_value}</span>
               </div>
             </div>
 
-            <p class="text-xs text-[#48524B] mt-1.5 leading-snug font-mono">${s.detail}</p>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">${s.detail}</p>
           </div>
 
-          <div class="flex items-center justify-between pt-2 border-t border-[#D5CEBF] text-[10px] font-mono">
+          <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 text-[10px] font-mono">
             <span class="${badgeTag}">
               ${s.trend.replace('_', ' ')}
             </span>
-            <span class="font-bold text-[#144336]">
+            <span class="font-bold text-[#1D68FE]">
               [SAP S/4HANA TELEMETRY]
             </span>
           </div>
@@ -607,25 +625,25 @@ function renderSignalsAndVerification() {
   if (activeStreamFilter === "ALL" || activeStreamFilter === "EXTERNAL") {
     signals.forEach(s => {
       let isVerified = s.verified;
-      let borderClass = isVerified ? "border-[#BEDBCF] bg-[#FFFFFF]" : "border-[#D5CEBF] bg-[#FAF9F5]";
+      let borderClass = isVerified ? "border-emerald-200 bg-white" : "border-slate-200 bg-slate-50/50";
       
       renderedCards.push(`
-        <div class="p-3 border ${borderClass} flex flex-col justify-between space-y-2">
+        <div class="p-4 rounded-2xl border ${borderClass} flex flex-col justify-between space-y-3 shadow-2xs hover:border-[#1D68FE] transition-all">
           <div>
             <div class="flex items-center justify-between text-[10px]">
               <div class="flex items-center space-x-1.5 font-mono">
-                <span class="font-bold text-[#1C201D]">[${s.source.toUpperCase()}]</span>
+                <span class="font-bold text-[#1D68FE]">[${s.source.toUpperCase()}]</span>
               </div>
-              <span class="font-mono text-[#707A72]">${s.timestamp}</span>
+              <span class="font-mono text-slate-400">${s.timestamp}</span>
             </div>
-            <p class="text-xs text-[#1C201D] mt-1.5 leading-snug font-mono">${s.content}</p>
+            <p class="text-xs text-slate-800 mt-2 leading-relaxed font-sans">${s.content}</p>
           </div>
 
-          <div class="flex items-center justify-between pt-2 border-t border-[#D5CEBF] text-[10px] font-mono">
-            <span class="${s.reliability_score >= 0.9 ? 'text-[#144336] font-bold' : 'text-[#78450E]'}">
+          <div class="flex items-center justify-between pt-2.5 border-t border-slate-100 text-[10px] font-mono">
+            <span class="${s.reliability_score >= 0.9 ? 'text-emerald-700 font-bold' : 'text-amber-700 font-bold'}">
               CONFIDENCE: ${(s.reliability_score * 100).toFixed(0)}%
             </span>
-            <span class="font-bold ${isVerified ? 'text-[#144336]' : 'text-[#78450E]'}">
+            <span class="font-bold ${isVerified ? 'text-emerald-700' : 'text-amber-700'}">
               ${isVerified ? '[VERIFIED SIGNAL]' : '[UNVERIFIED RUMOR]'}
             </span>
           </div>
@@ -636,7 +654,7 @@ function renderSignalsAndVerification() {
 
   if (renderedCards.length === 0) {
     container.innerHTML = `
-      <div class="col-span-2 p-3 text-center text-xs text-slate-500">
+      <div class="col-span-2 p-6 text-center text-xs text-slate-400 font-mono">
         No signals active for the selected stream filter.
       </div>
     `;
@@ -661,12 +679,12 @@ function renderAutonomousAndHumanGate() {
 
   // Render autonomous actions
   autoList.innerHTML = auto.map(a => `
-    <div class="flex items-start space-x-2 bg-white p-2 rounded-none border border-[#D8D5CD]">
-      <span class="font-mono text-xs font-bold text-[#144336]">[AUTO]</span>
+    <div class="flex items-start space-x-2.5 bg-white p-2.5 rounded-xl border border-emerald-200">
+      <span class="font-mono text-xs font-bold text-emerald-700">[AUTO]</span>
       <div class="flex-1 text-xs">
-        <span class="font-bold text-[#1C201D]">${a.action}:</span> <span class="text-[#2C332D]">${a.detail}</span>
+        <span class="font-bold text-slate-900">${a.action}:</span> <span class="text-slate-600">${a.detail}</span>
       </div>
-      <span class="stamp-tag stamp-operational">${a.status}</span>
+      <span class="flow-badge flow-badge-primary">${a.status}</span>
     </div>
   `).join("");
 
@@ -682,13 +700,13 @@ function renderAutonomousAndHumanGate() {
       if (completedText) {
         if (ha.status === "approve") {
           completedText.innerText = "[VERIFIED DISPATCH] Action APPROVED by human supervisor: $95,000 emergency air charter executed.";
-          completedBanner.className = "p-3 rounded-none bg-[#E8F1EC] border border-[#144336] text-xs font-medium text-[#144336] flex items-center justify-between";
+          completedBanner.className = "p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-xs font-semibold text-emerald-950 flex items-center justify-between";
         } else if (ha.status === "block") {
           completedText.innerText = "[ORDER BLOCKED] Action BLOCKED by human supervisor: Expenditure rejected. Baseline downtime recorded.";
-          completedBanner.className = "p-3 rounded-none bg-[#FAF0EE] border border-[#8F2718] text-xs font-medium text-[#8F2718] flex items-center justify-between";
+          completedBanner.className = "p-4 rounded-2xl bg-red-50 border border-red-300 text-xs font-semibold text-red-950 flex items-center justify-between";
         } else {
           completedText.innerText = "[TELEMETRY SWEEP] Telemetry & radar sweeps requested. Verification package assembled.";
-          completedBanner.className = "p-3 rounded-none bg-[#FDF7EB] border border-[#78450E] text-xs font-medium text-[#78450E] flex items-center justify-between";
+          completedBanner.className = "p-4 rounded-2xl bg-amber-50 border border-amber-300 text-xs font-semibold text-amber-950 flex items-center justify-between";
         }
       }
     }
@@ -704,23 +722,23 @@ function renderAgentThoughts() {
 
   const trace = workflowState.agent_thought_trace || [];
   container.innerHTML = trace.map(t => {
-    let badgeClass = "stamp-tag";
-    if (t.type === "warning") badgeClass = "stamp-tag stamp-disrupted";
-    else if (t.type === "danger") badgeClass = "stamp-tag stamp-critical";
-    else if (t.type === "success") badgeClass = "stamp-tag stamp-operational";
+    let badgeClass = "flow-badge";
+    if (t.type === "warning") badgeClass = "flow-badge flow-badge-warning";
+    else if (t.type === "danger") badgeClass = "flow-badge flow-badge-danger";
+    else if (t.type === "success") badgeClass = "flow-badge flow-badge-primary";
 
     return `
-      <div class="p-2.5 rounded-none bg-white border border-[#D8D5CD] space-y-1">
+      <div class="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
         <div class="flex items-center justify-between text-[11px]">
           <div class="flex items-center space-x-2">
-            <span class="font-mono text-[#5A645C] text-[10px]">${t.timestamp}</span>
-            <span class="font-bold text-[#1C201D] tracking-wide">${t.agent}</span>
+            <span class="font-mono text-slate-400 text-[10px]">${t.timestamp}</span>
+            <span class="font-bold text-slate-900">${t.agent}</span>
           </div>
           <span class="${badgeClass}">
             ${t.action}
           </span>
         </div>
-        <p class="text-xs text-[#2C332D] leading-relaxed font-sans">${t.thought}</p>
+        <p class="text-xs text-slate-700 leading-relaxed font-sans">${t.thought}</p>
       </div>
     `;
   }).join("");
@@ -739,22 +757,22 @@ function renderAlternativesAndIssues() {
   if (currentIdx === 0) {
     if (badge) {
       badge.innerText = "NOMINAL MONITORING ACTIVE";
-      badge.className = "stamp-tag stamp-operational";
+      badge.className = "flow-badge flow-badge-primary";
     }
     container.innerHTML = `
-      <div class="p-3.5 bg-white border border-[#D8D5CD] text-xs text-[#1C201D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <div class="font-bold flex items-center space-x-2">
-            <span class="w-1.5 h-1.5 bg-[#144336]"></span>
-            <span class="font-serif text-sm">Baseline Nominal Monitoring Active</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            <span class="text-sm text-slate-900">Baseline Nominal Monitoring Active</span>
           </div>
-          <div class="text-[11px] text-[#5A645C] mt-1 font-sans">
+          <div class="text-xs text-slate-600 mt-1 font-sans">
             All 8 global supply corridors are operating within safe baseline tolerances. Detroit plant buffer healthy at 18.5 days. Zero active disruption warnings.
           </div>
         </div>
         <div class="flex items-center space-x-2 flex-shrink-0">
-          <a href="injector.html" target="_blank" class="btn-craft-primary text-xs uppercase tracking-wider">
-            [ Injector Workbench ↗ ]
+          <a href="injector.html" target="_blank" class="btn-flow-primary text-xs">
+            Open Injector Studio ↗
           </a>
         </div>
       </div>
@@ -765,10 +783,10 @@ function renderAlternativesAndIssues() {
   if (actions.length === 0) {
     if (badge) {
       badge.innerText = "PIPELINE SYNTHESIS IN PROGRESS";
-      badge.className = "stamp-tag";
+      badge.className = "flow-badge flow-badge-blue";
     }
     container.innerHTML = `
-      <div class="p-3 bg-white border border-[#D8D5CD] text-xs text-[#5A645C]">
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600">
         Stage ${currentIdx} of 8 in progress. Preventive action alternatives and trade compliance evaluations will be fully ranked at Stage 6.
       </div>
     `;
@@ -787,38 +805,38 @@ function renderAlternativesAndIssues() {
   if (badge) {
     if (isGemini) {
       badge.innerText = "ENGINE: GOOGLE GEMINI 2.5 FLASH";
-      badge.className = "stamp-tag stamp-operational";
+      badge.className = "flow-badge flow-badge-blue";
     } else {
       badge.innerText = "ENGINE: DETERMINISTIC STATUTORY AUDIT";
-      badge.className = "stamp-tag";
+      badge.className = "flow-badge";
     }
   }
 
   // 1. Render alternative selection tabs
   const tabsHtml = `
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pb-1">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pb-1">
       ${actions.map((act, idx) => {
         const isSelected = idx === selectedAlternativeIndex;
         const isRec = act.is_recommended;
-        let borderClass = isSelected ? "border-[#144336] bg-[#FFFFFF] ring-1 ring-[#144336]" : "border-[#D8D5CD] bg-[#F7F5F0] hover:bg-white";
+        let borderClass = isSelected ? "border-[#1D68FE] bg-blue-50/40 ring-2 ring-blue-500/20 shadow-xs" : "border-slate-200 bg-white hover:border-slate-300";
         return `
-          <button onclick="selectAlternative(${idx})" class="p-3 border ${borderClass} text-left transition-all cursor-pointer flex flex-col justify-between">
+          <button onclick="selectAlternative(${idx})" class="p-3.5 rounded-xl border ${borderClass} text-left transition-all cursor-pointer flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono font-bold ${isRec ? 'text-[#144336]' : 'text-[#5A645C]'}">
+                <span class="text-[10px] font-mono font-bold ${isRec ? 'text-[#1D68FE]' : 'text-slate-500'}">
                   ${isRec ? '[RECOMMENDED OPTION]' : `[OPTION 0${idx + 1}]`}
                 </span>
-                <span class="text-[11px] font-mono font-bold text-[#1C201D]">
+                <span class="text-xs font-mono font-bold text-slate-900">
                   $${act.cost_usd.toLocaleString()}
                 </span>
               </div>
-              <div class="text-xs font-bold text-[#1C201D] mt-1.5 leading-snug line-clamp-2">
+              <div class="text-xs font-bold text-slate-900 mt-1.5 leading-snug line-clamp-2">
                 ${act.title}
               </div>
             </div>
-            <div class="flex items-center justify-between text-[10px] text-[#5A645C] mt-2 pt-1.5 border-t border-[#D8D5CD] font-mono">
+            <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2.5 pt-2 border-t border-slate-100 font-mono">
               <span>Transit: ${act.execution_lead_time_days}d</span>
-              <span class="${act.net_financial_benefit_usd > 0 ? 'text-[#144336] font-bold' : 'text-[#8F2718]'}">
+              <span class="${act.net_financial_benefit_usd > 0 ? 'text-emerald-700 font-bold' : 'text-red-700'}">
                 Net: ${act.net_financial_benefit_usd > 0 ? '+' : ''}$${(act.net_financial_benefit_usd / 1000).toFixed(0)}k
               </span>
             </div>
@@ -831,75 +849,75 @@ function renderAlternativesAndIssues() {
   // 2. Render deep issues breakdown for the selected alternative
   const positiveList = (analysis.positive_factors || []).map(p => `
     <li class="flex items-start space-x-2">
-      <span class="text-[#144336] font-mono font-bold text-xs">[+]</span>
-      <span class="text-[#2C332D]">${p}</span>
+      <span class="text-[#1D68FE] font-mono font-bold text-xs">[+]</span>
+      <span class="text-slate-700">${p}</span>
     </li>
   `).join("");
 
   const issuesList = (analysis.issues || []).map(iss => {
-    let sevClass = "stamp-tag";
-    if (iss.severity === "HIGH") sevClass = "stamp-tag stamp-disrupted";
-    if (iss.severity === "CRITICAL") sevClass = "stamp-tag stamp-critical";
-    if (iss.severity === "LOW") sevClass = "stamp-tag";
+    let sevClass = "flow-badge";
+    if (iss.severity === "HIGH") sevClass = "flow-badge flow-badge-warning";
+    if (iss.severity === "CRITICAL") sevClass = "flow-badge flow-badge-danger";
+    if (iss.severity === "LOW") sevClass = "flow-badge";
 
     return `
-      <div class="p-3 bg-white border border-[#D8D5CD] space-y-2">
+      <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <div class="flex items-center space-x-2">
             <span class="${sevClass}">
               ${iss.severity} RISK
             </span>
-            <span class="text-xs font-bold text-[#1C201D]">${iss.issue}</span>
+            <span class="text-xs font-bold text-slate-900">${iss.issue}</span>
           </div>
-          <span class="text-[10px] font-mono text-[#5A645C]">${iss.statute || iss.category}</span>
+          <span class="text-[10px] font-mono text-slate-500">${iss.statute || iss.category}</span>
         </div>
-        <p class="text-xs text-[#2C332D] leading-relaxed font-sans">${iss.description}</p>
-        <div class="p-2.5 bg-[#E8F1EC] border border-[#144336]/30 text-xs text-[#144336] space-y-0.5">
-          <div class="font-bold text-[10px] uppercase font-mono tracking-wider text-[#144336] flex items-center space-x-1">
+        <p class="text-xs text-slate-600 leading-relaxed font-sans">${iss.description}</p>
+        <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-200 text-xs text-blue-950 space-y-0.5">
+          <div class="font-bold text-[10px] uppercase font-mono tracking-wider text-[#1D68FE] flex items-center space-x-1">
             <span>[ COMPLIANCE & OPERATIONAL MITIGATION ]</span>
           </div>
-          <div class="text-[11px] leading-relaxed text-[#1C201D] font-sans mt-0.5">${iss.mitigation}</div>
+          <div class="text-xs leading-relaxed text-slate-800 font-sans mt-0.5">${iss.mitigation}</div>
         </div>
       </div>
     `;
   }).join("");
 
   const barriersList = (analysis.immutable_statutory_barriers || []).map(b => `
-    <div class="p-3 bg-[#FAF0EE] border border-[#8F2718] text-xs text-[#8F2718] font-bold flex items-start space-x-2">
-      <span class="font-mono text-xs uppercase text-[#8F2718]">[EMBARGO]</span>
+    <div class="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-900 font-bold flex items-start space-x-2">
+      <span class="font-mono text-xs uppercase text-red-700">[EMBARGO]</span>
       <div class="flex-1">
-        <span class="font-mono uppercase text-[10px] text-[#8F2718] tracking-wider">IMMUTABLE STATUTORY BARRIER:</span>
-        <div class="text-[11px] font-normal text-[#1C201D] mt-0.5 font-sans">${b}</div>
+        <span class="font-mono uppercase text-[10px] text-red-800 tracking-wider">IMMUTABLE STATUTORY BARRIER:</span>
+        <div class="text-xs font-normal text-slate-800 mt-0.5 font-sans">${b}</div>
       </div>
     </div>
   `).join("");
 
   const noBarrierNotice = (!analysis.immutable_barrier_detected && (!analysis.immutable_statutory_barriers || analysis.immutable_statutory_barriers.length === 0))
-    ? `<div class="p-2.5 bg-[#E8F1EC] border border-[#144336] text-xs text-[#144336] flex items-center space-x-2 font-mono">
-        <span class="font-bold">[CLEARED]</span>
-        <span class="text-[11px] font-sans text-[#1C201D]"><strong>No immutable statutory barriers detected:</strong> Path is legally permissible under international trade conventions with active mitigations.</span>
+    ? `<div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 flex items-center space-x-2 font-mono">
+        <span class="font-bold text-emerald-700">[CLEARED]</span>
+        <span class="text-xs font-sans text-slate-800"><strong>No immutable statutory barriers detected:</strong> Path is legally permissible under international trade conventions with active mitigations.</span>
        </div>`
     : "";
 
   container.innerHTML = `
     ${tabsHtml}
     
-    <div class="p-3.5 bg-[#F7F5F0] border border-[#D8D5CD] space-y-3">
+    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
       
       <!-- Engine Source Banner -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2 border-b border-[#D8D5CD] gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-slate-200 gap-2">
         <div>
-          <span class="text-xs font-bold text-[#1C201D] font-serif text-sm">Alternative Detailed Analysis: ${activeAction.title}</span>
-          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">Evaluates regulatory export compliance, carrier operations, and country cabotage statutes.</div>
+          <span class="text-sm font-bold text-slate-900">Alternative Analysis: ${activeAction.title}</span>
+          <div class="text-xs text-slate-500 mt-0.5">Evaluates regulatory export compliance, carrier operations, and cabotage laws.</div>
         </div>
         <div class="flex items-center space-x-1.5">
-          <span class="text-[9px] font-mono text-[#5A645C]">AUDIT PROTOCOL:</span>
+          <span class="text-[10px] font-mono text-slate-500">AUDIT PROTOCOL:</span>
           ${isGemini ? `
-            <span class="stamp-tag stamp-operational">
+            <span class="flow-badge flow-badge-blue">
               GOOGLE GEMINI 2.5 FLASH
             </span>
           ` : `
-            <span class="stamp-tag" title="Deterministic compliance rules applied">
+            <span class="flow-badge" title="Deterministic compliance rules applied">
               STATUTORY COMPLIANCE ENGINE
             </span>
           `}
@@ -907,34 +925,34 @@ function renderAlternativesAndIssues() {
       </div>
 
       <!-- Positive Factors -->
-      <div class="space-y-1 text-xs text-[#1C201D]">
-        <div class="text-[10px] font-mono font-bold text-[#5A645C] uppercase tracking-wider">Positive Decision Drivers (Operational Justification):</div>
-        <ul class="space-y-1 text-xs mt-1">
+      <div class="space-y-1.5 text-xs text-slate-800">
+        <div class="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider">Positive Decision Drivers (Operational Justification):</div>
+        <ul class="space-y-1.5 text-xs mt-1">
           ${positiveList}
         </ul>
       </div>
 
       <!-- Issues that occur in this alternative -->
-      <div class="space-y-2 pt-2 border-t border-[#D8D5CD]">
-        <div class="text-[10px] font-mono font-bold text-[#5A645C] uppercase tracking-wider flex items-center justify-between">
+      <div class="space-y-2.5 pt-2 border-t border-slate-200">
+        <div class="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
           <span>Identified Compliance Exposures (${(analysis.issues || []).length}):</span>
-          <span class="text-[9px] text-[#5A645C]">Regulatory · Operational · Country Policy</span>
+          <span class="text-[10px] text-slate-500">Regulatory · Operational · Country Policy</span>
         </div>
-        <div class="space-y-2">
+        <div class="space-y-2.5">
           ${issuesList}
         </div>
       </div>
 
       <!-- Immutable Statutory Barriers -->
-      <div class="space-y-1.5 pt-1">
+      <div class="space-y-2 pt-1">
         ${barriersList}
         ${noBarrierNotice}
       </div>
 
       <!-- Legal Summary Verdict -->
       ${analysis.legal_verdict ? `
-        <div class="p-2.5 bg-white border border-[#D8D5CD] text-[11px] font-mono text-[#1C201D]">
-          <strong class="text-[#144336]">[LEGAL & REGULATORY VERDICT]</strong> ${analysis.legal_verdict}
+        <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs font-mono text-slate-800">
+          <strong class="text-[#1D68FE]">[LEGAL & REGULATORY VERDICT]</strong> ${analysis.legal_verdict}
         </div>
       ` : ""}
 
@@ -1167,11 +1185,11 @@ async function loadIncidentHistory() {
           <td class="py-2.5 px-4 text-xs text-[#1C201D] font-medium font-serif text-sm">${inc.title}</td>
           <td class="py-2.5 px-4 text-[11px] font-mono text-[#5A645C]">${inc.category}</td>
           <td class="py-2.5 px-4">
-            <span class="stamp-tag ${isApproved ? 'stamp-operational' : 'stamp-critical'}">
+            <span class="flow-badge ${isApproved ? 'flow-badge-success' : 'flow-badge-danger'}">
               ${dec.outcome || (isApproved ? 'APPROVED' : 'BLOCKED')}
             </span>
           </td>
-          <td class="py-2.5 px-4 font-mono font-bold text-xs ${savings > 0 ? 'text-[#144336]' : 'text-[#5A645C]'}">
+          <td class="py-2.5 px-4 font-mono font-bold text-xs ${savings > 0 ? 'text-emerald-600' : 'text-slate-500'}">
             ${savings > 0 ? `+$${savings.toLocaleString()}` : '$0'}
           </td>
           <td class="py-2.5 px-4 text-[11px] font-mono text-[#5A645C]">
@@ -1289,13 +1307,13 @@ async function loadPoliciesList() {
     const listEl = document.getElementById("active-policies-list");
     if (listEl) {
       listEl.innerHTML = policies.map(p => `
-        <div onclick="selectPolicyFromList('${p.policy_id}')" class="p-2.5 border border-[#D8D5CD] hover:border-[#144336] hover:bg-[#F7F5F0] text-left transition-all cursor-pointer">
+        <div onclick="selectPolicyFromList('${p.policy_id}')" class="p-3 border border-slate-200 rounded-xl hover:border-[#1D68FE] hover:bg-blue-50/30 text-left transition-all cursor-pointer">
           <div class="flex items-center justify-between text-[10px]">
-            <span class="font-mono font-bold text-[#1C201D]">${p.policy_id}</span>
-            <span class="stamp-tag ${p.status === 'ACTIVE_ENFORCED' ? 'stamp-operational' : 'stamp-disrupted'}">${p.status}</span>
+            <span class="font-mono font-bold text-slate-900">${p.policy_id}</span>
+            <span class="flow-badge ${p.status === 'ACTIVE_ENFORCED' ? 'flow-badge-success' : 'flow-badge-danger'}">${p.status}</span>
           </div>
-          <div class="font-bold text-xs text-[#1C201D] mt-1 leading-snug truncate font-serif text-sm">${p.title}</div>
-          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">${p.regulatory_framework ? p.regulatory_framework.slice(0, 35) + '...' : ''}</div>
+          <div class="font-bold text-xs text-slate-900 mt-1 leading-snug truncate">${p.title}</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">${p.regulatory_framework ? p.regulatory_framework.slice(0, 35) + '...' : ''}</div>
         </div>
       `).join("");
     }
@@ -1421,8 +1439,8 @@ function renderPolicyPreview(policy) {
   if (statusEl) {
     statusEl.innerText = policy.status || "DRAFT_GENERATED";
     statusEl.className = policy.status === "ACTIVE_ENFORCED" 
-      ? "stamp-tag stamp-operational"
-      : "stamp-tag stamp-disrupted";
+      ? "flow-badge flow-badge-success" 
+      : "flow-badge flow-badge-danger";
   }
   if (catEl) catEl.innerText = (policy.category || "RESILIENCE").replace(/_/g, " ");
   if (titleEl) titleEl.innerText = policy.title || "Enterprise Resilience Policy";
@@ -1433,9 +1451,9 @@ function renderPolicyPreview(policy) {
   if (triggersEl) {
     const trigs = policy.quantitative_triggers || [];
     triggersEl.innerHTML = trigs.map(t => `
-      <div class="p-2 bg-[#FDF7EB] border border-[#78450E]/30 text-[#78450E] flex items-start space-x-2">
-        <span class="font-mono font-bold text-xs mt-0.5">[TRIGGER]</span>
-        <span class="text-xs text-[#1C201D] font-sans">${t}</span>
+      <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 flex items-start space-x-2">
+        <span class="font-mono font-bold text-xs mt-0.5 text-amber-700">[TRIGGER]</span>
+        <span class="text-xs text-slate-800 font-sans">${t}</span>
       </div>
     `).join("");
   }
@@ -1443,9 +1461,9 @@ function renderPolicyPreview(policy) {
   if (rulesEl) {
     const rules = policy.mandatory_enforcement_rules || [];
     rulesEl.innerHTML = rules.map(r => `
-      <div class="p-2 bg-[#E8F1EC] border border-[#144336]/30 text-[#144336] flex items-start space-x-2">
-        <span class="font-mono font-bold text-xs mt-0.5">[MANDATE]</span>
-        <span class="text-xs text-[#1C201D] font-sans">${r}</span>
+      <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 flex items-start space-x-2">
+        <span class="font-mono font-bold text-xs mt-0.5 text-emerald-700">[MANDATE]</span>
+        <span class="text-xs text-slate-800 font-sans">${r}</span>
       </div>
     `).join("");
   }
@@ -1460,12 +1478,12 @@ function renderPolicyPreview(policy) {
 
   if (activateBtn) {
     if (policy.status === "ACTIVE_ENFORCED") {
-      activateBtn.innerHTML = `<span>[ POLICY ACTIVE & ENFORCED ]</span>`;
-      activateBtn.className = "btn-craft-secondary text-xs opacity-75 cursor-not-allowed";
+      activateBtn.innerHTML = `<span>POLICY ACTIVE & ENFORCED</span>`;
+      activateBtn.className = "btn-flow-secondary text-xs opacity-75 cursor-not-allowed";
       activateBtn.disabled = true;
     } else {
-      activateBtn.innerHTML = `<span>[ ACTIVATE POLICY PROTOCOL ]</span>`;
-      activateBtn.className = "btn-craft-primary text-xs";
+      activateBtn.innerHTML = `<span>ACTIVATE POLICY PROTOCOL</span>`;
+      activateBtn.className = "btn-flow-primary text-xs shadow-lg shadow-blue-500/10";
       activateBtn.disabled = false;
     }
   }
@@ -1529,34 +1547,34 @@ function renderExchangeCandidateCards() {
 
   container.innerHTML = currentExchangeCandidates.map(c => {
     const isSelected = c.supplier_id === selectedExchangeSupplierId;
-    const borderClass = isSelected ? "border-[#144336] bg-[#E8F1EC] ring-1 ring-[#144336]" : "border-[#D8D5CD] bg-white hover:border-[#144336]";
+    const borderClass = isSelected ? "border-[#1D68FE] bg-blue-50/40 ring-2 ring-blue-500/20" : "border-slate-200 bg-white hover:border-[#1D68FE]";
     const countryCode = c.country === "Japan" ? "JP" : c.country === "Germany" ? "DE" : c.country === "USA" ? "US" : c.country === "Mexico" ? "MX" : "KR";
 
     return `
-      <div onclick="selectExchangeCandidate('${c.supplier_id}')" class="p-3 border ${borderClass} transition-all cursor-pointer flex flex-col justify-between space-y-2">
+      <div onclick="selectExchangeCandidate('${c.supplier_id}')" class="p-3.5 border rounded-2xl ${borderClass} transition-all cursor-pointer flex flex-col justify-between space-y-2 shadow-sm hover:shadow-md">
         <div>
           <div class="flex items-center justify-between">
-            <span class="font-mono text-xs font-bold text-[#1C201D]">[${countryCode}] ${c.country.toUpperCase()}</span>
-            <span class="stamp-tag ${isSelected ? 'stamp-operational' : ''}">
+            <span class="font-mono text-xs font-bold text-slate-900">[${countryCode}] ${c.country.toUpperCase()}</span>
+            <span class="flow-badge ${isSelected ? 'flow-badge-info' : 'bg-slate-100 text-slate-700'}">
               ${c.supplier_id}
             </span>
           </div>
-          <div class="font-serif font-bold text-sm text-[#1C201D] mt-1.5 leading-snug line-clamp-2">${c.name}</div>
-          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">${c.city}</div>
+          <div class="font-bold text-sm text-slate-900 mt-1.5 leading-snug line-clamp-2">${c.name}</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">${c.city}</div>
         </div>
 
-        <div class="pt-2 border-t border-[#D8D5CD] space-y-1 text-[10px] font-mono">
+        <div class="pt-2 border-t border-slate-200 space-y-1 text-[10px] font-mono">
           <div class="flex items-center justify-between">
-            <span class="text-[#5A645C]">Transit Lead:</span>
-            <span class="font-bold text-[#1C201D]">${c.standard_lead_time_days} days</span>
+            <span class="text-slate-500">Transit Lead:</span>
+            <span class="font-bold text-slate-900">${c.standard_lead_time_days} days</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[#5A645C]">Buffer Cap:</span>
-            <span class="font-bold text-[#144336]">${c.available_capacity_pct}% avail</span>
+            <span class="text-slate-500">Buffer Cap:</span>
+            <span class="font-bold text-emerald-600">${c.available_capacity_pct}% avail</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[#5A645C]">Unit Cost:</span>
-            <span class="font-bold text-[#1C201D]">$${c.unit_cost_usd.toFixed(2)}</span>
+            <span class="text-slate-500">Unit Cost:</span>
+            <span class="font-bold text-slate-900">$${c.unit_cost_usd.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -1613,12 +1631,12 @@ function renderExchangeEvaluationDetails(evalData) {
   if (statusBadge) {
     statusBadge.innerText = feas.prevents_stockout ? "FEASIBLE (RECOMMENDED)" : "TIGHT TOLERANCE";
     statusBadge.className = feas.prevents_stockout 
-      ? "stamp-tag stamp-operational"
-      : "stamp-tag stamp-disrupted";
+      ? "flow-badge flow-badge-success" 
+      : "flow-badge flow-badge-danger";
   }
 
   if (scorePill) {
-    scorePill.className = "stamp-tag";
+    scorePill.className = "flow-badge flow-badge-info";
     scorePill.innerText = `Score: ${feas.feasibility_score_pct || 94} / 100`;
   }
 
@@ -1628,7 +1646,7 @@ function renderExchangeEvaluationDetails(evalData) {
   if (bufferMarginEl) {
     const margin = feas.stockout_safety_margin_days || 1.4;
     bufferMarginEl.innerText = margin >= 0 ? `+${margin} Days` : `${margin} Days`;
-    bufferMarginEl.className = margin >= 0 ? "text-lg font-bold text-[#144336] mt-0.5 font-mono" : "text-lg font-bold text-[#8F2718] mt-0.5 font-mono";
+    bufferMarginEl.className = margin >= 0 ? "text-lg font-bold text-emerald-600 mt-0.5 font-mono" : "text-lg font-bold text-rose-600 mt-0.5 font-mono";
   }
 
   if (costDeltaEl) {
@@ -1667,9 +1685,9 @@ function renderExchangeEvaluationDetails(evalData) {
   if (docsContainer) {
     const docs = legal.mandatory_permits || [];
     docsContainer.innerHTML = docs.map(d => `
-      <div class="p-2 bg-white border border-[#D8D5CD] text-xs text-[#1C201D] flex items-start space-x-2">
-        <span class="font-mono text-xs text-[#144336] font-bold mt-0.5">[PERMIT]</span>
-        <span class="font-mono text-[11px] leading-tight text-[#1C201D]">${d}</span>
+      <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 flex items-start space-x-2">
+        <span class="font-mono text-xs text-[#1D68FE] font-bold mt-0.5">[PERMIT]</span>
+        <span class="font-mono text-[11px] leading-tight text-slate-800">${d}</span>
       </div>
     `).join("");
   }
@@ -1685,11 +1703,11 @@ function renderExchangeEvaluationDetails(evalData) {
   if (roadmapContainer) {
     const steps = evalData.transition_roadmap || [];
     roadmapContainer.innerHTML = steps.map((s, idx) => `
-      <div class="p-2.5 bg-white border border-[#D8D5CD] text-xs flex items-start space-x-2.5">
-        <span class="font-mono font-bold text-xs text-[#144336] shrink-0 mt-0.5">
+      <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs flex items-start space-x-2.5">
+        <span class="font-mono font-bold text-xs text-[#1D68FE] shrink-0 mt-0.5">
           [0${idx + 1}]
         </span>
-        <span class="text-[#1C201D] text-[11px] leading-relaxed font-sans">${s}</span>
+        <span class="text-slate-800 text-[11px] leading-relaxed font-sans">${s}</span>
       </div>
     `).join("");
   }
@@ -1698,7 +1716,7 @@ function renderExchangeEvaluationDetails(evalData) {
   const execBtn = document.getElementById("btn-execute-exchange");
   if (execBtn) {
     execBtn.disabled = false;
-    execBtn.className = "btn-craft-primary w-full text-xs font-mono uppercase tracking-wider justify-center";
+    execBtn.className = "btn-flow-primary w-full text-xs font-mono uppercase tracking-wider justify-center shadow-lg shadow-blue-500/10";
     execBtn.innerHTML = `
       <span>[ AUTHORIZE & STAGE SAP BAPI PURCHASE ORDER ]</span>
     `;
@@ -1725,7 +1743,7 @@ async function commitSupplyExchange() {
     const receipt = await API.executeSupplyExchange(payload);
     
     if (execBtn) {
-      execBtn.className = "btn-craft-secondary w-full text-xs font-mono uppercase tracking-wider justify-center";
+      execBtn.className = "btn-flow-secondary w-full text-xs font-mono uppercase tracking-wider justify-center";
       execBtn.innerHTML = `<span>[ STAGED VIA SAP BAPI: ${receipt.sap_po_number || 'PO-SAP-748921'} ]</span>`;
     }
 
