@@ -17,6 +17,10 @@ let activeDataTableName = "suppliers";
 let currentTableRows = [];
 let activeStreamFilter = "ALL";
 
+// State for SAP Integration & Authentication Gate
+let isSAPConnected = false;
+let pendingFeatureTarget = null;
+
 document.addEventListener("DOMContentLoaded", () => {
   initApp();
 });
@@ -38,31 +42,6 @@ function setupEventListeners() {
     });
   }
 
-  // Run Auto-pilot button
-  const runBtn = document.getElementById("btn-run-pipeline");
-  if (runBtn) {
-    runBtn.addEventListener("click", () => {
-      toggleAutoRun();
-    });
-  }
-
-  // Next Step button
-  const stepBtn = document.getElementById("btn-step-pipeline");
-  if (stepBtn) {
-    stepBtn.addEventListener("click", async () => {
-      await stepPipeline();
-    });
-  }
-
-  // Reset button
-  const resetBtn = document.getElementById("btn-reset-pipeline");
-  if (resetBtn) {
-    resetBtn.addEventListener("click", async () => {
-      const scenario = document.getElementById("scenario-select")?.value || "CYCLONE_CHENNAI";
-      await resetWorkflow(scenario);
-    });
-  }
-
   // Data table search filter
   const searchInput = document.getElementById("data-table-search");
   if (searchInput) {
@@ -73,41 +52,221 @@ function setupEventListeners() {
 }
 
 // ==========================================
+// FLOWGEN HOMEPAGE, FAKE LOGIN & SAP POPUP
+// ==========================================
+
+function showHomepage() {
+  document.getElementById("view-homepage")?.classList.remove("hidden");
+  document.getElementById("view-dashboard")?.classList.add("hidden");
+  
+  const homeLink = document.getElementById("nav-link-home");
+  if (homeLink) homeLink.className = "text-[#1D68FE] font-bold hover:text-blue-700 transition";
+  
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showDashboard() {
+  if (!isSAPConnected) {
+    openFakeLoginModal("Operational Console");
+    return;
+  }
+  document.getElementById("view-homepage")?.classList.add("hidden");
+  document.getElementById("view-dashboard")?.classList.remove("hidden");
+  
+  const homeLink = document.getElementById("nav-link-home");
+  if (homeLink) homeLink.className = "text-slate-600 hover:text-slate-900 transition font-medium";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => {
+    if (leafletMap) leafletMap.invalidateSize();
+  }, 200);
+}
+
+function requireLogin(featureName) {
+  if (!isSAPConnected) {
+    openFakeLoginModal(featureName);
+  } else {
+    showDashboard();
+    showSMSToast(`Authenticated: Accessing ${featureName} under SAP Client 100.`);
+  }
+}
+
+function handleRunSentryClick() {
+  if (!isSAPConnected) {
+    openFakeLoginModal("Run Sentry Cycle");
+    return;
+  }
+  showDashboard();
+  toggleAutoRun();
+}
+
+function handleStepStageClick() {
+  if (!isSAPConnected) {
+    openFakeLoginModal("Step Stage");
+    return;
+  }
+  showDashboard();
+  stepPipeline();
+}
+
+function handleResetClick() {
+  const scenario = document.getElementById("scenario-select")?.value || "CYCLONE_CHENNAI";
+  resetWorkflow(scenario);
+}
+
+function handleHeroArrowClick() {
+  if (!isSAPConnected) {
+    openFakeLoginModal("Detroit Telemetry");
+  } else {
+    showDashboard();
+  }
+}
+
+function openFakeLoginModal(origin) {
+  pendingFeatureTarget = origin || "Enterprise Portal";
+  const modal = document.getElementById("modal-fake-login");
+  if (modal) {
+    modal.classList.add("active");
+  }
+}
+
+function closeFakeLoginModal() {
+  const modal = document.getElementById("modal-fake-login");
+  if (modal) {
+    modal.classList.remove("active");
+  }
+}
+
+function submitFakeLogin() {
+  closeFakeLoginModal();
+  setTimeout(() => {
+    openSAPRequiredModal();
+  }, 250);
+}
+
+function openSAPRequiredModal() {
+  const modal = document.getElementById("modal-sap-required");
+  if (modal) {
+    modal.classList.add("active");
+  }
+}
+
+function closeSAPRequiredModal() {
+  const modal = document.getElementById("modal-sap-required");
+  if (modal) {
+    modal.classList.remove("active");
+  }
+}
+
+function connectSAPIntegration() {
+  const btn = document.getElementById("btn-connect-sap-action");
+  const statusEl = document.getElementById("sap-modal-status-text");
+
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = `<span>⏳ Verifying NetWeaver RFC Gateway (Port 3300)...</span>`;
+  }
+  if (statusEl) {
+    statusEl.innerHTML = `<span class="text-[#1D68FE] font-bold">AUTHENTICATING RFC CREDENTIALS...</span>`;
+  }
+
+  setTimeout(() => {
+    if (btn) {
+      btn.innerHTML = `<span>✓ SAP Connection Established (Client 100)</span>`;
+    }
+    if (statusEl) {
+      statusEl.innerHTML = `<span class="text-emerald-600 font-bold">CONNECTED · BAPI_PO_CREATE1 READY</span>`;
+    }
+
+    setTimeout(() => {
+      isSAPConnected = true;
+      closeSAPRequiredModal();
+      updateSAPConnectionStatusUI(true);
+      showDashboard();
+      showSMSToast("SAP S/4HANA Integration Established. BAPI & MD04 Telemetry Online.");
+    }, 800);
+  }, 1200);
+}
+
+function proceedWithDemoSAP() {
+  isSAPConnected = true;
+  closeSAPRequiredModal();
+  updateSAPConnectionStatusUI(true);
+  showDashboard();
+  showSMSToast("Proceeding in Demo Mode with Simulated SAP S/4HANA & IBP Environment.");
+}
+
+function updateSAPConnectionStatusUI(connected) {
+  const ribbonEl = document.getElementById("ribbon-sap-status");
+  if (ribbonEl) {
+    if (connected) {
+      ribbonEl.className = "text-emerald-400 font-bold";
+      ribbonEl.innerText = "SAP S/4HANA: CONNECTED (CLIENT 100)";
+    } else {
+      ribbonEl.className = "text-amber-400 font-bold";
+      ribbonEl.innerText = "SAP S/4HANA: INTEGRATION REQUIRED";
+    }
+  }
+
+  const workspaceBtn = document.getElementById("nav-btn-workspace");
+  const signinBtn = document.getElementById("nav-btn-signin");
+  const loginBtn = document.getElementById("nav-btn-login");
+
+  if (connected) {
+    if (workspaceBtn) workspaceBtn.classList.remove("hidden");
+    if (signinBtn) signinBtn.classList.add("hidden");
+    if (loginBtn) {
+      loginBtn.innerText = "Connected ✓";
+      loginBtn.className = "flow-badge flow-badge-success text-xs px-3 py-1.5";
+      loginBtn.onclick = () => showDashboard();
+    }
+    const heroBanner = document.getElementById("hero-sap-required-banner");
+    if (heroBanner) {
+      heroBanner.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <span class="flow-badge flow-badge-success text-[10px] py-0 px-2 font-mono">SAP S/4HANA ACTIVE</span>
+          <span class="text-slate-600 text-[11px]">Connected to Detroit Plant 1010 SMT Line.</span>
+        </div>
+        <button onclick="showDashboard()" class="text-xs font-bold text-[#1D68FE] hover:underline flex items-center space-x-1">
+          <span>Open Console →</span>
+        </button>
+      `;
+    }
+  }
+}
+
+// ==========================================
 // NAVIGATION BETWEEN SIDEBAR PANELS
 // ==========================================
 
 function switchNavPanel(panelId) {
+  if (!isSAPConnected) {
+    openFakeLoginModal(panelId);
+    return;
+  }
+
   activeNavPanel = panelId;
+  showDashboard();
 
   // Hide all panels
-  document.getElementById("panel-resilience")?.classList.add("hidden");
-  document.getElementById("panel-data")?.classList.add("hidden");
-  document.getElementById("panel-history")?.classList.add("hidden");
-  document.getElementById("panel-policy")?.classList.add("hidden");
-  document.getElementById("panel-exchange")?.classList.add("hidden");
+  ["panel-resilience", "panel-data", "panel-history", "panel-policy", "panel-exchange"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("hidden");
+  });
 
   // Show target panel
   const target = document.getElementById(panelId);
   if (target) target.classList.remove("hidden");
 
-  // Update sidebar button active states
-  const navBtns = [
-    { id: "nav-btn-resilience", panel: "panel-resilience", title: "Incident Resilience Console" },
-    { id: "nav-btn-data", panel: "panel-data", title: "Supply Chain Operational Data" },
-    { id: "nav-btn-exchange", panel: "panel-exchange", title: "Supply Exchange & Cross-Border Legal Bridge" },
-    { id: "nav-btn-policy", panel: "panel-policy", title: "Enterprise Resilience Policy & SOP Generator" },
-    { id: "nav-btn-history", panel: "panel-history", title: "Incident Memory & Retrospective Audit Store" }
-  ];
-
-  navBtns.forEach(btn => {
-    const el = document.getElementById(btn.id);
-    if (!el) return;
-    if (btn.panel === panelId) {
-      el.className = "w-full flex items-center justify-between px-3 py-2.5 rounded-md text-left transition-all cursor-pointer bg-[#EBF3F0] text-[#176B57] font-semibold border border-emerald-200/80 shadow-2xs";
-      const titleEl = document.getElementById("page-title");
-      if (titleEl) titleEl.innerText = btn.title;
-    } else {
-      el.className = "w-full flex items-center justify-between px-3 py-2.5 rounded-md text-left transition-all cursor-pointer text-[#202722] hover:bg-slate-100 font-medium";
+  // Update tabs
+  ["resilience", "data", "history", "policy", "exchange"].forEach(name => {
+    const btn = document.getElementById(`nav-btn-${name}`);
+    if (btn) {
+      if (`panel-${name}` === panelId) {
+        btn.className = "flow-tab-btn active";
+      } else {
+        btn.className = "flow-tab-btn";
+      }
     }
   });
 

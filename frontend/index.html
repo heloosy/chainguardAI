@@ -67,7 +67,7 @@
         <span class="truncate">Autonomous Multi-Agent Supply Chain Defense · ISO 22301 & EAR § 734 Enforced</span>
       </div>
       <div class="hidden md:flex items-center space-x-4 text-[11px] text-slate-300 font-mono">
-        <span>SAP S/4HANA: CONNECTED</span>
+        <span id="ribbon-sap-status" class="text-amber-400 font-bold">SAP S/4HANA: INTEGRATION REQUIRED</span>
         <span>·</span>
         <span class="text-emerald-400 font-bold">0 ACTIVE DELAYS</span>
         <span>·</span>
@@ -84,7 +84,7 @@
       <div class="flex items-center justify-between h-20">
         
         <!-- Flowgen Style Logo & Brand -->
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchNavPanel('panel-resilience')">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="showHomepage()">
           <div class="w-10 h-10 rounded-xl bg-[#1D68FE] flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-500/30">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -99,34 +99,32 @@
           </div>
         </div>
 
-        <!-- Center Nav Links -->
-        <nav class="hidden lg:flex items-center space-x-1 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/80 text-xs font-semibold text-slate-600">
-          <button id="nav-btn-resilience" onclick="switchNavPanel('panel-resilience')" class="flow-tab-btn active">
-            Resilience Sentry
-          </button>
-          <button id="nav-btn-data" onclick="switchNavPanel('panel-data')" class="flow-tab-btn">
-            Supply Chain Data
-          </button>
-          <button id="nav-btn-history" onclick="switchNavPanel('panel-history')" class="flow-tab-btn">
-            Incident Memory
-          </button>
-          <button id="nav-btn-policy" onclick="switchNavPanel('panel-policy')" class="flow-tab-btn">
-            Trade Policies
-          </button>
-          <button id="nav-btn-exchange" onclick="switchNavPanel('panel-exchange')" class="flow-tab-btn">
-            Supply Exchange
-          </button>
+        <!-- Center Nav Links (matching Flowgen reference) -->
+        <nav class="hidden lg:flex items-center space-x-6 text-xs font-semibold text-slate-600">
+          <button id="nav-link-home" onclick="showHomepage()" class="text-[#1D68FE] font-bold hover:text-blue-700 transition">Homepage</button>
+          <button onclick="requireLogin('About Us')" class="text-slate-600 hover:text-slate-900 transition font-medium">About Us</button>
+          <button onclick="requireLogin('Our Services')" class="text-slate-600 hover:text-slate-900 transition font-medium">Our Services</button>
+          <button onclick="requireLogin('SAP Integration')" class="text-slate-600 hover:text-slate-900 transition font-medium">SAP Integration</button>
+          <button onclick="requireLogin('Contact Us')" class="text-slate-600 hover:text-slate-900 transition font-medium">Contact Us</button>
         </nav>
 
-        <!-- Right Header Actions -->
+        <!-- Right Header Actions (Sign in + Login like reference image) -->
         <div class="flex items-center space-x-3">
-          <a href="injector.html" target="_blank" class="btn-flow-secondary text-xs">
+          <a href="injector.html" target="_blank" class="hidden sm:inline-flex btn-flow-secondary text-xs">
             <span class="text-[#1D68FE] font-bold mr-1">⚡</span>
             <span>Injector Studio ↗</span>
           </a>
 
-          <button onclick="document.getElementById('btn-step-pipeline')?.click()" class="btn-flow-primary text-xs">
-            <span>Next Stage →</span>
+          <button id="nav-btn-signin" onclick="openFakeLoginModal('Navbar Sign In')" class="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:border-slate-300 hover:bg-slate-50 transition shadow-xs">
+            Sign In
+          </button>
+          <button id="nav-btn-login" onclick="openFakeLoginModal('Navbar Login')" class="btn-flow-primary text-xs px-5 py-2">
+            Login
+          </button>
+
+          <!-- Appears once SAP is connected -->
+          <button id="nav-btn-workspace" onclick="showDashboard()" class="hidden btn-flow-primary text-xs px-4 py-2">
+            <span>Operational Console →</span>
           </button>
         </div>
 
@@ -140,9 +138,9 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
     <!-- ======================================================== -->
-    <!-- PANEL 1: RESILIENCE SENTRY (HERO + 8-STAGE WORKFLOW)     -->
+    <!-- VIEW 1: FLOWGEN HOMEPAGE                                 -->
     <!-- ======================================================== -->
-    <div id="panel-resilience" class="space-y-8">
+    <div id="view-homepage" class="space-y-12">
       
       <!-- ====================================================== -->
       <!-- THE SIGNATURE FLOWGEN HERO SHOWCASE                    -->
@@ -174,7 +172,7 @@
             </p>
 
             <!-- Interactive Quick Controls Bar -->
-            <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
               <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
                 
                 <div class="flex-1">
@@ -192,15 +190,15 @@
                 </div>
 
                 <div class="flex items-center space-x-2 sm:self-end pt-1 sm:pt-0">
-                  <button id="btn-run-pipeline" class="btn-flow-primary text-xs shadow-md">
+                  <button id="btn-run-pipeline" onclick="handleRunSentryClick()" class="btn-flow-primary text-xs shadow-md">
                     <span>Run Sentry Cycle</span>
                   </button>
 
-                  <button id="btn-step-pipeline" class="btn-flow-secondary text-xs">
+                  <button id="btn-step-pipeline" onclick="handleStepStageClick()" class="btn-flow-secondary text-xs">
                     <span>Step Stage</span>
                   </button>
 
-                  <button id="btn-reset-pipeline" class="btn-flow-secondary px-2.5 py-2 text-slate-500 hover:text-slate-800" title="Reset Data & Pipeline">
+                  <button id="btn-reset-pipeline" onclick="handleResetClick()" class="btn-flow-secondary px-2.5 py-2 text-slate-500 hover:text-slate-800" title="Reset Data & Pipeline">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                   </button>
                 </div>
@@ -223,6 +221,17 @@
                 </div>
               </div>
 
+              <!-- Notice in Hero -->
+              <div id="hero-sap-required-banner" class="pt-2 border-t border-slate-200/80 flex items-center justify-between text-xs">
+                <div class="flex items-center space-x-2">
+                  <span class="sap-brand-chip text-[10px] py-0 px-2">SAP INTEGRATION</span>
+                  <span class="text-slate-600 text-[11px]">Active connection required to run live autonomous sentry.</span>
+                </div>
+                <button onclick="openFakeLoginModal('Hero Sentry Controls')" class="text-xs font-bold text-[#1D68FE] hover:underline flex items-center space-x-1">
+                  <span>Connect SAP →</span>
+                </button>
+              </div>
+
             </div>
 
           </div>
@@ -237,11 +246,11 @@
               </div>
 
               <!-- Floating Top-Right Corner Arrow Badge (Exact match to reference image) -->
-              <a href="#operational-section" class="flow-corner-arrow" title="Inspect Live Telemetry & Actions">
+              <button onclick="handleHeroArrowClick()" class="flow-corner-arrow cursor-pointer" title="Inspect Live Telemetry & Actions">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/>
                 </svg>
-              </a>
+              </button>
 
               <!-- Center Highlight Label -->
               <div class="absolute top-6 left-6 z-10">
@@ -299,6 +308,144 @@
       </section>
 
       <!-- ====================================================== -->
+      <!-- FLOWGEN ENTERPRISE CAPABILITIES GRID                   -->
+      <!-- ====================================================== -->
+      <section class="space-y-4 pt-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#1D68FE]">Core Autonomous Pillars</span>
+            <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight mt-1">Engineered for Zero Manufacturing Downtime</h2>
+          </div>
+          <button onclick="openFakeLoginModal('Capabilities Section')" class="btn-flow-secondary text-xs">
+            <span>Connect SAP Integration (Required) →</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+          
+          <div class="flow-feature-card cursor-pointer" onclick="openFakeLoginModal('Dual-Stream Sentry')">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-[#1D68FE] font-bold text-lg mb-4">
+              📡
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Dual-Stream Early Sentry</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Ingests grassroots signals from dockworkers on X (Twitter), Google News, and marine AIS sensors 4+ days before SAP carrier exceptions trigger.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] font-mono font-bold text-[#1D68FE]">
+              <span>Requires SAP Link →</span>
+            </div>
+          </div>
+
+          <div class="flow-feature-card cursor-pointer" onclick="openFakeLoginModal('Trade Law Compliance')">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg mb-4">
+              ⚖️
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Statutory Compliance Engine</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Rigorously audits Jones Act cabotage, EAR dual-use export controls, and IATA UN 3480 lithium restrictions before proposing reroutes.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] font-mono font-bold text-emerald-600">
+              <span>Requires SAP Link →</span>
+            </div>
+          </div>
+
+          <div class="flow-feature-card cursor-pointer" onclick="openFakeLoginModal('SAP S/4HANA Bridge')">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg mb-4">
+              🔗
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Bi-Directional SAP Bridge</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Direct integration with SAP S/4HANA MD04 stock requirements, Exception Codes 10/50, and automated BAPI_PO_CREATE1 staging.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] font-mono font-bold text-purple-600">
+              <span>Requires SAP Link →</span>
+            </div>
+          </div>
+
+          <div class="flow-feature-card cursor-pointer" onclick="openFakeLoginModal('Continuous Machine Learning')">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-lg mb-4">
+              🧠
+            </div>
+            <h3 class="text-sm font-bold text-slate-900 mb-1">Closed-Loop Recalibration</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Logs delivery ground-truth into SQLite forecast stores and retrains probability classifiers, beating naive ERP baselines by 59.8%.
+            </p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] font-mono font-bold text-amber-600">
+              <span>Requires SAP Link →</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- ENTERPRISE DEPLOYMENT CTA BANNER                       -->
+      <!-- ====================================================== -->
+      <section class="flow-card p-8 lg:p-10 bg-slate-900 text-white rounded-3xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-[#1D68FE]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              <span>Production Sentry Authorization</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Ready to integrate your enterprise SAP environment?</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Connect ChainGuard AI directly to your SAP S/4HANA (Client 100) or SAP IBP tenant to unlock autonomous cross-tier sentry defense.
+            </p>
+          </div>
+          <button onclick="openFakeLoginModal('Enterprise Banner')" class="btn-flow-primary text-xs px-6 py-3.5 shrink-0 shadow-xl shadow-blue-500/30">
+            <span>Connect SAP Integration (Required) →</span>
+          </button>
+        </div>
+      </section>
+
+    </div> <!-- END VIEW-HOMEPAGE -->
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: OPERATIONAL DASHBOARD (THE REST OF THE APP)      -->
+    <!-- ======================================================== -->
+    <div id="view-dashboard" class="space-y-8 hidden">
+      
+      <!-- Workspace Sub-navigation Ribbon -->
+      <div class="p-3 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center space-x-2">
+          <span class="flow-badge flow-badge-success font-mono font-bold">
+            SAP S/4HANA CONNECTED · CLIENT 100
+          </span>
+          <span class="text-xs text-slate-500 font-mono hidden md:inline">NetWeaver RFC: OK · BAPI_PO_CREATE1 Ready</span>
+        </div>
+
+        <nav class="flex items-center space-x-1 bg-slate-100/80 p-1 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 overflow-x-auto max-w-full">
+          <button id="nav-btn-resilience" onclick="switchNavPanel('panel-resilience')" class="flow-tab-btn active">
+            Resilience Sentry
+          </button>
+          <button id="nav-btn-data" onclick="switchNavPanel('panel-data')" class="flow-tab-btn">
+            Supply Chain Data
+          </button>
+          <button id="nav-btn-history" onclick="switchNavPanel('panel-history')" class="flow-tab-btn">
+            Incident Memory
+          </button>
+          <button id="nav-btn-policy" onclick="switchNavPanel('panel-policy')" class="flow-tab-btn">
+            Trade Policies
+          </button>
+          <button id="nav-btn-exchange" onclick="switchNavPanel('panel-exchange')" class="flow-tab-btn">
+            Supply Exchange
+          </button>
+        </nav>
+
+        <div class="flex items-center space-x-2">
+          <a href="injector.html" target="_blank" class="btn-flow-secondary text-xs">
+            <span class="text-[#1D68FE] font-bold mr-1">⚡</span>
+            <span>Injector Studio ↗</span>
+          </a>
+          <button onclick="showHomepage()" class="btn-flow-secondary text-xs text-slate-600 hover:text-slate-900">
+            <span>← Return to Homepage</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ====================================================== -->
       <!-- 8-STAGE AUTONOMOUS PIPELINE PROGRESSION RAIL           -->
       <!-- ====================================================== -->
       <section class="flow-card p-5 space-y-3">
@@ -348,6 +495,29 @@
 
           <div class="flow-stage-step" data-stage="5">
             <div class="text-[10px] font-mono font-bold text-slate-400">06</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Predict & Trade</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">ML & Statutes</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="6">
+            <div class="text-[10px] font-mono font-bold text-slate-400">07</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Action & Gate</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Human Approval</div>
+          </div>
+
+          <div class="flow-stage-step" data-stage="7">
+            <div class="text-[10px] font-mono font-bold text-slate-400">08</div>
+            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Execution & Learn</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">SAP & Retrain</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PANEL 1: RESILIENCE SENTRY OPERATIONAL MATRICES          -->
+      <!-- ======================================================== -->
+      <div id="panel-resilience" class="space-y-8">
             <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Risk Forecast</div>
             <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calibrated ML VaR</div>
           </div>
@@ -998,6 +1168,8 @@
       </div>
     </div>
 
+    </div> <!-- END VIEW-DASHBOARD -->
+
   </main>
 
   <!-- ======================================================== -->
@@ -1063,6 +1235,145 @@
         </button>
         <button onclick="closeEmergencyPopup()" class="btn-flow-secondary text-xs py-2.5">
           <span>Dismiss</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- FAKE LOGIN MODAL (ENTERPRISE AUTHENTICATION)             -->
+  <!-- ======================================================== -->
+  <div id="modal-fake-login" class="flow-modal-overlay">
+    <div class="flow-modal-box">
+      
+      <!-- Close Button -->
+      <button onclick="closeFakeLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Brand Header -->
+      <div class="flex items-center space-x-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-[#1D68FE] flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-500/30">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-slate-900 leading-tight">ChainGuard AI Enterprise</h3>
+          <p class="text-[11px] text-slate-500 font-medium">Autonomous Supply Chain Resilience</p>
+        </div>
+      </div>
+
+      <!-- Title & Context -->
+      <div class="mb-5">
+        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Enterprise Sign In</h2>
+        <p class="text-xs text-slate-500 mt-1">Authenticate with your corporate credentials to access the autonomous sentry workspace.</p>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="event.preventDefault(); submitFakeLogin();" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Corporate Work Email / Single Sign-On ID</label>
+          <input type="email" id="login-email" value="operations.commander@enterprise-sap.corp" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-[#1D68FE] focus:bg-white transition font-mono" />
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-semibold text-slate-700">Enterprise Password</label>
+            <span class="text-[11px] text-[#1D68FE] hover:underline cursor-pointer">Managed by Okta SSO</span>
+          </div>
+          <input type="password" id="login-password" value="SuperSecretPassword123!" required class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-[#1D68FE] focus:bg-white transition font-mono" />
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <label class="flex items-center space-x-2 cursor-pointer text-slate-600">
+            <input type="checkbox" checked class="rounded border-slate-300 text-[#1D68FE] focus:ring-[#1D68FE]" />
+            <span>Remember workstation</span>
+          </label>
+          <span class="text-slate-400 font-mono text-[11px]">Tenant: PRD-1010</span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="space-y-2.5 pt-2">
+          <button type="submit" class="btn-flow-primary w-full py-3 justify-center text-xs shadow-lg shadow-blue-500/20 font-bold">
+            <span>Sign In to Platform</span>
+          </button>
+
+          <button type="button" onclick="submitFakeLogin()" class="w-full py-2.5 px-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-bold text-slate-700 flex items-center justify-center space-x-2 transition">
+            <span class="sap-brand-chip py-0 px-1.5 text-[10px]">SAP</span>
+            <span>Sign in with SAP S/4HANA SSO</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- POPUP: CONNECT TO SAP INTEGRATION (REQUIRED)             -->
+  <!-- ======================================================== -->
+  <div id="modal-sap-required" class="flow-modal-overlay">
+    <div class="flow-modal-box max-w-lg">
+      
+      <!-- Close Button -->
+      <button onclick="closeSAPRequiredModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Warning & Badge -->
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 text-xl font-bold shadow-xs">
+          ⚠️
+        </div>
+        <span class="sap-brand-chip">
+          INTEGRATION REQUIRED
+        </span>
+      </div>
+
+      <!-- Popup Title matching prompt -->
+      <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">
+        Connect to SAP Integration Required
+      </h2>
+      
+      <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+        To access the ChainGuard AI Autonomous Resilience Engine, live manufacturing sentry telemetry, and automated BAPI purchase order staging, you must connect an active SAP integration.
+      </p>
+
+      <!-- System Diagnostic Panel -->
+      <div class="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 text-xs font-mono">
+        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+          <span>TARGET ENTERPRISE ERP:</span>
+          <span class="text-slate-900 font-bold">SAP S/4HANA Cloud (Client 100)</span>
+        </div>
+        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+          <span>INTEGRATION PROTOCOL:</span>
+          <span class="text-slate-900 font-bold">NetWeaver RFC / OData v4</span>
+        </div>
+        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+          <span>REQUIRED BAPI SCOPE:</span>
+          <span class="text-slate-900 font-bold">BAPI_PO_CREATE1 · MD04</span>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-slate-200 text-xs">
+          <span class="text-slate-500">CONNECTION STATUS:</span>
+          <span id="sap-modal-status-text" class="text-rose-600 font-bold flex items-center space-x-1.5">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping inline-block"></span>
+            <span>DISCONNECTED · CONFIGURATION REQUIRED</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-6 space-y-2.5">
+        <button id="btn-connect-sap-action" onclick="connectSAPIntegration()" class="btn-flow-primary w-full py-3.5 justify-center text-xs font-bold shadow-lg shadow-blue-500/25">
+          <span>Connect SAP S/4HANA Integration</span>
+        </button>
+
+        <button onclick="proceedWithDemoSAP()" class="btn-flow-secondary w-full py-2.5 justify-center text-xs font-semibold text-slate-700">
+          <span>Proceed with Simulated Demo SAP Tenant</span>
+        </button>
+
+        <button onclick="closeSAPRequiredModal()" class="w-full text-center text-xs text-slate-400 hover:text-slate-600 pt-1 font-medium transition">
+          Cancel and Return to Homepage
         </button>
       </div>
 
