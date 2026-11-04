@@ -17,8 +17,9 @@ let activeDataTableName = "suppliers";
 let currentTableRows = [];
 let activeStreamFilter = "ALL";
 
-// State for SAP Integration & Authentication Gate
-let isSAPConnected = false;
+// Context detection for Homepage Window vs Dashboard Window
+const isDashboardPage = window.location.pathname.includes("dashboard.html");
+let isSAPConnected = isDashboardPage || (typeof sessionStorage !== "undefined" && sessionStorage.getItem("chainguard_sap_connected") === "true");
 let pendingFeatureTarget = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,11 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function initApp() {
-  console.log("Initializing ChainGuard AI Enterprise Console...");
+  console.log("Initializing ChainGuard AI Console. Context:", isDashboardPage ? "Dashboard Window" : "Homepage Window");
   setupEventListeners();
-  await refreshWorkflowState();
-  initOperationalMap();
-  loadIncidentHistory();
+  if (isDashboardPage) {
+    await refreshWorkflowState();
+    initOperationalMap();
+    loadIncidentHistory();
+  } else {
+    await refreshWorkflowState();
+    if (isSAPConnected) {
+      updateSAPConnectionStatusUI(true);
+    }
+  }
 }
 
 function setupEventListeners() {
@@ -39,6 +47,39 @@ function setupEventListeners() {
   if (scenarioSelect) {
     scenarioSelect.addEventListener("change", async (e) => {
       await resetWorkflow(e.target.value);
+    });
+  }
+
+  // Run Sentry / Autopilot button
+  const runBtn = document.getElementById("btn-run-pipeline");
+  if (runBtn) {
+    runBtn.addEventListener("click", () => {
+      if (isDashboardPage) {
+        toggleAutoRun();
+      } else {
+        handleRunSentryClick();
+      }
+    });
+  }
+
+  // Next Step / Step Stage button
+  const stepBtn = document.getElementById("btn-step-pipeline");
+  if (stepBtn) {
+    stepBtn.addEventListener("click", async () => {
+      if (isDashboardPage) {
+        await stepPipeline();
+      } else {
+        handleStepStageClick();
+      }
+    });
+  }
+
+  // Reset button
+  const resetBtn = document.getElementById("btn-reset-pipeline");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", async () => {
+      const scenario = document.getElementById("scenario-select")?.value || "CYCLONE_CHENNAI";
+      await resetWorkflow(scenario);
     });
   }
 
@@ -56,37 +97,43 @@ function setupEventListeners() {
 // ==========================================
 
 function showHomepage() {
+  if (isDashboardPage) {
+    window.location.href = "index.html";
+    return;
+  }
   document.getElementById("view-homepage")?.classList.remove("hidden");
-  document.getElementById("view-dashboard")?.classList.add("hidden");
-  
-  const homeLink = document.getElementById("nav-link-home");
-  if (homeLink) homeLink.className = "text-[#1D68FE] font-bold hover:text-blue-700 transition";
-  
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function showDashboard() {
+  if (isDashboardPage) {
+    switchNavPanel("panel-resilience");
+    return;
+  }
   if (!isSAPConnected) {
     openFakeLoginModal("Operational Console");
     return;
   }
-  document.getElementById("view-homepage")?.classList.add("hidden");
-  document.getElementById("view-dashboard")?.classList.remove("hidden");
-  
-  const homeLink = document.getElementById("nav-link-home");
-  if (homeLink) homeLink.className = "text-slate-600 hover:text-slate-900 transition font-medium";
+  window.open("dashboard.html", "_blank");
+}
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  setTimeout(() => {
-    if (leafletMap) leafletMap.invalidateSize();
-  }, 200);
+function handleLaunchDashboardClick() {
+  if (isDashboardPage) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  if (!isSAPConnected) {
+    openFakeLoginModal("Dashboard Window Launch");
+    return;
+  }
+  window.open("dashboard.html", "_blank");
 }
 
 function requireLogin(featureName) {
   if (!isSAPConnected) {
     openFakeLoginModal(featureName);
   } else {
-    showDashboard();
+    window.open("dashboard.html", "_blank");
     showSMSToast(`Authenticated: Accessing ${featureName} under SAP Client 100.`);
   }
 }
@@ -96,8 +143,7 @@ function handleRunSentryClick() {
     openFakeLoginModal("Run Sentry Cycle");
     return;
   }
-  showDashboard();
-  toggleAutoRun();
+  window.open("dashboard.html", "_blank");
 }
 
 function handleStepStageClick() {
@@ -105,8 +151,7 @@ function handleStepStageClick() {
     openFakeLoginModal("Step Stage");
     return;
   }
-  showDashboard();
-  stepPipeline();
+  window.open("dashboard.html", "_blank");
 }
 
 function handleResetClick() {
@@ -118,7 +163,7 @@ function handleHeroArrowClick() {
   if (!isSAPConnected) {
     openFakeLoginModal("Detroit Telemetry");
   } else {
-    showDashboard();
+    window.open("dashboard.html", "_blank");
   }
 }
 
@@ -180,19 +225,25 @@ function connectSAPIntegration() {
 
     setTimeout(() => {
       isSAPConnected = true;
+      try {
+        sessionStorage.setItem("chainguard_sap_connected", "true");
+      } catch (e) {}
       closeSAPRequiredModal();
       updateSAPConnectionStatusUI(true);
-      showDashboard();
-      showSMSToast("SAP S/4HANA Integration Established. BAPI & MD04 Telemetry Online.");
+      window.open("dashboard.html", "_blank");
+      showSMSToast("SAP S/4HANA Integration Established. Data Dashboard opened in a separate window.");
     }, 800);
   }, 1200);
 }
 
 function proceedWithDemoSAP() {
   isSAPConnected = true;
+  try {
+    sessionStorage.setItem("chainguard_sap_connected", "true");
+  } catch (e) {}
   closeSAPRequiredModal();
   updateSAPConnectionStatusUI(true);
-  showDashboard();
+  window.open("dashboard.html", "_blank");
   showSMSToast("Proceeding in Demo Mode with Simulated SAP S/4HANA & IBP Environment.");
 }
 
@@ -213,13 +264,27 @@ function updateSAPConnectionStatusUI(connected) {
   const loginBtn = document.getElementById("nav-btn-login");
 
   if (connected) {
-    if (workspaceBtn) workspaceBtn.classList.remove("hidden");
+    if (workspaceBtn) {
+      workspaceBtn.classList.remove("hidden");
+      workspaceBtn.onclick = () => window.open("dashboard.html", "_blank");
+    }
     if (signinBtn) signinBtn.classList.add("hidden");
     if (loginBtn) {
       loginBtn.innerText = "Connected ✓";
-      loginBtn.className = "flow-badge flow-badge-success text-xs px-3 py-1.5";
-      loginBtn.onclick = () => showDashboard();
+      loginBtn.className = "flow-badge flow-badge-success text-xs px-3 py-1.5 cursor-pointer";
+      loginBtn.onclick = () => window.open("dashboard.html", "_blank");
     }
+
+    const launchText = document.getElementById("btn-homepage-launch-text");
+    if (launchText) {
+      launchText.innerText = "Open Dashboard Window ↗";
+    }
+    const badgeHomepage = document.getElementById("badge-homepage-sap");
+    if (badgeHomepage) {
+      badgeHomepage.className = "flow-badge flow-badge-success text-[10px] py-0 px-2 font-mono";
+      badgeHomepage.innerText = "SAP CONNECTED (CLIENT 100)";
+    }
+
     const heroBanner = document.getElementById("hero-sap-required-banner");
     if (heroBanner) {
       heroBanner.innerHTML = `
@@ -227,8 +292,8 @@ function updateSAPConnectionStatusUI(connected) {
           <span class="flow-badge flow-badge-success text-[10px] py-0 px-2 font-mono">SAP S/4HANA ACTIVE</span>
           <span class="text-slate-600 text-[11px]">Connected to Detroit Plant 1010 SMT Line.</span>
         </div>
-        <button onclick="showDashboard()" class="text-xs font-bold text-[#1D68FE] hover:underline flex items-center space-x-1">
-          <span>Open Console →</span>
+        <button onclick="window.open('dashboard.html', '_blank')" class="text-xs font-bold text-[#1D68FE] hover:underline flex items-center space-x-1">
+          <span>Open Dashboard Window ↗</span>
         </button>
       `;
     }
