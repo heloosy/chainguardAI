@@ -162,116 +162,138 @@
         </div>
       </div>
 
-      <!-- Sentry Status Strip -->
-      <div class="flex items-center justify-between pt-2 border-t border-slate-200 text-xs">
-        <div class="flex items-center space-x-2">
-          <span id="pipeline-status-pill" class="flow-badge flow-badge-success">
-            [ STATUS: IDLE ]
-          </span>
-          <span id="lifecycle-stage-name" class="text-slate-500 font-mono text-[11px]">
-            Baseline Nominal Monitoring Active
-          </span>
+      <!-- Sentry Status Strip & Progress Bar -->
+      <div class="space-y-2 pt-2 border-t border-slate-200">
+        <div class="flex items-center justify-between text-xs">
+          <div class="flex items-center space-x-2">
+            <span id="pipeline-status-pill" class="flow-badge flow-badge-success">
+              [ STATUS: IDLE ]
+            </span>
+            <span id="lifecycle-stage-name" class="text-slate-500 font-mono text-[11px]">
+              Baseline Nominal Monitoring Active
+            </span>
+          </div>
+          <div class="flex items-center space-x-1.5 text-[11px] font-mono text-slate-500">
+            <span>PROGRESS:</span>
+            <span id="lifecycle-progress-text" class="text-[#1D68FE] font-bold">STAGE 0 / 8</span>
+          </div>
         </div>
-        <div class="hidden sm:flex items-center space-x-1.5 text-[11px] font-mono text-slate-500">
-          <span>PROGRESS:</span>
-          <span id="lifecycle-progress-text" class="text-[#1D68FE] font-bold">STAGE 0 / 8</span>
+
+        <!-- Visual Progress Bar -->
+        <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+          <div id="lifecycle-progress-bar" class="bg-[#1D68FE] h-full transition-all duration-300" style="width: 10%;"></div>
         </div>
       </div>
     </div>
-      <!-- 8-STAGE AUTONOMOUS PIPELINE PROGRESSION RAIL           -->
-      <!-- ====================================================== -->
-      <section class="flow-card p-5 space-y-3">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
-            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
-              Autonomous Agent Lifecycle Stages
-            </h3>
-          </div>
-          <span id="incident-phase-badge" class="flow-badge flow-badge-blue">
-            PHASE: NOMINAL MONITORING
-          </span>
+
+    <!-- ====================================================== -->
+    <!-- 8-STAGE AUTONOMOUS PIPELINE PROGRESSION RAIL           -->
+    <!-- ====================================================== -->
+    <section class="flow-card p-5 space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
+            Autonomous Agent Lifecycle Stages
+          </h3>
+        </div>
+        <span id="incident-phase-badge" class="flow-badge flow-badge-blue">
+          PHASE: SIGNALS INGESTED
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 pt-1">
+        
+        <div class="flow-stage-step active-step cursor-pointer" data-stage="0" onclick="jumpToStage(0)">
+          <div class="text-[10px] font-mono font-bold text-[#1D68FE]">01</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Nominal Baseline</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calm Monitoring</div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 pt-1">
-          
-          <div class="flow-stage-step active-step" data-stage="0">
-            <div class="text-[10px] font-mono font-bold text-[#1D68FE]">01</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Nominal Baseline</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calm Monitoring</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="1">
-            <div class="text-[10px] font-mono font-bold text-slate-400">02</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Signal Collect</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Dual-Stream Ingest</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="2">
-            <div class="text-[10px] font-mono font-bold text-slate-400">03</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Early Warnings</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Pattern Detection</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="3">
-            <div class="text-[10px] font-mono font-bold text-slate-400">04</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Verification</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Cross-Source Audit</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="4">
-            <div class="text-[10px] font-mono font-bold text-slate-400">05</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">BOM Impact</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Graph Mapping</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="5">
-            <div class="text-[10px] font-mono font-bold text-slate-400">06</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Predict & Trade</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">ML & Statutes</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="6">
-            <div class="text-[10px] font-mono font-bold text-slate-400">07</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Action & Gate</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Human Approval</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="7">
-            <div class="text-[10px] font-mono font-bold text-slate-400">08</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Execution & Learn</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">SAP & Retrain</div>
-          </div>
-
+        <div class="flow-stage-step cursor-pointer" data-stage="1" onclick="jumpToStage(1)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">02</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Signal Collect</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Dual-Stream Ingest</div>
         </div>
-      </section>
 
-      <!-- ======================================================== -->
-      <!-- PANEL 1: RESILIENCE SENTRY OPERATIONAL MATRICES          -->
-      <!-- ======================================================== -->
-      <div id="panel-resilience" class="space-y-8">
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Risk Forecast</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Calibrated ML VaR</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="6">
-            <div class="text-[10px] font-mono font-bold text-slate-400">07</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Preventive Actions</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Gemini + Trade Law</div>
-          </div>
-
-          <div class="flow-stage-step" data-stage="7">
-            <div class="text-[10px] font-mono font-bold text-slate-400">08</div>
-            <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Decision Gate</div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">Human Supervisor</div>
-          </div>
-
+        <div class="flow-stage-step cursor-pointer" data-stage="2" onclick="jumpToStage(2)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">03</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Early Warnings</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Pattern Detection</div>
         </div>
-      </section>
 
-      <!-- ====================================================== -->
-      <!-- MAIN OPERATIONAL WORKBENCH GRID (MAP + PREDICTIVE + LOG)-->
-      <!-- ====================================================== -->
+        <div class="flow-stage-step cursor-pointer" data-stage="3" onclick="jumpToStage(3)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">04</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Verification</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Cross-Source Audit</div>
+        </div>
+
+        <div class="flow-stage-step cursor-pointer" data-stage="4" onclick="jumpToStage(4)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">05</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">BOM Impact</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Graph Mapping</div>
+        </div>
+
+        <div class="flow-stage-step cursor-pointer" data-stage="5" onclick="jumpToStage(5)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">06</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Predict & Trade</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">ML & Statutes</div>
+        </div>
+
+        <div class="flow-stage-step cursor-pointer" data-stage="6" onclick="jumpToStage(6)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">07</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Action & Gate</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">Human Approval</div>
+        </div>
+
+        <div class="flow-stage-step cursor-pointer" data-stage="7" onclick="jumpToStage(7)">
+          <div class="text-[10px] font-mono font-bold text-slate-400">08</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 truncate">Execution & Learn</div>
+          <div class="text-[10px] text-slate-500 font-mono mt-0.5">SAP & Retrain</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- PANEL 1: RESILIENCE SENTRY OPERATIONAL MATRICES          -->
+    <!-- ======================================================== -->
+    <div id="panel-resilience" class="space-y-6">
+      
+      <!-- Incident Disruption Banner -->
+      <div class="flow-card p-5 bg-white border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center space-x-2">
+              <span id="lifecycle-mode-pill" class="flow-badge flow-badge-info">● CALM BASELINE</span>
+              <span id="threat-class-badge" class="flow-badge flow-badge-blue">DUAL-STREAM SENTRY</span>
+            </div>
+            <h2 id="incident-title" class="text-lg font-bold text-slate-900 mt-1">
+              All 8 Global Supply Corridors Operating Within Standard Tolerances
+            </h2>
+            <p id="incident-summary" class="text-xs text-slate-600 leading-relaxed max-w-4xl font-sans">
+              Autonomous sentry monitoring port dwell times, satellite weather, and Tier-1/Tier-2 shipments. Detroit plant inventory buffer healthy at 18.5 days. Zero active disruption warnings.
+            </p>
+          </div>
+          <div class="flex items-center space-x-2 self-start md:self-auto shrink-0">
+            <a href="injector.html" target="_blank" class="btn-flow-primary text-xs whitespace-nowrap">
+              <span>⚡ Inject Disruption</span>
+            </a>
+            <button onclick="switchNavPanel('panel-data')" class="btn-flow-secondary text-xs whitespace-nowrap">
+              <span>View Suppliers (8) →</span>
+            </button>
+          </div>
+        </div>
+        <!-- Internal 6-Step detection breakdown placeholder -->
+        <div id="internal-detection-breakdown" class="hidden mt-4"></div>
+        <!-- External calm banner -->
+        <div id="external-calm-banner" class="hidden mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 font-mono flex items-center space-x-2">
+          <span class="font-bold text-emerald-700">[NOMINAL]</span>
+          <span>External marine, weather, and trade feeds report calm transit lanes. No active port closures or storm advisories.</span>
+        </div>
+      </div>
+
+      <!-- MAIN OPERATIONAL WORKBENCH GRID (MAP + PREDICTIVE + LOG) -->
       <div id="operational-section" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <!-- Left Column: Operations, Map & Recommendations (8 cols) -->
@@ -281,7 +303,7 @@
           <div class="flow-card p-5 space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
               <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
+                <span id="map-status-dot" class="w-2.5 h-2.5 rounded-full bg-[#1D68FE]"></span>
                 <span id="map-header-title" class="text-xs font-bold text-slate-900 font-mono uppercase">
                   Global Maritime & Inter-Plant Shipping Radar
                 </span>
@@ -445,7 +467,7 @@
               <div>
                 <div class="flex items-center space-x-2">
                   <span class="text-xs font-bold text-slate-900 uppercase font-mono tracking-wider">Dual-Stream Correlation Engine</span>
-                  <span id="threat-class-badge" class="flow-badge flow-badge-blue">
+                  <span class="flow-badge flow-badge-blue">
                     DUAL-STREAM ACTIVE
                   </span>
                 </div>
@@ -471,6 +493,59 @@
             <!-- Dynamic Stream Cards Grid -->
             <div id="incoming-signals-stream" class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Active Global Suppliers Monitored Quick List -->
+          <div class="flow-card p-5 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                <span class="text-xs font-bold text-slate-900 font-mono uppercase">
+                  Active Global Suppliers Monitored (8 Fabs)
+                </span>
+              </div>
+              <button onclick="switchNavPanel('panel-data')" class="text-xs font-bold text-[#1D68FE] hover:underline">
+                <span>Open Full Master Data Table →</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="font-bold text-slate-900">[SUP-001]</span>
+                  <span class="flow-badge flow-badge-info">TAIWAN</span>
+                </div>
+                <div class="text-xs font-bold text-slate-900">Apex Semiconductor</div>
+                <div class="text-[11px] text-slate-500 font-mono">MCU · Lead: 21d</div>
+              </div>
+
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="font-bold text-slate-900">[SUP-002]</span>
+                  <span class="flow-badge flow-badge-primary">JAPAN</span>
+                </div>
+                <div class="text-xs font-bold text-slate-900">Kyoto Microelectronics</div>
+                <div class="text-[11px] text-slate-500 font-mono">Sensors · Lead: 7d</div>
+              </div>
+
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="font-bold text-slate-900">[SUP-003]</span>
+                  <span class="flow-badge flow-badge-primary">GERMANY</span>
+                </div>
+                <div class="text-xs font-bold text-slate-900">Infineon Dresden</div>
+                <div class="text-[11px] text-slate-500 font-mono">Power IC · Lead: 14d</div>
+              </div>
+
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="font-bold text-slate-900">[SUP-005]</span>
+                  <span class="flow-badge flow-badge-primary">USA</span>
+                </div>
+                <div class="text-xs font-bold text-slate-900">GlobalFoundries NY</div>
+                <div class="text-[11px] text-slate-500 font-mono">MCUs · Lead: 12d</div>
+              </div>
             </div>
           </div>
 
@@ -557,19 +632,19 @@
 
       <!-- Table Sub-Tabs -->
       <div class="flex border-b border-slate-200 space-x-2 font-mono text-xs overflow-x-auto pb-1">
-        <button id="tab-btn-suppliers" onclick="loadDataTable('suppliers')" class="flow-tab-btn active">
+        <button id="tab-btn-suppliers" onclick="loadDataTable('suppliers')" class="flow-tab-btn active cursor-pointer">
           Suppliers (8)
         </button>
-        <button id="tab-btn-components" onclick="loadDataTable('components')" class="flow-tab-btn">
+        <button id="tab-btn-components" onclick="loadDataTable('components')" class="flow-tab-btn cursor-pointer">
           Components & Inventory (6)
         </button>
-        <button id="tab-btn-shipments" onclick="loadDataTable('shipments')" class="flow-tab-btn">
+        <button id="tab-btn-shipments" onclick="loadDataTable('shipments')" class="flow-tab-btn cursor-pointer">
           Active Shipments (4)
         </button>
-        <button id="tab-btn-customer_orders" onclick="loadDataTable('customer_orders')" class="flow-tab-btn">
+        <button id="tab-btn-customer_orders" onclick="loadDataTable('customer_orders')" class="flow-tab-btn cursor-pointer">
           Customer Orders (3)
         </button>
-        <button id="tab-btn-bom" onclick="loadDataTable('bom')" class="flow-tab-btn">
+        <button id="tab-btn-bom" onclick="loadDataTable('bom')" class="flow-tab-btn cursor-pointer">
           Bill of Materials (11)
         </button>
       </div>
@@ -768,11 +843,27 @@
               </div>
             </div>
 
+            <!-- Compliance Guardrails -->
+            <div class="space-y-2">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">4. Statutory Compliance Guardrails</span>
+              <div id="preview-policy-guardrails" class="space-y-1 text-xs text-slate-700 font-mono bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
             <!-- Penalties & SLA -->
             <div class="space-y-1.5">
-              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">4. Contractual Liquidated Damages & SLA</span>
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">5. Contractual Liquidated Damages & SLA</span>
               <p id="preview-policy-penalties" class="text-xs text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200 font-mono">
                 Contractual liquidated damages equal to 1.5% of PO gross line item per day of unnotified vendor delay.
+              </p>
+            </div>
+
+            <!-- Paging / Notification target -->
+            <div class="space-y-1.5">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">6. Emergency Escalation Target</span>
+              <p id="preview-policy-paging" class="text-xs text-[#1D68FE] font-bold bg-blue-50 p-3 rounded-xl border border-blue-200 font-mono">
+                Operations Commander (+91 7736215631)
               </p>
             </div>
           </div>
@@ -792,9 +883,16 @@
             Evaluates exchanging disrupted primary supply to qualified alternative fabs in nearest countries (Japan, Germany, USA, Mexico, South Korea).
           </p>
         </div>
-        <button onclick="runSupplyExchangeEvaluation()" class="btn-flow-primary text-xs">
-          <span>Re-Evaluate Sourcing Options</span>
-        </button>
+
+        <div class="flex items-center space-x-3">
+          <div class="flex items-center space-x-1.5 text-xs font-mono">
+            <span class="text-slate-500">Units:</span>
+            <input id="exchange-qty-input" type="number" value="5000" step="500" class="w-24 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-bold focus:outline-none focus:border-[#1D68FE]">
+          </div>
+          <button onclick="runSupplyExchangeEvaluation()" class="btn-flow-primary text-xs">
+            <span>Re-Evaluate Sourcing</span>
+          </button>
+        </div>
       </div>
 
       <!-- Nearest Country Candidates -->
@@ -852,6 +950,16 @@
               </div>
             </div>
 
+            <!-- Verdict & Explanation -->
+            <div class="p-3.5 bg-blue-50/60 border border-blue-200 rounded-xl space-y-1">
+              <div id="feasibility-verdict" class="text-xs font-bold font-mono text-[#1D68FE]">
+                [SAFETY BUFFER MAINTAINED] +1.4d safety buffer before Detroit assembly line shutdown
+              </div>
+              <p id="feasibility-explanation" class="text-xs text-slate-700 leading-relaxed font-sans">
+                Kyoto Microelectronics (Japan) can fulfill 5,000 units in 3.8 days.
+              </p>
+            </div>
+
             <!-- Transition Roadmap -->
             <div class="pt-2 border-t border-slate-200 space-y-2">
               <h3 class="text-xs font-bold text-slate-900 font-mono uppercase">Transition Roadmap Steps</h3>
@@ -880,6 +988,18 @@
               </p>
             </div>
 
+            <!-- Tariff & Fast Track Clearance -->
+            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <div class="text-[10px] text-slate-500 uppercase">Tariff Rate</div>
+                <div id="exchange-tariff-rate" class="font-bold text-slate-900 text-sm mt-0.5">0.0% (ITA / MFN)</div>
+              </div>
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <div class="text-[10px] text-slate-500 uppercase">Clearance Speed</div>
+                <div id="exchange-clearance-speed" class="font-bold text-emerald-600 text-sm mt-0.5">24 Hours</div>
+              </div>
+            </div>
+
             <!-- Documents -->
             <div class="space-y-2">
               <div class="text-[10px] font-mono uppercase font-bold text-slate-500">Required Permits & Clearances</div>
@@ -899,9 +1019,6 @@
 
       </div>
     </div>
-
-    </div> <!-- END VIEW-DASHBOARD -->
-
 
   </main>
 
@@ -974,7 +1091,7 @@
     </div>
   </div>
 
-
+  <!-- Sticky SMS Toast -->
   <div id="sms-toast" class="hidden fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900 text-white rounded-2xl p-4 shadow-xl border border-slate-700 flex items-center space-x-3 animate-in slide-in-from-bottom-5">
     <div class="w-8 h-8 rounded-full bg-[#1D68FE] flex items-center justify-center text-white text-xs font-bold shrink-0">
       SMS

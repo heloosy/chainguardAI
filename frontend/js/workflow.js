@@ -30,9 +30,24 @@ async function initApp() {
   console.log("Initializing ChainGuard AI Console. Context:", isDashboardPage ? "Dashboard Window" : "Homepage Window");
   setupEventListeners();
   if (isDashboardPage) {
+    isSAPConnected = true;
+    try {
+      sessionStorage.setItem("chainguard_sap_connected", "true");
+    } catch (e) {}
     await refreshWorkflowState();
     initOperationalMap();
     loadIncidentHistory();
+    // Immediately load the supplier data so the supplier list is always ready
+    loadDataTable("suppliers");
+    loadSupplyExchangePanel();
+
+    // Check if URL hash specifies a panel (e.g. #panel-data)
+    if (window.location.hash) {
+      const hashPanel = window.location.hash.replace("#", "");
+      if (document.getElementById(hashPanel)) {
+        switchNavPanel(hashPanel);
+      }
+    }
   } else {
     await refreshWorkflowState();
     if (isSAPConnected) {
@@ -108,6 +123,7 @@ function showHomepage() {
 function showDashboard() {
   if (isDashboardPage) {
     switchNavPanel("panel-resilience");
+    window.scrollTo({ top: 0, behavior: "smooth" });
     return;
   }
   if (!isSAPConnected) {
@@ -305,13 +321,17 @@ function updateSAPConnectionStatusUI(connected) {
 // ==========================================
 
 function switchNavPanel(panelId) {
-  if (!isSAPConnected) {
+  if (!isDashboardPage && !isSAPConnected) {
     openFakeLoginModal(panelId);
     return;
   }
 
   activeNavPanel = panelId;
-  showDashboard();
+
+  if (!isDashboardPage) {
+    window.open(`dashboard.html#${panelId}`, "_blank");
+    return;
+  }
 
   // Hide all panels
   ["panel-resilience", "panel-data", "panel-history", "panel-policy", "panel-exchange"].forEach(id => {
@@ -337,7 +357,7 @@ function switchNavPanel(panelId) {
 
   // If opening specific panel, trigger appropriate data loaders
   if (panelId === "panel-data") {
-    loadDataTable(activeDataTableName);
+    loadDataTable(activeDataTableName || "suppliers");
   } else if (panelId === "panel-resilience") {
     setTimeout(initOperationalMap, 100);
   } else if (panelId === "panel-exchange") {
@@ -459,6 +479,122 @@ async function submitDecision(decisionKey) {
 }
 
 // ==========================================
+// 8-STAGE LIFECYCLE INTERACTIVE JUMP & FOCUS
+// ==========================================
+
+async function jumpToStage(targetStage) {
+  if (!workflowState) return;
+
+  if (activeNavPanel !== "panel-resilience") {
+    switchNavPanel("panel-resilience");
+  }
+
+  const currentIdx = workflowState.current_stage_index || 0;
+
+  if (targetStage === 0) {
+    const scen = document.getElementById("scenario-select")?.value || "CYCLONE_CHENNAI";
+    await resetWorkflow(scen);
+    updateLifecycleRail(0);
+    focusStageComponent(0);
+    return;
+  }
+
+  // If targetStage > currentIdx, step pipeline until reaching it
+  if (targetStage > currentIdx) {
+    const stepBtn = document.getElementById("btn-step-pipeline");
+    if (stepBtn) stepBtn.disabled = true;
+    try {
+      while (workflowState.current_stage_index < targetStage && workflowState.status !== "COMPLETED") {
+        workflowState = await API.stepWorkflowPipeline();
+        renderAll();
+        if (workflowState.status === "AWAITING_HUMAN_APPROVAL" && targetStage >= 6) {
+          break;
+        }
+      }
+    } catch (e) {
+      console.error("Error stepping to target stage:", e);
+    } finally {
+      if (stepBtn) stepBtn.disabled = false;
+    }
+  }
+
+  updateLifecycleRail(targetStage);
+  focusStageComponent(targetStage);
+}
+
+function updateLifecycleRail(activeIdx) {
+  document.querySelectorAll(".flow-stage-step").forEach(el => {
+    const stg = parseInt(el.getAttribute("data-stage"));
+    el.onclick = () => jumpToStage(stg);
+    el.style.cursor = "pointer";
+
+    if (stg === activeIdx) {
+      el.className = "flow-stage-step active-step cursor-pointer";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-[#1D68FE]";
+    } else if (stg < activeIdx) {
+      el.className = "flow-stage-step cursor-pointer";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-emerald-600";
+    } else {
+      el.className = "flow-stage-step cursor-pointer";
+      const num = el.querySelector(".font-mono");
+      if (num) num.className = "text-[10px] font-mono font-bold text-slate-400";
+    }
+  });
+
+  const badge = document.getElementById("incident-phase-badge");
+  if (badge) {
+    const phaseNames = [
+      "PHASE: NOMINAL MONITORING",
+      "PHASE: SIGNALS INGESTED",
+      "PHASE: EARLY WARNING DETECTED",
+      "PHASE: TRIANGULATED & CONFIRMED (94%)",
+      "PHASE: IMPACT EXPOSURE MAPPED",
+      "PHASE: DELAY & SHORTAGE PREDICTED",
+      "PHASE: RECOMMENDATIONS & ISSUES ANALYZED",
+      "PHASE: HUMAN APPROVAL REQUIRED",
+      "PHASE: RESOLVED & RECORDED TO MEMORY"
+    ];
+    badge.innerText = phaseNames[activeIdx] || `PHASE: STAGE ${activeIdx}`;
+    if (activeIdx === 0) badge.className = "flow-badge flow-badge-primary";
+    else if (activeIdx === 1) badge.className = "flow-badge flow-badge-blue";
+    else if (activeIdx === 2) badge.className = "flow-badge flow-badge-warning";
+    else if (activeIdx === 3) badge.className = "flow-badge flow-badge-primary";
+    else if (activeIdx === 4) badge.className = "flow-badge flow-badge-blue";
+    else if (activeIdx === 5) badge.className = "flow-badge flow-badge-danger";
+    else if (activeIdx === 6) badge.className = "flow-badge flow-badge-warning";
+    else if (activeIdx >= 7) badge.className = "flow-badge flow-badge-primary";
+  }
+
+  const progressBar = document.getElementById("lifecycle-progress-bar");
+  const progressText = document.getElementById("lifecycle-progress-text");
+  if (progressBar) {
+    const pct = Math.max(10, Math.min(100, Math.round(((activeIdx + 1) / 8) * 100)));
+    progressBar.style.width = `${pct}%`;
+  }
+  if (progressText) {
+    progressText.innerText = `STAGE ${activeIdx} / 8`;
+  }
+}
+
+function focusStageComponent(stage) {
+  if (stage === 0) {
+    document.getElementById("operational-map")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (stage === 1 || stage === 2 || stage === 3) {
+    document.getElementById("incoming-signals-stream")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (stage === 4) {
+    document.getElementById("operational-map")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (stage === 5) {
+    document.getElementById("metric-card-prob")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (stage === 6) {
+    document.getElementById("human-gate-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (stage >= 7) {
+    document.getElementById("human-gate-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+// ==========================================
 // RENDERING RESILIENCE CONSOLE
 // ==========================================
 
@@ -486,8 +622,6 @@ function renderStatusAndPhase() {
 
   const modePill = document.getElementById("lifecycle-mode-pill");
   const stageName = document.getElementById("lifecycle-stage-name");
-  const progressBar = document.getElementById("lifecycle-progress-bar");
-  const progressText = document.getElementById("lifecycle-progress-text");
 
   // Map header and dot
   const mapDot = document.getElementById("map-status-dot");
@@ -499,25 +633,18 @@ function renderStatusAndPhase() {
     if (summary) summary.innerText = "Autonomous sentry monitoring port dwell times, satellite weather, and Tier-1/Tier-2 shipments. Detroit plant inventory buffer healthy at 18.5 days. Zero active disruption warnings.";
     
     if (pill) {
-      pill.className = "px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200";
+      pill.className = "flow-badge flow-badge-success";
       pill.innerHTML = `● Nominal (All Systems Healthy)`;
     }
 
-    if (badge) {
-      badge.innerText = "PHASE: NOMINAL MONITORING";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-emerald-100 text-emerald-900 border border-emerald-300";
-    }
-
     if (modePill) {
-      modePill.className = "px-2 py-0.5 rounded font-mono font-semibold text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300";
+      modePill.className = "flow-badge flow-badge-success";
       modePill.innerText = "● NOMINAL MONITORING";
     }
 
     if (stageName) stageName.innerText = "Baseline Telemetry Streaming (Zero Early Warnings)";
-    if (progressBar) progressBar.style.width = "10%";
-    if (progressText) progressText.innerText = "Stage 0 / 8";
 
-    if (mapDot) mapDot.className = "w-2 h-2 rounded-full bg-emerald-500";
+    if (mapDot) mapDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
     if (mapHeaderTitle) mapHeaderTitle.innerText = "Geospatial Supply Corridor & Telemetry Track (Normal Transit)";
 
     // Snapshot cards under map
@@ -528,13 +655,14 @@ function renderStatusAndPhase() {
     const snapContract = document.getElementById("map-snapshot-contract");
     const snapContractSub = document.getElementById("map-snapshot-contract-sub");
 
-    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-emerald-900 mt-0.5"; }
+    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-[#1D68FE] mt-0.5 font-mono text-sm"; }
     if (snapCargoSub) snapCargoSub.innerText = "Aboard MV Pacific Trader (On Schedule)";
-    if (snapBuffer) { snapBuffer.innerText = "18.5 Days Healthy Buffer"; snapBuffer.className = "font-bold text-emerald-900 mt-0.5"; }
+    if (snapBuffer) { snapBuffer.innerText = "18.5 Days Healthy Buffer"; snapBuffer.className = "font-bold text-emerald-700 mt-0.5 font-mono text-sm"; }
     if (snapBufferSub) snapBufferSub.innerText = "Detroit Plant 1010 (4,625 on hand)";
-    if (snapContract) { snapContract.innerText = "$0.00 At Risk"; snapContract.className = "font-bold text-emerald-900 mt-0.5"; }
+    if (snapContract) { snapContract.innerText = "$0.00 At Risk"; snapContract.className = "font-bold text-emerald-700 mt-0.5 font-mono text-sm"; }
     if (snapContractSub) snapContractSub.innerText = "Titan OEM SLA On Schedule";
 
+    updateLifecycleRail(0);
     return;
   }
 
@@ -551,7 +679,7 @@ function renderStatusAndPhase() {
     }
   }
 
-  if (mapDot) mapDot.className = "w-2 h-2 rounded-full bg-red-600 animate-pulse";
+  if (mapDot) mapDot.className = "w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse";
   if (mapHeaderTitle) {
     mapHeaderTitle.innerText = isInternalDrift 
       ? "Internal Enterprise ERP Telemetry: Apex Semiconductor → Detroit Plant 1010" 
@@ -574,51 +702,7 @@ function renderStatusAndPhase() {
   }
 
   // Update Active Stage Cards in Progression Rail
-  document.querySelectorAll(".flow-stage-step").forEach(el => {
-    const stg = parseInt(el.getAttribute("data-stage"));
-    if (stg === currentIdx) {
-      el.className = "flow-stage-step active-step";
-      const num = el.querySelector(".font-mono");
-      if (num) num.className = "text-[10px] font-mono font-bold text-[#1D68FE]";
-    } else if (stg < currentIdx) {
-      el.className = "flow-stage-step";
-      const num = el.querySelector(".font-mono");
-      if (num) num.className = "text-[10px] font-mono font-bold text-emerald-600";
-    } else {
-      el.className = "flow-stage-step";
-      const num = el.querySelector(".font-mono");
-      if (num) num.className = "text-[10px] font-mono font-bold text-slate-400";
-    }
-  });
-
-  // Update Phase Badge
-  if (badge) {
-    if (currentIdx === 1) {
-      badge.innerText = "PHASE: SIGNALS INGESTED";
-      badge.className = "flow-badge flow-badge-blue";
-    } else if (currentIdx === 2) {
-      badge.innerText = "PHASE: EARLY WARNING DETECTED";
-      badge.className = "flow-badge flow-badge-warning";
-    } else if (currentIdx === 3) {
-      badge.innerText = "PHASE: TRIANGULATED & CONFIRMED (94%)";
-      badge.className = "flow-badge flow-badge-primary";
-    } else if (currentIdx === 4) {
-      badge.innerText = "PHASE: IMPACT EXPOSURE MAPPED";
-      badge.className = "flow-badge flow-badge-blue";
-    } else if (currentIdx === 5) {
-      badge.innerText = "PHASE: DELAY & SHORTAGE PREDICTED";
-      badge.className = "flow-badge flow-badge-danger";
-    } else if (currentIdx === 6) {
-      badge.innerText = "PHASE: RECOMMENDATIONS & ISSUES ANALYZED";
-      badge.className = "flow-badge flow-badge-primary";
-    } else if (currentIdx === 7) {
-      badge.innerText = "PHASE: HUMAN APPROVAL REQUIRED";
-      badge.className = "flow-badge flow-badge-warning";
-    } else if (currentIdx === 8) {
-      badge.innerText = "PHASE: RESOLVED & RECORDED TO MEMORY";
-      badge.className = "flow-badge flow-badge-primary";
-    }
-  }
+  updateLifecycleRail(currentIdx);
 
   // Update Lifecycle ribbon
   if (modePill) {
@@ -1296,9 +1380,9 @@ async function loadDataTable(tableName) {
     const tabEl = document.getElementById(`tab-btn-${t}`);
     if (!tabEl) return;
     if (t === tableName) {
-      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-mono font-bold border-b-2 border-[#144336] text-[#144336] bg-white cursor-pointer";
+      tabEl.className = "flow-tab-btn active cursor-pointer";
     } else {
-      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-mono font-medium text-[#5A645C] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer";
+      tabEl.className = "flow-tab-btn cursor-pointer";
     }
   });
 

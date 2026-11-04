@@ -182,6 +182,10 @@ async function dispatchShockPayload(payload) {
       }
     }
     
+    try {
+      sessionStorage.setItem("chainguard_sap_connected", "true");
+    } catch (e) {}
+
     // Add to history
     injectedHistory.unshift({
       timestamp: new Date().toLocaleTimeString(),
@@ -195,6 +199,11 @@ async function dispatchShockPayload(payload) {
 
     renderFeedbackBanner(payload, res);
     renderHistoryList();
+
+    // Auto-redirect to live dashboard window after successful injection
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 1200);
 
   } catch (err) {
     console.error("Failed to inject disruption shock:", err);
@@ -217,9 +226,14 @@ function renderFeedbackBanner(payload, res) {
   textEl.innerHTML = `
     Successfully injected <strong>${payload.headline}</strong> into live agent pipeline.<br>
     The agent has ingested the shock and is cascading consequence calculations (+${payload.predicted_delay_shock_days}d transit deviation).<br>
-    <div class="mt-2 pt-2 border-t border-[#144336]/30 flex items-center space-x-2 text-[11px] text-[#144336] font-mono">
-      <span class="font-bold">[SMS DISPATCH]</span>
-      <span>Emergency SMS Alert Dispatched to Operations Commander: <strong>+91 7736215631</strong> (Status: DELIVERED)</span>
+    <div class="mt-2 pt-2 border-t border-emerald-300 flex items-center justify-between text-[11px] text-emerald-800 font-mono">
+      <span class="font-bold">[SMS DISPATCH] Emergency Alert Sent to +91 7736215631</span>
+      <span class="font-bold text-[#1D68FE] animate-pulse">Redirecting to Live Dashboard...</span>
+    </div>
+    <div class="pt-2">
+      <a href="dashboard.html" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#1D68FE] text-white font-bold text-xs shadow-sm hover:bg-blue-700">
+        <span>Proceed to Live Dashboard Now →</span>
+      </a>
     </div>
   `;
 
