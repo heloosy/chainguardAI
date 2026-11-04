@@ -169,7 +169,7 @@ async function dispatchShockPayload(payload) {
   const submitBtn = document.getElementById("btn-submit-shock");
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span>Transmitting Shock...</span>`;
+    submitBtn.innerHTML = `<span>[ TRANSMITTING DISRUPTION SHOCK... ]</span>`;
   }
 
   try {
@@ -202,7 +202,7 @@ async function dispatchShockPayload(payload) {
   } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.innerHTML = `<span>⚡ Inject Disruption Shock</span>`;
+      submitBtn.innerHTML = `<span>[ INJECT DISRUPTION SHOCK ]</span>`;
     }
   }
 }
@@ -217,8 +217,8 @@ function renderFeedbackBanner(payload, res) {
   textEl.innerHTML = `
     Successfully injected <strong>${payload.headline}</strong> into live agent pipeline.<br>
     The agent has ingested the shock and is cascading consequence calculations (+${payload.predicted_delay_shock_days}d transit deviation).<br>
-    <div class="mt-2 pt-2 border-t border-slate-700/80 flex items-center space-x-2 text-[11px] text-emerald-400 font-mono">
-      <span>📱</span>
+    <div class="mt-2 pt-2 border-t border-[#144336]/30 flex items-center space-x-2 text-[11px] text-[#144336] font-mono">
+      <span class="font-bold">[SMS DISPATCH]</span>
       <span>Emergency SMS Alert Dispatched to Operations Commander: <strong>+91 7736215631</strong> (Status: DELIVERED)</span>
     </div>
   `;
@@ -231,27 +231,27 @@ function renderHistoryList() {
   const countEl = document.getElementById("log-count");
   if (!container) return;
 
-  if (countEl) countEl.innerText = `${injectedHistory.length} Injected`;
+  if (countEl) countEl.innerText = `${injectedHistory.length} Dispatched`;
 
   if (injectedHistory.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center text-slate-500 font-mono text-xs">
-        No custom shocks injected yet.<br>Click any preset or submit a custom signal above.
+      <div class="p-6 text-center text-[#5A645C] font-mono text-xs">
+        Zero synthetic shocks dispatched during current session.<br>Select any standardized profile or transmit custom signal above.
       </div>
     `;
     return;
   }
 
   container.innerHTML = injectedHistory.map(item => `
-    <div class="p-3 rounded bg-slate-800 border border-slate-700 space-y-1">
+    <div class="p-3 bg-white border border-[#D8D5CD] space-y-1">
       <div class="flex items-center justify-between text-[10px] font-mono">
-        <span class="text-amber-400 font-bold">${item.platform}</span>
-        <span class="text-slate-400">${item.timestamp}</span>
+        <span class="text-[#144336] font-bold">[${item.platform}]</span>
+        <span class="text-[#5A645C]">${item.timestamp}</span>
       </div>
-      <div class="font-bold text-xs text-white">${item.headline}</div>
-      <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-1">
+      <div class="font-bold text-xs text-[#1C201D] font-serif text-sm">${item.headline}</div>
+      <div class="flex items-center justify-between text-[10px] text-[#5A645C] font-mono pt-1 border-t border-[#D8D5CD]">
         <span>${item.location}</span>
-        <span class="text-red-400 font-bold">+${item.delay}d shock</span>
+        <span class="text-[#8F2718] font-bold">+${item.delay}d shock</span>
       </div>
     </div>
   `).join("");

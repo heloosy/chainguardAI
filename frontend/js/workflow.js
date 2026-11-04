@@ -338,14 +338,14 @@ function renderStatusAndPhase() {
   if (pill) {
     const st = workflowState.status;
     if (st === "RUNNING") {
-      pill.className = "px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200 animate-pulse";
-      pill.innerHTML = `● Running: Stage ${currentIdx} of 8`;
+      pill.className = "stamp-tag stamp-sap";
+      pill.innerHTML = `[ RUNNING: STAGE ${currentIdx} OF 8 ]`;
     } else if (st === "AWAITING_HUMAN_APPROVAL") {
-      pill.className = "px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-amber-50 text-amber-800 border border-amber-300 animate-bounce";
-      pill.innerHTML = `⚠️ Awaiting Human Authorization`;
+      pill.className = "stamp-tag stamp-warning";
+      pill.innerHTML = `[ AWAITING HUMAN AUTHORIZATION ]`;
     } else if (st === "COMPLETED") {
-      pill.className = "px-2.5 py-0.5 text-[11px] font-medium rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300";
-      pill.innerHTML = `✓ Resolved & Retrained`;
+      pill.className = "stamp-tag stamp-nominal";
+      pill.innerHTML = `[ RESOLVED & RETRAINED ]`;
     }
   }
 
@@ -353,35 +353,35 @@ function renderStatusAndPhase() {
   if (badge) {
     if (currentIdx === 1) {
       badge.innerText = "PHASE: SIGNALS INGESTED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-blue-100 text-blue-900 border border-blue-300";
+      badge.className = "stamp-tag stamp-neutral";
     } else if (currentIdx === 2) {
       badge.innerText = "PHASE: EARLY WARNING DETECTED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-100 text-amber-900 border border-amber-300";
+      badge.className = "stamp-tag stamp-warning";
     } else if (currentIdx === 3) {
       badge.innerText = "PHASE: TRIANGULATED & CONFIRMED (94%)";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-purple-100 text-purple-900 border border-purple-300";
+      badge.className = "stamp-tag stamp-sap";
     } else if (currentIdx === 4) {
       badge.innerText = "PHASE: IMPACT EXPOSURE MAPPED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-indigo-100 text-indigo-900 border border-indigo-300";
+      badge.className = "stamp-tag stamp-sap";
     } else if (currentIdx === 5) {
       badge.innerText = "PHASE: DELAY & SHORTAGE PREDICTED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-red-100 text-red-900 border border-red-300";
+      badge.className = "stamp-tag stamp-critical";
     } else if (currentIdx === 6) {
       badge.innerText = "PHASE: RECOMMENDATIONS & ISSUES ANALYZED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-emerald-100 text-emerald-900 border border-emerald-300";
+      badge.className = "stamp-tag stamp-nominal";
     } else if (currentIdx === 7) {
       badge.innerText = "PHASE: HUMAN APPROVAL REQUIRED";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-amber-100 text-amber-900 border border-amber-400";
+      badge.className = "stamp-tag stamp-warning";
     } else if (currentIdx === 8) {
       badge.innerText = "PHASE: RESOLVED & RECORDED TO MEMORY";
-      badge.className = "px-2.5 py-1 text-xs font-mono font-bold rounded bg-emerald-100 text-emerald-900 border border-emerald-400";
+      badge.className = "stamp-tag stamp-nominal";
     }
   }
 
   // Update Lifecycle ribbon
   if (modePill) {
-    modePill.className = "px-2 py-0.5 rounded font-mono font-semibold text-[10px] bg-red-100 text-red-800 border border-red-300";
-    modePill.innerText = "⚠️ ACTIVE DISRUPTION";
+    modePill.className = "stamp-tag stamp-critical";
+    modePill.innerText = "[ ALERT: ACTIVE DISRUPTION ]";
   }
   if (stageName) {
     stageName.innerText = workflowState.current_stage_name || `Stage ${currentIdx}`;
@@ -403,18 +403,18 @@ function renderStatusAndPhase() {
   const snapContractSub = document.getElementById("map-snapshot-contract-sub");
 
   if (isInternalDrift) {
-    if (snapCargo) { snapCargo.innerText = "PO-501 (Apex Semi SUP-007)"; snapCargo.className = "font-bold text-red-900 mt-0.5"; }
+    if (snapCargo) { snapCargo.innerText = "PO-501 (Apex Semi SUP-007)"; snapCargo.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
     if (snapCargoSub) snapCargoSub.innerText = "Lead time: 14.1d → 22.4d (+59% drift)";
-    if (snapBuffer) { snapBuffer.innerText = "5.2 Days Runout (Critical Gap)"; snapBuffer.className = "font-bold text-amber-900 mt-0.5"; }
+    if (snapBuffer) { snapBuffer.innerText = "5.2 Days Runout (Critical Gap)"; snapBuffer.className = "font-bold text-[#78450E] mt-0.5 font-mono"; }
     if (snapBufferSub) snapBufferSub.innerText = "Detroit burn: 315 units/day (+26%)";
-    if (snapContract) { snapContract.innerText = "$2.60M Contract at Risk"; snapContract.className = "font-bold text-red-900 mt-0.5"; }
+    if (snapContract) { snapContract.innerText = "$2.60M Contract at Risk"; snapContract.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
     if (snapContractSub) snapContractSub.innerText = "Titan OEM Production Order ORD-OEM-901";
   } else {
-    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-red-900 mt-0.5"; }
+    if (snapCargo) { snapCargo.innerText = "SHP-801 (5,000 MCUs)"; snapCargo.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
     if (snapCargoSub) snapCargoSub.innerText = "Aboard MV Pacific Trader (Stranded)";
-    if (snapBuffer) { snapBuffer.innerText = "4.8 Days Remaining"; snapBuffer.className = "font-bold text-amber-900 mt-0.5"; }
+    if (snapBuffer) { snapBuffer.innerText = "4.8 Days Remaining"; snapBuffer.className = "font-bold text-[#78450E] mt-0.5 font-mono"; }
     if (snapBufferSub) snapBufferSub.innerText = "Detroit Plant 1010 (1,200 on hand)";
-    if (snapContract) { snapContract.innerText = "$2.40M Contract at Risk"; snapContract.className = "font-bold text-red-900 mt-0.5"; }
+    if (snapContract) { snapContract.innerText = "$2.40M Contract at Risk"; snapContract.className = "font-bold text-[#8F2718] mt-0.5 font-mono"; }
     if (snapContractSub) snapContractSub.innerText = "Titan OEM SLA delivery due in 12 days";
   }
 }
@@ -442,15 +442,15 @@ function renderPredictiveMetrics() {
   if (narrativeEl) narrativeEl.innerText = rp.prediction_summary;
 
   if (currentIdx === 0) {
-    if (cardProb) cardProb.className = "p-2.5 rounded bg-emerald-50/70 border border-emerald-200 text-emerald-950";
-    if (cardDelay) cardDelay.className = "p-2.5 rounded bg-emerald-50/70 border border-emerald-200 text-emerald-950";
-    if (cardGap) cardGap.className = "p-2.5 rounded bg-emerald-50/70 border border-emerald-200 text-emerald-950";
-    if (varEl) varEl.className = "text-lg font-bold text-emerald-400 mt-0.5";
+    if (cardProb) cardProb.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
+    if (cardDelay) cardDelay.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
+    if (cardGap) cardGap.className = "p-3 bg-[#FAF9F5] border border-[#D5CEBF]";
+    if (varEl) varEl.className = "text-xl font-bold font-mono text-[#144336] mt-0.5";
   } else {
-    if (cardProb) cardProb.className = "p-2.5 rounded bg-red-50/70 border border-red-200 text-red-950";
-    if (cardDelay) cardDelay.className = "p-2.5 rounded bg-red-50/70 border border-red-200 text-red-950";
-    if (cardGap) cardGap.className = "p-2.5 rounded bg-amber-50/70 border border-amber-200 text-amber-950";
-    if (varEl) varEl.className = "text-lg font-bold text-red-400 mt-0.5";
+    if (cardProb) cardProb.className = "p-3 bg-[#FAF0EE] border border-[#E8BFB7]";
+    if (cardDelay) cardDelay.className = "p-3 bg-[#FAF0EE] border border-[#E8BFB7]";
+    if (cardGap) cardGap.className = "p-3 bg-[#FDF7EB] border border-[#E8D3A8]";
+    if (varEl) varEl.className = "text-xl font-bold font-mono text-[#8F2718] mt-0.5";
   }
 }
 
@@ -463,9 +463,9 @@ function filterSignalsStream(filter) {
     const btn = document.getElementById(`stream-tab-${t}`);
     if (!btn) return;
     if (t === filter.toLowerCase()) {
-      btn.className = "px-2 py-1 rounded bg-white font-bold text-[#202722] shadow-2xs transition-all cursor-pointer";
+      btn.className = "px-2.5 py-1 bg-[#144336] text-white font-bold cursor-pointer font-mono text-[10px]";
     } else {
-      btn.className = "px-2 py-1 rounded text-[#68736C] hover:text-[#202722] transition-all cursor-pointer";
+      btn.className = "px-2.5 py-1 text-[#48524B] hover:text-[#1C201D] cursor-pointer font-mono text-[10px]";
     }
   });
 
@@ -493,14 +493,14 @@ function renderSignalsAndVerification() {
   // 1. Update Threat Classification Badge
   if (threatClassBadge) {
     if (classification === "INTERNAL_OPERATIONAL_DRIFT") {
-      threatClassBadge.innerText = "🏢 INTERNAL OPERATIONAL DRIFT (SAP S/4HANA & IBP)";
-      threatClassBadge.className = "text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold bg-amber-100 text-amber-900 border border-amber-300";
+      threatClassBadge.innerText = "[INTERNAL] OPERATIONAL DRIFT (SAP S/4HANA & IBP)";
+      threatClassBadge.className = "stamp-tag stamp-warning";
     } else if (classification === "COMPOUND_MULTI_STREAM_RISK") {
-      threatClassBadge.innerText = "⚡ COMPOUND THREAT (INTERNAL DRIFT + EXTERNAL SHOCK)";
-      threatClassBadge.className = "text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold bg-red-100 text-red-900 border border-red-300";
+      threatClassBadge.innerText = "[COMPOUND] INTERNAL DRIFT + EXTERNAL SHOCK";
+      threatClassBadge.className = "stamp-tag stamp-critical";
     } else {
-      threatClassBadge.innerText = "🌐 EXTERNAL THREAT (WEATHER / CHOKEPOINT)";
-      threatClassBadge.className = "text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold bg-blue-100 text-blue-900 border border-blue-300";
+      threatClassBadge.innerText = "[EXTERNAL] CHOKEPOINT / WEATHER DISRUPTION";
+      threatClassBadge.className = "stamp-tag stamp-sap";
     }
   }
 
@@ -509,19 +509,19 @@ function renderSignalsAndVerification() {
     if ((classification === "INTERNAL_OPERATIONAL_DRIFT" || classification === "COMPOUND_MULTI_STREAM_RISK") && sixSteps.length > 0 && currentIdx > 0) {
       breakdownEl.classList.remove("hidden");
       breakdownEl.innerHTML = `
-        <div class="p-3.5 bg-amber-50/70 border border-amber-300 rounded-lg space-y-2.5">
+        <div class="p-3.5 bg-[#FAF9F5] border border-[#D5CEBF] space-y-2.5">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
-              <span class="text-sm">🏢</span>
-              <span class="text-xs font-bold text-amber-950 uppercase tracking-tight">
-                6-Step Internal Operational Detection (Zero External Reports Needed)
+              <span class="font-mono text-xs font-bold text-[#144336]">[AUDIT]</span>
+              <span class="text-xs font-bold text-[#1C201D] uppercase font-mono tracking-tight">
+                6-Step Internal Operational Detection (SAP S/4HANA & IBP)
               </span>
             </div>
-            <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-900">
+            <span class="stamp-tag stamp-sap">
               AUTOMATED ERP AUDIT
             </span>
           </div>
-          <p class="text-[11px] text-amber-900/90 leading-relaxed">
+          <p class="text-[11px] text-[#48524B] leading-relaxed font-mono">
             ${internal.summary?.detection_verdict || "Disruption detected silently within enterprise SAP telemetry before production interruption."}
           </p>
 
@@ -532,12 +532,12 @@ function renderSignalsAndVerification() {
               const stepTitle = parts[0] || `Step ${idx + 1}`;
               const stepDesc = parts.slice(1).join(":");
               return `
-                <div class="p-2.5 bg-white/95 rounded border border-amber-200/90 shadow-2xs space-y-1">
+                <div class="p-2.5 bg-[#FFFFFF] border border-[#D5CEBF] space-y-1">
                   <div class="flex items-center justify-between text-[10px]">
-                    <span class="font-bold text-[#176B57] font-mono">${stepTitle}</span>
-                    <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-[9px]">✓</span>
+                    <span class="font-bold text-[#144336] font-mono">${stepTitle}</span>
+                    <span class="font-mono font-bold text-[#144336] text-[10px]">[OK]</span>
                   </div>
-                  <p class="text-[11px] text-[#202722] leading-snug font-sans">${stepDesc}</p>
+                  <p class="text-[11px] text-[#1C201D] leading-snug font-mono">${stepDesc}</p>
                 </div>
               `;
             }).join("")}
@@ -565,38 +565,37 @@ function renderSignalsAndVerification() {
   if (activeStreamFilter === "ALL" || activeStreamFilter === "INTERNAL") {
     const internalSignals = internal.signals || [];
     internalSignals.forEach(s => {
-      let borderClass = s.severity === "CRITICAL" ? "border-amber-300 bg-amber-50/40" : "border-slate-200 bg-white";
-      let badgeColor = s.severity === "CRITICAL" ? "bg-amber-100 text-amber-900 border-amber-300" : "bg-slate-100 text-slate-700 border-slate-200";
+      let borderClass = s.severity === "CRITICAL" ? "border-[#E8BFB7] bg-[#FAF0EE]" : "border-[#D5CEBF] bg-[#FFFFFF]";
+      let badgeTag = s.severity === "CRITICAL" ? "stamp-tag stamp-critical" : "stamp-tag stamp-neutral";
       
       renderedCards.push(`
-        <div class="p-3 rounded border ${borderClass} shadow-2xs flex flex-col justify-between space-y-2">
+        <div class="p-3 border ${borderClass} flex flex-col justify-between space-y-2">
           <div>
             <div class="flex items-center justify-between text-[10px]">
               <div class="flex items-center space-x-1.5">
-                <span class="w-2 h-2 rounded-full ${s.anomaly_detected ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500'}"></span>
-                <span class="font-bold font-mono text-[#202722]">${s.system}</span>
+                <span class="font-bold font-mono text-[#1C201D]">[${s.system}]</span>
               </div>
-              <span class="font-mono text-slate-400">${s.timestamp}</span>
+              <span class="font-mono text-[#707A72]">${s.timestamp}</span>
             </div>
             
             <div class="mt-1.5">
-              <div class="text-xs font-bold text-[#202722]">${s.metric}</div>
+              <div class="text-xs font-bold font-mono text-[#1C201D]">${s.metric}</div>
               <div class="text-[10px] font-mono mt-0.5 space-x-1">
-                <span class="text-slate-500">Baseline: ${s.baseline_value}</span>
-                <span class="text-slate-400">→</span>
-                <span class="font-bold ${s.severity === 'CRITICAL' ? 'text-red-700' : 'text-amber-800'}">${s.observed_value}</span>
+                <span class="text-[#707A72]">Baseline: ${s.baseline_value}</span>
+                <span class="text-[#707A72]">→</span>
+                <span class="font-bold ${s.severity === 'CRITICAL' ? 'text-[#8F2718]' : 'text-[#78450E]'}">${s.observed_value}</span>
               </div>
             </div>
 
-            <p class="text-xs text-slate-700 mt-1.5 leading-snug">${s.detail}</p>
+            <p class="text-xs text-[#48524B] mt-1.5 leading-snug font-mono">${s.detail}</p>
           </div>
 
-          <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-[10px] font-mono">
-            <span class="px-1.5 py-0.5 rounded border text-[9px] font-bold ${badgeColor}">
+          <div class="flex items-center justify-between pt-2 border-t border-[#D5CEBF] text-[10px] font-mono">
+            <span class="${badgeTag}">
               ${s.trend.replace('_', ' ')}
             </span>
-            <span class="font-bold text-emerald-800">
-              ● SAP ERP DIRECT TELEMETRY
+            <span class="font-bold text-[#144336]">
+              [SAP S/4HANA TELEMETRY]
             </span>
           </div>
         </div>
@@ -608,27 +607,26 @@ function renderSignalsAndVerification() {
   if (activeStreamFilter === "ALL" || activeStreamFilter === "EXTERNAL") {
     signals.forEach(s => {
       let isVerified = s.verified;
-      let borderClass = isVerified ? "border-emerald-200 bg-white" : "border-slate-200 bg-slate-50/50";
+      let borderClass = isVerified ? "border-[#BEDBCF] bg-[#FFFFFF]" : "border-[#D5CEBF] bg-[#FAF9F5]";
       
       renderedCards.push(`
-        <div class="p-3 rounded border ${borderClass} shadow-2xs flex flex-col justify-between space-y-2">
+        <div class="p-3 border ${borderClass} flex flex-col justify-between space-y-2">
           <div>
             <div class="flex items-center justify-between text-[10px]">
-              <div class="flex items-center space-x-1.5">
-                <span class="w-2 h-2 rounded-full ${isVerified ? 'bg-emerald-500' : 'bg-amber-400'}"></span>
-                <span class="font-bold text-[#202722]">${s.source}</span>
+              <div class="flex items-center space-x-1.5 font-mono">
+                <span class="font-bold text-[#1C201D]">[${s.source.toUpperCase()}]</span>
               </div>
-              <span class="font-mono text-slate-400">${s.timestamp}</span>
+              <span class="font-mono text-[#707A72]">${s.timestamp}</span>
             </div>
-            <p class="text-xs text-[#202722] mt-1.5 leading-snug">${s.content}</p>
+            <p class="text-xs text-[#1C201D] mt-1.5 leading-snug font-mono">${s.content}</p>
           </div>
 
-          <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-[10px] font-mono">
-            <span class="${s.reliability_score >= 0.9 ? 'text-emerald-700 font-bold' : 'text-amber-700'}">
-              Reliability: ${(s.reliability_score * 100).toFixed(0)}%
+          <div class="flex items-center justify-between pt-2 border-t border-[#D5CEBF] text-[10px] font-mono">
+            <span class="${s.reliability_score >= 0.9 ? 'text-[#144336] font-bold' : 'text-[#78450E]'}">
+              CONFIDENCE: ${(s.reliability_score * 100).toFixed(0)}%
             </span>
-            <span class="font-bold ${isVerified ? 'text-emerald-700' : 'text-amber-700'}">
-              ${isVerified ? '✓ VERIFIED SIGNAL' : 'FILTERED RUMOR'}
+            <span class="font-bold ${isVerified ? 'text-[#144336]' : 'text-[#78450E]'}">
+              ${isVerified ? '[VERIFIED SIGNAL]' : '[UNVERIFIED RUMOR]'}
             </span>
           </div>
         </div>
@@ -663,12 +661,12 @@ function renderAutonomousAndHumanGate() {
 
   // Render autonomous actions
   autoList.innerHTML = auto.map(a => `
-    <div class="flex items-start space-x-2 bg-white/90 p-1.5 rounded border border-emerald-200/80">
-      <span class="text-emerald-600 font-bold mt-0.5">✓</span>
-      <div class="flex-1">
-        <span class="font-bold">${a.action}:</span> ${a.detail}
+    <div class="flex items-start space-x-2 bg-white p-2 rounded-none border border-[#D8D5CD]">
+      <span class="font-mono text-xs font-bold text-[#144336]">[AUTO]</span>
+      <div class="flex-1 text-xs">
+        <span class="font-bold text-[#1C201D]">${a.action}:</span> <span class="text-[#2C332D]">${a.detail}</span>
       </div>
-      <span class="font-mono font-bold text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-800">${a.status}</span>
+      <span class="stamp-tag stamp-operational">${a.status}</span>
     </div>
   `).join("");
 
@@ -683,14 +681,14 @@ function renderAutonomousAndHumanGate() {
       completedBanner.classList.remove("hidden");
       if (completedText) {
         if (ha.status === "approve") {
-          completedText.innerText = "✓ Action APPROVED by human supervisor: $95,000 emergency air charter executed.";
-          completedBanner.className = "p-2.5 rounded bg-emerald-100 border border-emerald-300 text-xs font-semibold text-emerald-900 flex items-center justify-between";
+          completedText.innerText = "[VERIFIED DISPATCH] Action APPROVED by human supervisor: $95,000 emergency air charter executed.";
+          completedBanner.className = "p-3 rounded-none bg-[#E8F1EC] border border-[#144336] text-xs font-medium text-[#144336] flex items-center justify-between";
         } else if (ha.status === "block") {
-          completedText.innerText = "✕ Action BLOCKED by human supervisor: Expenditure rejected. Baseline downtime recorded.";
-          completedBanner.className = "p-2.5 rounded bg-red-100 border border-red-300 text-xs font-semibold text-red-900 flex items-center justify-between";
+          completedText.innerText = "[ORDER BLOCKED] Action BLOCKED by human supervisor: Expenditure rejected. Baseline downtime recorded.";
+          completedBanner.className = "p-3 rounded-none bg-[#FAF0EE] border border-[#8F2718] text-xs font-medium text-[#8F2718] flex items-center justify-between";
         } else {
-          completedText.innerText = "⚠️ Telemetry & radar sweeps requested. Verification package assembled.";
-          completedBanner.className = "p-2.5 rounded bg-amber-100 border border-amber-300 text-xs font-semibold text-amber-900 flex items-center justify-between";
+          completedText.innerText = "[TELEMETRY SWEEP] Telemetry & radar sweeps requested. Verification package assembled.";
+          completedBanner.className = "p-3 rounded-none bg-[#FDF7EB] border border-[#78450E] text-xs font-medium text-[#78450E] flex items-center justify-between";
         }
       }
     }
@@ -706,23 +704,23 @@ function renderAgentThoughts() {
 
   const trace = workflowState.agent_thought_trace || [];
   container.innerHTML = trace.map(t => {
-    let badgeClass = "bg-slate-100 text-slate-700 border-slate-200";
-    if (t.type === "warning") badgeClass = "bg-amber-100 text-amber-800 border-amber-300";
-    else if (t.type === "danger") badgeClass = "bg-red-100 text-red-800 border-red-300";
-    else if (t.type === "success") badgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
+    let badgeClass = "stamp-tag";
+    if (t.type === "warning") badgeClass = "stamp-tag stamp-disrupted";
+    else if (t.type === "danger") badgeClass = "stamp-tag stamp-critical";
+    else if (t.type === "success") badgeClass = "stamp-tag stamp-operational";
 
     return `
-      <div class="p-2.5 rounded bg-white border border-[#E2E5E0] shadow-2xs space-y-1">
-        <div class="flex items-center justify-between text-[10px]">
-          <div class="flex items-center space-x-1.5">
-            <span class="font-mono text-slate-400">${t.timestamp}</span>
-            <span class="font-bold text-[#202722]">${t.agent}</span>
+      <div class="p-2.5 rounded-none bg-white border border-[#D8D5CD] space-y-1">
+        <div class="flex items-center justify-between text-[11px]">
+          <div class="flex items-center space-x-2">
+            <span class="font-mono text-[#5A645C] text-[10px]">${t.timestamp}</span>
+            <span class="font-bold text-[#1C201D] tracking-wide">${t.agent}</span>
           </div>
-          <span class="px-1.5 py-0.5 rounded text-[9px] font-mono border ${badgeClass}">
+          <span class="${badgeClass}">
             ${t.action}
           </span>
         </div>
-        <p class="text-xs text-[#202722] leading-relaxed font-sans">${t.thought}</p>
+        <p class="text-xs text-[#2C332D] leading-relaxed font-sans">${t.thought}</p>
       </div>
     `;
   }).join("");
@@ -740,23 +738,23 @@ function renderAlternativesAndIssues() {
 
   if (currentIdx === 0) {
     if (badge) {
-      badge.innerText = "Nominal Monitoring Active";
-      badge.className = "text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-emerald-50 text-emerald-800 border border-emerald-200";
+      badge.innerText = "NOMINAL MONITORING ACTIVE";
+      badge.className = "stamp-tag stamp-operational";
     }
     container.innerHTML = `
-      <div class="p-3.5 rounded bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="p-3.5 bg-white border border-[#D8D5CD] text-xs text-[#1C201D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <div class="font-bold flex items-center space-x-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-            <span>Baseline Nominal Monitoring Active</span>
+          <div class="font-bold flex items-center space-x-2">
+            <span class="w-1.5 h-1.5 bg-[#144336]"></span>
+            <span class="font-serif text-sm">Baseline Nominal Monitoring Active</span>
           </div>
-          <div class="text-[11px] text-emerald-800/90 mt-0.5">
+          <div class="text-[11px] text-[#5A645C] mt-1 font-sans">
             All 8 global supply corridors are operating within safe baseline tolerances. Detroit plant buffer healthy at 18.5 days. Zero active disruption warnings.
           </div>
         </div>
         <div class="flex items-center space-x-2 flex-shrink-0">
-          <a href="injector.html" target="_blank" class="px-3 py-1.5 bg-[#176B57] hover:bg-[#115243] text-white rounded text-xs font-semibold whitespace-nowrap shadow-2xs">
-            ⚡ Open Injector Studio ↗
+          <a href="injector.html" target="_blank" class="btn-craft-primary text-xs uppercase tracking-wider">
+            [ Injector Workbench ↗ ]
           </a>
         </div>
       </div>
@@ -766,11 +764,11 @@ function renderAlternativesAndIssues() {
 
   if (actions.length === 0) {
     if (badge) {
-      badge.innerText = "Disruption Pipeline In Progress";
-      badge.className = "text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-slate-100 text-slate-700 border border-slate-300";
+      badge.innerText = "PIPELINE SYNTHESIS IN PROGRESS";
+      badge.className = "stamp-tag";
     }
     container.innerHTML = `
-      <div class="p-3 rounded bg-slate-50 border border-slate-200 text-xs text-slate-600">
+      <div class="p-3 bg-white border border-[#D8D5CD] text-xs text-[#5A645C]">
         Stage ${currentIdx} of 8 in progress. Preventive action alternatives and trade compliance evaluations will be fully ranked at Stage 6.
       </div>
     `;
@@ -788,11 +786,11 @@ function renderAlternativesAndIssues() {
 
   if (badge) {
     if (isGemini) {
-      badge.innerText = "Google Gemini 2.5 Flash (Live AI)";
-      badge.className = "text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-blue-50 text-blue-800 border border-blue-200";
+      badge.innerText = "ENGINE: GOOGLE GEMINI 2.5 FLASH";
+      badge.className = "stamp-tag stamp-operational";
     } else {
-      badge.innerText = "Compliance Policy Engine (Rule-based Fallback)";
-      badge.className = "text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-slate-100 text-slate-800 border border-slate-300";
+      badge.innerText = "ENGINE: DETERMINISTIC STATUTORY AUDIT";
+      badge.className = "stamp-tag";
     }
   }
 
@@ -802,25 +800,25 @@ function renderAlternativesAndIssues() {
       ${actions.map((act, idx) => {
         const isSelected = idx === selectedAlternativeIndex;
         const isRec = act.is_recommended;
-        let borderClass = isSelected ? "border-[#176B57] bg-white ring-1 ring-[#176B57]" : "border-[#E2E5E0] bg-[#FAFAF8] hover:bg-white";
+        let borderClass = isSelected ? "border-[#144336] bg-[#FFFFFF] ring-1 ring-[#144336]" : "border-[#D8D5CD] bg-[#F7F5F0] hover:bg-white";
         return `
-          <button onclick="selectAlternative(${idx})" class="p-2.5 rounded-lg border ${borderClass} text-left transition-all cursor-pointer flex flex-col justify-between">
+          <button onclick="selectAlternative(${idx})" class="p-3 border ${borderClass} text-left transition-all cursor-pointer flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-mono font-bold ${isRec ? 'text-emerald-700' : 'text-slate-500'}">
-                  ${isRec ? '★ RECOMMENDED' : `ALTERNATIVE ${idx + 1}`}
+                <span class="text-[10px] font-mono font-bold ${isRec ? 'text-[#144336]' : 'text-[#5A645C]'}">
+                  ${isRec ? '[RECOMMENDED OPTION]' : `[OPTION 0${idx + 1}]`}
                 </span>
-                <span class="text-[10px] font-mono font-bold text-[#202722]">
+                <span class="text-[11px] font-mono font-bold text-[#1C201D]">
                   $${act.cost_usd.toLocaleString()}
                 </span>
               </div>
-              <div class="text-xs font-bold text-[#202722] mt-1 leading-snug line-clamp-2">
+              <div class="text-xs font-bold text-[#1C201D] mt-1.5 leading-snug line-clamp-2">
                 ${act.title}
               </div>
             </div>
-            <div class="flex items-center justify-between text-[10px] text-[#68736C] mt-2 pt-1.5 border-t border-slate-200/60 font-mono">
+            <div class="flex items-center justify-between text-[10px] text-[#5A645C] mt-2 pt-1.5 border-t border-[#D8D5CD] font-mono">
               <span>Transit: ${act.execution_lead_time_days}d</span>
-              <span class="${act.net_financial_benefit_usd > 0 ? 'text-emerald-700 font-bold' : 'text-red-700'}">
+              <span class="${act.net_financial_benefit_usd > 0 ? 'text-[#144336] font-bold' : 'text-[#8F2718]'}">
                 Net: ${act.net_financial_benefit_usd > 0 ? '+' : ''}$${(act.net_financial_benefit_usd / 1000).toFixed(0)}k
               </span>
             </div>
@@ -832,96 +830,95 @@ function renderAlternativesAndIssues() {
 
   // 2. Render deep issues breakdown for the selected alternative
   const positiveList = (analysis.positive_factors || []).map(p => `
-    <li class="flex items-start space-x-1.5">
-      <span class="text-emerald-600 font-bold text-xs">✓</span>
-      <span>${p}</span>
+    <li class="flex items-start space-x-2">
+      <span class="text-[#144336] font-mono font-bold text-xs">[+]</span>
+      <span class="text-[#2C332D]">${p}</span>
     </li>
   `).join("");
 
   const issuesList = (analysis.issues || []).map(iss => {
-    let sevBadge = "bg-amber-100 text-amber-900 border-amber-300";
-    if (iss.severity === "HIGH") sevBadge = "bg-orange-100 text-orange-900 border-orange-300";
-    if (iss.severity === "CRITICAL") sevBadge = "bg-red-100 text-red-900 border-red-300";
-    if (iss.severity === "LOW") sevBadge = "bg-slate-100 text-slate-700 border-slate-300";
+    let sevClass = "stamp-tag";
+    if (iss.severity === "HIGH") sevClass = "stamp-tag stamp-disrupted";
+    if (iss.severity === "CRITICAL") sevClass = "stamp-tag stamp-critical";
+    if (iss.severity === "LOW") sevClass = "stamp-tag";
 
     return `
-      <div class="p-3 bg-white rounded border border-[#E2E5E0] shadow-2xs space-y-2">
+      <div class="p-3 bg-white border border-[#D8D5CD] space-y-2">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <div class="flex items-center space-x-2">
-            <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold border ${sevBadge}">
+            <span class="${sevClass}">
               ${iss.severity} RISK
             </span>
-            <span class="text-xs font-bold text-[#202722]">${iss.issue}</span>
+            <span class="text-xs font-bold text-[#1C201D]">${iss.issue}</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500">${iss.statute || iss.category}</span>
+          <span class="text-[10px] font-mono text-[#5A645C]">${iss.statute || iss.category}</span>
         </div>
-        <p class="text-xs text-slate-700 leading-relaxed">${iss.description}</p>
-        <div class="p-2 rounded bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-950 space-y-0.5">
-          <div class="font-bold text-[10px] uppercase font-mono text-emerald-900 flex items-center space-x-1">
-            <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>Actionable Compliance & Operational Mitigation</span>
+        <p class="text-xs text-[#2C332D] leading-relaxed font-sans">${iss.description}</p>
+        <div class="p-2.5 bg-[#E8F1EC] border border-[#144336]/30 text-xs text-[#144336] space-y-0.5">
+          <div class="font-bold text-[10px] uppercase font-mono tracking-wider text-[#144336] flex items-center space-x-1">
+            <span>[ COMPLIANCE & OPERATIONAL MITIGATION ]</span>
           </div>
-          <div class="text-[11px] leading-relaxed text-emerald-950">${iss.mitigation}</div>
+          <div class="text-[11px] leading-relaxed text-[#1C201D] font-sans mt-0.5">${iss.mitigation}</div>
         </div>
       </div>
     `;
   }).join("");
 
   const barriersList = (analysis.immutable_statutory_barriers || []).map(b => `
-    <div class="p-2.5 rounded bg-red-100 border border-red-300 text-xs text-red-950 font-bold flex items-start space-x-2">
-      <span class="text-base">⛔</span>
+    <div class="p-3 bg-[#FAF0EE] border border-[#8F2718] text-xs text-[#8F2718] font-bold flex items-start space-x-2">
+      <span class="font-mono text-xs uppercase text-[#8F2718]">[EMBARGO]</span>
       <div class="flex-1">
-        <span class="font-mono uppercase text-[10px] text-red-800">IMMUTABLE STATUTORY BARRIER:</span>
-        <div class="text-[11px] font-normal text-red-950 mt-0.5">${b}</div>
+        <span class="font-mono uppercase text-[10px] text-[#8F2718] tracking-wider">IMMUTABLE STATUTORY BARRIER:</span>
+        <div class="text-[11px] font-normal text-[#1C201D] mt-0.5 font-sans">${b}</div>
       </div>
     </div>
   `).join("");
 
   const noBarrierNotice = (!analysis.immutable_barrier_detected && (!analysis.immutable_statutory_barriers || analysis.immutable_statutory_barriers.length === 0))
-    ? `<div class="p-2 bg-emerald-50 border border-emerald-200 rounded text-xs text-emerald-900 flex items-center space-x-1.5">
-        <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-        <span><strong>No immutable statutory barriers detected:</strong> Path is legally permissible under international trade conventions with active mitigations.</span>
+    ? `<div class="p-2.5 bg-[#E8F1EC] border border-[#144336] text-xs text-[#144336] flex items-center space-x-2 font-mono">
+        <span class="font-bold">[CLEARED]</span>
+        <span class="text-[11px] font-sans text-[#1C201D]"><strong>No immutable statutory barriers detected:</strong> Path is legally permissible under international trade conventions with active mitigations.</span>
        </div>`
     : "";
 
   container.innerHTML = `
     ${tabsHtml}
     
-    <div class="p-3.5 rounded-lg bg-[#FAFAF8] border border-[#E2E5E0] space-y-3">
+    <div class="p-3.5 bg-[#F7F5F0] border border-[#D8D5CD] space-y-3">
       
       <!-- Engine Source Banner -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2 border-b border-[#E2E5E0] gap-2">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-2 border-b border-[#D8D5CD] gap-2">
         <div>
-          <span class="text-xs font-bold text-[#202722]">Alternative Detailed Analysis: ${activeAction.title}</span>
-          <div class="text-[10px] text-[#68736C]">Evaluates regulatory export compliance, carrier operations, and country cabotage statutes.</div>
+          <span class="text-xs font-bold text-[#1C201D] font-serif text-sm">Alternative Detailed Analysis: ${activeAction.title}</span>
+          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">Evaluates regulatory export compliance, carrier operations, and country cabotage statutes.</div>
         </div>
         <div class="flex items-center space-x-1.5">
-          <span class="text-[9px] font-mono text-slate-400">ANALYSIS ENGINE:</span>
+          <span class="text-[9px] font-mono text-[#5A645C]">AUDIT PROTOCOL:</span>
           ${isGemini ? `
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-100 text-blue-900 border border-blue-300">
-              🤖 Google Gemini 2.5 Flash (Live AI)
+            <span class="stamp-tag stamp-operational">
+              GOOGLE GEMINI 2.5 FLASH
             </span>
           ` : `
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-200 text-slate-800 border border-slate-300" title="Offline sandbox fallback: deterministic compliance rules applied">
-              ⚖️ Deterministic Compliance Policy Engine (Rule-based Fallback)
+            <span class="stamp-tag" title="Deterministic compliance rules applied">
+              STATUTORY COMPLIANCE ENGINE
             </span>
           `}
         </div>
       </div>
 
       <!-- Positive Factors -->
-      <div class="space-y-1 text-xs text-[#202722]">
-        <div class="text-[10px] font-mono font-bold text-slate-500 uppercase">Positive Factors (Why Choose This Path):</div>
-        <ul class="space-y-1 text-xs">
+      <div class="space-y-1 text-xs text-[#1C201D]">
+        <div class="text-[10px] font-mono font-bold text-[#5A645C] uppercase tracking-wider">Positive Decision Drivers (Operational Justification):</div>
+        <ul class="space-y-1 text-xs mt-1">
           ${positiveList}
         </ul>
       </div>
 
       <!-- Issues that occur in this alternative -->
-      <div class="space-y-2 pt-2 border-t border-[#E2E5E0]">
-        <div class="text-[10px] font-mono font-bold text-slate-500 uppercase flex items-center justify-between">
-          <span>Issues That Occur When Executing This Alternative (${(analysis.issues || []).length}):</span>
-          <span class="text-[9px] text-[#68736C]">Regulatory · Operational · Country Policy</span>
+      <div class="space-y-2 pt-2 border-t border-[#D8D5CD]">
+        <div class="text-[10px] font-mono font-bold text-[#5A645C] uppercase tracking-wider flex items-center justify-between">
+          <span>Identified Compliance Exposures (${(analysis.issues || []).length}):</span>
+          <span class="text-[9px] text-[#5A645C]">Regulatory · Operational · Country Policy</span>
         </div>
         <div class="space-y-2">
           ${issuesList}
@@ -936,8 +933,8 @@ function renderAlternativesAndIssues() {
 
       <!-- Legal Summary Verdict -->
       ${analysis.legal_verdict ? `
-        <div class="p-2 rounded bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-800">
-          <strong>LEGAL & REGULATORY VERDICT:</strong> ${analysis.legal_verdict}
+        <div class="p-2.5 bg-white border border-[#D8D5CD] text-[11px] font-mono text-[#1C201D]">
+          <strong class="text-[#144336]">[LEGAL & REGULATORY VERDICT]</strong> ${analysis.legal_verdict}
         </div>
       ` : ""}
 
@@ -999,7 +996,7 @@ function updateOperationalMap() {
       [36.9, -76.3],
       detroit
     ], {
-      color: '#059669',
+      color: '#144336',
       weight: 2.5,
       dashArray: '5, 8'
     }).addTo(leafletMap).bindPopup("Standard Ocean Corridor (Chennai -> Suez -> Norfolk -> Detroit)");
@@ -1018,9 +1015,9 @@ function updateOperationalMap() {
     mapMarkers.push(chennaiMarker);
 
     const cycloneCircle = L.circle(chennai, {
-      color: 'red',
-      fillColor: '#f87171',
-      fillOpacity: 0.35,
+      color: '#8F2718',
+      fillColor: '#8F2718',
+      fillOpacity: 0.3,
       radius: 450000
     }).addTo(leafletMap).bindPopup("Cyclone Senyar Impact Zone (110 km/h winds)");
     mapMarkers.push(cycloneCircle);
@@ -1034,7 +1031,7 @@ function updateOperationalMap() {
     mapMarkers.push(detroitMarker);
 
     const airRoute = L.polyline([chennai, frankfurt, detroit], {
-      color: '#059669',
+      color: '#144336',
       weight: 3,
       dashArray: '6, 8'
     }).addTo(leafletMap).bindPopup("Expedited Air Freight Corridor (Lufthansa Cargo via FRA)");
@@ -1057,9 +1054,9 @@ async function loadDataTable(tableName) {
     const tabEl = document.getElementById(`tab-btn-${t}`);
     if (!tabEl) return;
     if (t === tableName) {
-      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-semibold border-b-2 border-[#176B57] text-[#176B57] cursor-pointer";
+      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-mono font-bold border-b-2 border-[#144336] text-[#144336] bg-white cursor-pointer";
     } else {
-      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-medium text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer";
+      tabEl.className = "data-sub-tab px-4 py-2 text-xs font-mono font-medium text-[#5A645C] hover:text-[#1C201D] border-b-2 border-transparent cursor-pointer";
     }
   });
 
@@ -1165,19 +1162,19 @@ async function loadIncidentHistory() {
       const isApproved = (dec.outcome === "APPROVED" || dec.action_id);
 
       return `
-        <tr class="hover:bg-slate-50">
-          <td class="py-2.5 px-4 font-mono font-bold text-xs text-[#202722]">${inc.incident_id}</td>
-          <td class="py-2.5 px-4 text-xs text-[#202722] font-medium">${inc.title}</td>
-          <td class="py-2.5 px-4 text-[11px] font-mono text-[#68736C]">${inc.category}</td>
+        <tr class="hover:bg-[#F7F5F0] border-b border-[#D8D5CD]">
+          <td class="py-2.5 px-4 font-mono font-bold text-xs text-[#1C201D]">${inc.incident_id}</td>
+          <td class="py-2.5 px-4 text-xs text-[#1C201D] font-medium font-serif text-sm">${inc.title}</td>
+          <td class="py-2.5 px-4 text-[11px] font-mono text-[#5A645C]">${inc.category}</td>
           <td class="py-2.5 px-4">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+            <span class="stamp-tag ${isApproved ? 'stamp-operational' : 'stamp-critical'}">
               ${dec.outcome || (isApproved ? 'APPROVED' : 'BLOCKED')}
             </span>
           </td>
-          <td class="py-2.5 px-4 font-mono font-bold text-xs ${savings > 0 ? 'text-emerald-700' : 'text-slate-500'}">
+          <td class="py-2.5 px-4 font-mono font-bold text-xs ${savings > 0 ? 'text-[#144336]' : 'text-[#5A645C]'}">
             ${savings > 0 ? `+$${savings.toLocaleString()}` : '$0'}
           </td>
-          <td class="py-2.5 px-4 text-[11px] font-mono text-[#68736C]">
+          <td class="py-2.5 px-4 text-[11px] font-mono text-[#5A645C]">
             ${inc.closed_time ? inc.closed_time.split("T")[0] : "-"}
           </td>
         </tr>
@@ -1292,13 +1289,13 @@ async function loadPoliciesList() {
     const listEl = document.getElementById("active-policies-list");
     if (listEl) {
       listEl.innerHTML = policies.map(p => `
-        <div onclick="selectPolicyFromList('${p.policy_id}')" class="p-2.5 rounded border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 text-left transition-all cursor-pointer">
+        <div onclick="selectPolicyFromList('${p.policy_id}')" class="p-2.5 border border-[#D8D5CD] hover:border-[#144336] hover:bg-[#F7F5F0] text-left transition-all cursor-pointer">
           <div class="flex items-center justify-between text-[10px]">
-            <span class="font-mono font-bold text-slate-700">${p.policy_id}</span>
-            <span class="px-1.5 py-0.5 rounded font-mono font-bold text-[9px] ${p.status === 'ACTIVE_ENFORCED' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'}">${p.status}</span>
+            <span class="font-mono font-bold text-[#1C201D]">${p.policy_id}</span>
+            <span class="stamp-tag ${p.status === 'ACTIVE_ENFORCED' ? 'stamp-operational' : 'stamp-disrupted'}">${p.status}</span>
           </div>
-          <div class="font-bold text-xs text-[#202722] mt-1 leading-snug truncate">${p.title}</div>
-          <div class="text-[10px] text-[#68736C] font-mono mt-0.5">${p.regulatory_framework ? p.regulatory_framework.slice(0, 35) + '...' : ''}</div>
+          <div class="font-bold text-xs text-[#1C201D] mt-1 leading-snug truncate font-serif text-sm">${p.title}</div>
+          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">${p.regulatory_framework ? p.regulatory_framework.slice(0, 35) + '...' : ''}</div>
         </div>
       `).join("");
     }
@@ -1333,7 +1330,7 @@ async function generatePolicyForCurrentIssue() {
   const gap = rp.coverage_gap_days || 6.2;
 
   const btn = document.querySelector("#panel-policy button[onclick='generatePolicyForCurrentIssue()']");
-  if (btn) btn.innerHTML = `<span>⏳ Synthesizing Policy with AI...</span>`;
+  if (btn) btn.innerHTML = `<span>[ SYNTHESIZING POLICY PROTOCOL... ]</span>`;
 
   try {
     const policy = await API.generatePolicy({
@@ -1350,7 +1347,7 @@ async function generatePolicyForCurrentIssue() {
   } catch (err) {
     console.error("Failed to generate policy for current issue:", err);
   } finally {
-    if (btn) btn.innerHTML = `<span>⚡ Generate Policy for Current Issue</span>`;
+    if (btn) btn.innerHTML = `<span>[ GENERATE POLICY FOR CURRENT ISSUE ]</span>`;
   }
 }
 
@@ -1424,8 +1421,8 @@ function renderPolicyPreview(policy) {
   if (statusEl) {
     statusEl.innerText = policy.status || "DRAFT_GENERATED";
     statusEl.className = policy.status === "ACTIVE_ENFORCED" 
-      ? "text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300"
-      : "text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300";
+      ? "stamp-tag stamp-operational"
+      : "stamp-tag stamp-disrupted";
   }
   if (catEl) catEl.innerText = (policy.category || "RESILIENCE").replace(/_/g, " ");
   if (titleEl) titleEl.innerText = policy.title || "Enterprise Resilience Policy";
@@ -1436,9 +1433,9 @@ function renderPolicyPreview(policy) {
   if (triggersEl) {
     const trigs = policy.quantitative_triggers || [];
     triggersEl.innerHTML = trigs.map(t => `
-      <div class="p-2 rounded bg-amber-50/60 border border-amber-200 text-amber-950 flex items-start space-x-2">
-        <span class="text-amber-700 font-bold mt-0.5">⚡</span>
-        <span>${t}</span>
+      <div class="p-2 bg-[#FDF7EB] border border-[#78450E]/30 text-[#78450E] flex items-start space-x-2">
+        <span class="font-mono font-bold text-xs mt-0.5">[TRIGGER]</span>
+        <span class="text-xs text-[#1C201D] font-sans">${t}</span>
       </div>
     `).join("");
   }
@@ -1446,9 +1443,9 @@ function renderPolicyPreview(policy) {
   if (rulesEl) {
     const rules = policy.mandatory_enforcement_rules || [];
     rulesEl.innerHTML = rules.map(r => `
-      <div class="p-2 rounded bg-emerald-50/60 border border-emerald-200 text-emerald-950 flex items-start space-x-2">
-        <span class="text-emerald-700 font-bold mt-0.5">✓</span>
-        <span>${r}</span>
+      <div class="p-2 bg-[#E8F1EC] border border-[#144336]/30 text-[#144336] flex items-start space-x-2">
+        <span class="font-mono font-bold text-xs mt-0.5">[MANDATE]</span>
+        <span class="text-xs text-[#1C201D] font-sans">${r}</span>
       </div>
     `).join("");
   }
@@ -1463,12 +1460,12 @@ function renderPolicyPreview(policy) {
 
   if (activateBtn) {
     if (policy.status === "ACTIVE_ENFORCED") {
-      activateBtn.innerHTML = `<span>✓ Policy Active & Enforced</span>`;
-      activateBtn.className = "px-3 py-1.5 bg-slate-100 text-emerald-800 border border-emerald-300 rounded text-xs font-semibold shadow-2xs";
+      activateBtn.innerHTML = `<span>[ POLICY ACTIVE & ENFORCED ]</span>`;
+      activateBtn.className = "btn-craft-secondary text-xs opacity-75 cursor-not-allowed";
       activateBtn.disabled = true;
     } else {
-      activateBtn.innerHTML = `<span>Activate Policy</span>`;
-      activateBtn.className = "px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-semibold shadow-2xs transition-all cursor-pointer";
+      activateBtn.innerHTML = `<span>[ ACTIVATE POLICY PROTOCOL ]</span>`;
+      activateBtn.className = "btn-craft-primary text-xs";
       activateBtn.disabled = false;
     }
   }
@@ -1526,40 +1523,40 @@ function renderExchangeCandidateCards() {
   if (!container) return;
 
   if (currentExchangeCandidates.length === 0) {
-    container.innerHTML = `<div class="col-span-full p-4 text-center text-xs text-[#68736C]">No qualified candidate suppliers found.</div>`;
+    container.innerHTML = `<div class="col-span-full p-4 text-center text-xs text-[#5A645C]">No qualified candidate suppliers found.</div>`;
     return;
   }
 
   container.innerHTML = currentExchangeCandidates.map(c => {
     const isSelected = c.supplier_id === selectedExchangeSupplierId;
-    const borderClass = isSelected ? "border-indigo-600 bg-indigo-50/50 shadow-sm ring-2 ring-indigo-500/20" : "border-[#E2E5E0] bg-[#FAFAF8] hover:border-indigo-300";
-    const flag = c.country === "Japan" ? "🇯🇵" : c.country === "Germany" ? "🇩🇪" : c.country === "USA" ? "🇺🇸" : c.country === "Mexico" ? "🇲🇽" : "🇰🇷";
+    const borderClass = isSelected ? "border-[#144336] bg-[#E8F1EC] ring-1 ring-[#144336]" : "border-[#D8D5CD] bg-white hover:border-[#144336]";
+    const countryCode = c.country === "Japan" ? "JP" : c.country === "Germany" ? "DE" : c.country === "USA" ? "US" : c.country === "Mexico" ? "MX" : "KR";
 
     return `
-      <div onclick="selectExchangeCandidate('${c.supplier_id}')" class="p-3 rounded-lg border ${borderClass} transition-all cursor-pointer flex flex-col justify-between space-y-2">
+      <div onclick="selectExchangeCandidate('${c.supplier_id}')" class="p-3 border ${borderClass} transition-all cursor-pointer flex flex-col justify-between space-y-2">
         <div>
           <div class="flex items-center justify-between">
-            <span class="text-sm">${flag} <span class="font-bold text-xs text-[#202722]">${c.country}</span></span>
-            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-700'}">
+            <span class="font-mono text-xs font-bold text-[#1C201D]">[${countryCode}] ${c.country.toUpperCase()}</span>
+            <span class="stamp-tag ${isSelected ? 'stamp-operational' : ''}">
               ${c.supplier_id}
             </span>
           </div>
-          <div class="font-semibold text-xs text-[#202722] mt-1.5 leading-snug line-clamp-2">${c.name}</div>
-          <div class="text-[10px] text-[#68736C] mt-0.5">${c.city}</div>
+          <div class="font-serif font-bold text-sm text-[#1C201D] mt-1.5 leading-snug line-clamp-2">${c.name}</div>
+          <div class="text-[10px] text-[#5A645C] font-mono mt-0.5">${c.city}</div>
         </div>
 
-        <div class="pt-2 border-t border-[#E2E5E0]/60 space-y-1 text-[10px] font-mono">
+        <div class="pt-2 border-t border-[#D8D5CD] space-y-1 text-[10px] font-mono">
           <div class="flex items-center justify-between">
-            <span class="text-[#68736C]">Transit Lead:</span>
-            <span class="font-bold text-emerald-800">${c.standard_lead_time_days} days</span>
+            <span class="text-[#5A645C]">Transit Lead:</span>
+            <span class="font-bold text-[#1C201D]">${c.standard_lead_time_days} days</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[#68736C]">Buffer Cap:</span>
-            <span class="font-bold text-indigo-900">${c.available_capacity_pct}% avail</span>
+            <span class="text-[#5A645C]">Buffer Cap:</span>
+            <span class="font-bold text-[#144336]">${c.available_capacity_pct}% avail</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[#68736C]">Unit Cost:</span>
-            <span class="font-bold text-[#202722]">$${c.unit_cost_usd.toFixed(2)}</span>
+            <span class="text-[#5A645C]">Unit Cost:</span>
+            <span class="font-bold text-[#1C201D]">$${c.unit_cost_usd.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -1616,11 +1613,12 @@ function renderExchangeEvaluationDetails(evalData) {
   if (statusBadge) {
     statusBadge.innerText = feas.prevents_stockout ? "FEASIBLE (RECOMMENDED)" : "TIGHT TOLERANCE";
     statusBadge.className = feas.prevents_stockout 
-      ? "px-2 py-0.5 rounded font-mono font-bold text-[9px] bg-emerald-100 text-emerald-900 border border-emerald-300"
-      : "px-2 py-0.5 rounded font-mono font-bold text-[9px] bg-amber-100 text-amber-900 border border-amber-300";
+      ? "stamp-tag stamp-operational"
+      : "stamp-tag stamp-disrupted";
   }
 
   if (scorePill) {
+    scorePill.className = "stamp-tag";
     scorePill.innerText = `Score: ${feas.feasibility_score_pct || 94} / 100`;
   }
 
@@ -1630,7 +1628,7 @@ function renderExchangeEvaluationDetails(evalData) {
   if (bufferMarginEl) {
     const margin = feas.stockout_safety_margin_days || 1.4;
     bufferMarginEl.innerText = margin >= 0 ? `+${margin} Days` : `${margin} Days`;
-    bufferMarginEl.className = margin >= 0 ? "text-lg font-bold text-emerald-950 mt-0.5" : "text-lg font-bold text-red-950 mt-0.5";
+    bufferMarginEl.className = margin >= 0 ? "text-lg font-bold text-[#144336] mt-0.5 font-mono" : "text-lg font-bold text-[#8F2718] mt-0.5 font-mono";
   }
 
   if (costDeltaEl) {
@@ -1649,8 +1647,8 @@ function renderExchangeEvaluationDetails(evalData) {
 
   if (verdictEl) {
     verdictEl.innerText = feas.prevents_stockout 
-      ? `✓ ${feas.stockout_safety_margin_days}d safety buffer before Detroit assembly line shutdown`
-      : `⚠️ Margin narrow: requires priority customs fast-track`;
+      ? `[SAFETY BUFFER MAINTAINED] ${feas.stockout_safety_margin_days}d safety buffer before Detroit assembly line shutdown`
+      : `[CUSTOMS FAST-TRACK REQUIRED] Margin narrow: requires priority customs clearance`;
   }
 
   if (explanationEl) {
@@ -1669,9 +1667,9 @@ function renderExchangeEvaluationDetails(evalData) {
   if (docsContainer) {
     const docs = legal.mandatory_permits || [];
     docsContainer.innerHTML = docs.map(d => `
-      <div class="p-2 rounded bg-slate-50 border border-slate-200 text-xs text-slate-800 flex items-start space-x-2">
-        <span class="text-indigo-600 font-bold mt-0.5">📄</span>
-        <span class="font-mono text-[11px] leading-tight">${d}</span>
+      <div class="p-2 bg-white border border-[#D8D5CD] text-xs text-[#1C201D] flex items-start space-x-2">
+        <span class="font-mono text-xs text-[#144336] font-bold mt-0.5">[PERMIT]</span>
+        <span class="font-mono text-[11px] leading-tight text-[#1C201D]">${d}</span>
       </div>
     `).join("");
   }
@@ -1687,11 +1685,11 @@ function renderExchangeEvaluationDetails(evalData) {
   if (roadmapContainer) {
     const steps = evalData.transition_roadmap || [];
     roadmapContainer.innerHTML = steps.map((s, idx) => `
-      <div class="p-2.5 rounded bg-[#FAFAF8] border border-[#E2E5E0] text-xs flex items-start space-x-2.5">
-        <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-900 font-mono font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">
-          ${idx + 1}
+      <div class="p-2.5 bg-white border border-[#D8D5CD] text-xs flex items-start space-x-2.5">
+        <span class="font-mono font-bold text-xs text-[#144336] shrink-0 mt-0.5">
+          [0${idx + 1}]
         </span>
-        <span class="text-[#202722] text-[11px] leading-relaxed">${s}</span>
+        <span class="text-[#1C201D] text-[11px] leading-relaxed font-sans">${s}</span>
       </div>
     `).join("");
   }
@@ -1700,10 +1698,9 @@ function renderExchangeEvaluationDetails(evalData) {
   const execBtn = document.getElementById("btn-execute-exchange");
   if (execBtn) {
     execBtn.disabled = false;
-    execBtn.className = "w-full py-2.5 px-3 bg-[#176B57] hover:bg-[#115243] text-white rounded text-xs font-semibold shadow-xs flex items-center justify-center space-x-1.5 cursor-pointer transition-all";
+    execBtn.className = "btn-craft-primary w-full text-xs font-mono uppercase tracking-wider justify-center";
     execBtn.innerHTML = `
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
-      <span>Authorize & Stage SAP BAPI Purchase Order</span>
+      <span>[ AUTHORIZE & STAGE SAP BAPI PURCHASE ORDER ]</span>
     `;
   }
 }
@@ -1715,8 +1712,7 @@ async function commitSupplyExchange() {
   if (execBtn) {
     execBtn.disabled = true;
     execBtn.innerHTML = `
-      <svg class="w-3.5 h-3.5 animate-spin mr-1.5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-      Staging SAP BAPI PO...
+      <span>[ TRANSMITTING SAP BAPI PROTOCOL... ]</span>
     `;
   }
 
@@ -1729,8 +1725,8 @@ async function commitSupplyExchange() {
     const receipt = await API.executeSupplyExchange(payload);
     
     if (execBtn) {
-      execBtn.className = "w-full py-2.5 px-3 bg-emerald-700 text-white rounded text-xs font-semibold shadow-xs flex items-center justify-center space-x-1.5";
-      execBtn.innerHTML = `<span>✓ Staged via SAP BAPI (PO ${receipt.sap_po_number || 'PO-SAP-748921'})</span>`;
+      execBtn.className = "btn-craft-secondary w-full text-xs font-mono uppercase tracking-wider justify-center";
+      execBtn.innerHTML = `<span>[ STAGED VIA SAP BAPI: ${receipt.sap_po_number || 'PO-SAP-748921'} ]</span>`;
     }
 
     // Show toast with SMS confirmation

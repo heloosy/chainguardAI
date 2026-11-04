@@ -115,8 +115,8 @@ class GlobalSupplyChainMap {
       const isCyclone = haz.category === "CYCLONE_WEATHER" || haz.name.includes("Typhoon") || haz.name.includes("Cyclonic");
       const isCrit = haz.severity === "CRITICAL";
 
-      let color = isWar ? '#dc2626' : isCyclone ? '#7c3aed' : '#f97316';
-      let icon = isWar ? '⚔️' : isCyclone ? '🌀' : '⚓';
+      let color = isWar ? '#8F2718' : isCyclone ? '#78450E' : '#5A645C';
+      let tagLabel = isWar ? '[WAR RISK]' : isCyclone ? '[CYCLONE]' : '[PORT CONGESTION]';
 
       const circle = L.circle([haz.lat, haz.lng], {
         color: color,
@@ -128,15 +128,15 @@ class GlobalSupplyChainMap {
       }).addTo(this.map);
 
       circle.bindPopup(`
-        <div class="p-3 text-xs space-y-1.5 font-sans max-w-xs">
+        <div class="p-3 text-xs space-y-1.5 font-sans max-w-xs bg-white border border-[#D8D5CD]">
           <div class="flex items-center space-x-1.5">
-            <span class="text-sm">${icon}</span>
-            <span class="font-bold text-slate-900">${haz.name}</span>
+            <span class="font-mono text-[10px] font-bold text-[#8F2718]">${tagLabel}</span>
+            <span class="font-bold text-[#1C201D] font-serif text-sm">${haz.name}</span>
           </div>
-          <div class="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded inline-block ${isWar ? 'bg-red-100 text-red-800' : isCyclone ? 'bg-purple-100 text-purple-800' : 'bg-amber-100 text-amber-800'}">
+          <div class="stamp-tag ${isWar || isCrit ? 'stamp-critical' : 'stamp-disrupted'}">
             ${haz.category || haz.severity}
           </div>
-          <p class="text-slate-600 leading-relaxed text-[11px]">${haz.description}</p>
+          <p class="text-[#2C332D] leading-relaxed text-[11px] font-sans">${haz.description}</p>
         </div>
       `);
       this.hazards.push(circle);
@@ -158,31 +158,31 @@ class GlobalSupplyChainMap {
       const isAlt = lane.status === "ALTERNATIVE_ACTIVE_PATH";
 
       const polyline = L.polyline(coords, {
-        color: isDelayed ? '#ef4444' : isAction ? '#10b981' : isAlt ? '#8b5cf6' : '#3b82f6',
+        color: isDelayed ? '#8F2718' : isAction ? '#144336' : isAlt ? '#78450E' : '#2C332D',
         weight: isDelayed ? 3.5 : isAlt ? 3.0 : isAction ? 2.5 : 2.0,
         opacity: 0.85,
         dashArray: isAlt ? '4, 4' : isAction ? '6, 6' : isDelayed ? '8, 4' : null
       }).addTo(this.map);
 
       polyline.bindPopup(`
-        <div class="p-3 text-xs space-y-2 font-sans max-w-xs">
+        <div class="p-3 text-xs space-y-2 font-sans max-w-xs bg-white border border-[#D8D5CD]">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-900">${lane.name}</span>
+            <span class="font-bold text-[#1C201D] font-serif text-sm">${lane.name}</span>
           </div>
-          <div class="text-slate-600 space-y-0.5">
-            <div>Shipment: <span class="font-mono text-slate-800 font-bold">${lane.shipment_id}</span></div>
-            <div>Component: <span class="text-slate-900 font-semibold">${lane.component}</span></div>
-            <div>Calibrated Delay Risk: <span class="font-mono font-bold ${isDelayed ? 'text-red-600' : isAlt ? 'text-purple-600' : 'text-emerald-600'}">${lane.delay_prob}%</span></div>
-            ${lane.current_deviation_days ? `<div>Milestone Lag: <span class="font-mono text-red-600 font-bold">+${lane.current_deviation_days} days</span></div>` : ''}
-            ${lane.mitigation_code ? `<div class="mt-1 px-2 py-0.5 bg-purple-50 text-purple-700 rounded font-semibold text-[10px]">Policy Mitigation: ${lane.mitigation_code}</div>` : ''}
+          <div class="text-[#2C332D] space-y-0.5 text-xs">
+            <div>Shipment: <span class="font-mono text-[#1C201D] font-bold">${lane.shipment_id}</span></div>
+            <div>Component: <span class="text-[#1C201D] font-semibold">${lane.component}</span></div>
+            <div>Calibrated Delay Risk: <span class="font-mono font-bold ${isDelayed ? 'text-[#8F2718]' : isAlt ? 'text-[#78450E]' : 'text-[#144336]'}">${lane.delay_prob}%</span></div>
+            ${lane.current_deviation_days ? `<div>Milestone Lag: <span class="font-mono text-[#8F2718] font-bold">+${lane.current_deviation_days} days</span></div>` : ''}
+            ${lane.mitigation_code ? `<div class="mt-1 px-2 py-0.5 bg-[#E8F1EC] text-[#144336] font-mono text-[10px]">Mitigation Protocol: ${lane.mitigation_code}</div>` : ''}
           </div>
           ${isAlt ? `
-            <button onclick="window.inspectAlternativeAndCompliance('${lane.component}', '${lane.shipment_id}')" class="w-full mt-2 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-bold shadow-sm transition">
-              ⚖️ Inspect Compliance & Trade Policies
+            <button onclick="window.inspectAlternativeAndCompliance('${lane.component}', '${lane.shipment_id}')" class="btn-craft-primary w-full text-xs font-mono uppercase tracking-wider justify-center mt-2">
+              [ Inspect Compliance Policies ]
             </button>
           ` : `
-            <button onclick="window.triggerMapDisruption('${lane.shipment_id}', '${lane.component}')" class="w-full mt-2 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-bold shadow-sm transition">
-              ⚡ Simulate Disruption Shock on this Corridor
+            <button onclick="window.triggerMapDisruption('${lane.shipment_id}', '${lane.component}')" class="btn-craft-danger w-full text-xs font-mono uppercase tracking-wider justify-center mt-2">
+              [ Simulate Disruption Shock ]
             </button>
           `}
         </div>
@@ -192,25 +192,25 @@ class GlobalSupplyChainMap {
 
     // 3. Render Nodes (Ports & Manufacturing Plants)
     (data.nodes || []).forEach(node => {
-      let markerColor = '#2563eb';
-      if (node.type === "MANUFACTURING_PLANT") markerColor = '#dc2626';
-      else if (node.type === "SISTER_PLANT") markerColor = '#10b981';
-      else if (node.type === "DESTINATION_PORT") markerColor = '#f59e0b';
-      else if (node.type === "ALT_SUPPLIER") markerColor = '#8b5cf6';
+      let markerColor = '#144336';
+      if (node.type === "MANUFACTURING_PLANT") markerColor = '#8F2718';
+      else if (node.type === "SISTER_PLANT") markerColor = '#144336';
+      else if (node.type === "DESTINATION_PORT") markerColor = '#78450E';
+      else if (node.type === "ALT_SUPPLIER") markerColor = '#144336';
 
       const customIcon = L.divIcon({
         className: 'custom-map-pin',
-        html: `<div style="background-color: ${markerColor}; width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7]
+        html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 2px; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
       });
 
       const marker = L.marker([node.lat, node.lng], { icon: customIcon }).addTo(this.map);
       marker.bindPopup(`
-        <div class="p-2 text-xs space-y-1 font-sans">
-          <div class="font-bold text-slate-900">${node.name}</div>
-          <div class="text-slate-500 font-mono text-[10px]">${node.type} • ${node.country}</div>
-          <div class="text-slate-700 font-medium">Status: <span class="font-bold ${node.status.includes('CRITICAL') ? 'text-red-600' : 'text-emerald-700'}">${node.status}</span></div>
+        <div class="p-2.5 text-xs space-y-1 font-sans bg-white border border-[#D8D5CD]">
+          <div class="font-bold text-[#1C201D] font-serif text-sm">${node.name}</div>
+          <div class="text-[#5A645C] font-mono text-[10px]">${node.type} • ${node.country}</div>
+          <div class="text-[#2C332D] font-medium">Status: <span class="font-bold ${node.status.includes('CRITICAL') ? 'text-[#8F2718]' : 'text-[#144336]'}">${node.status}</span></div>
         </div>
       `);
       this.markers.push(marker);
@@ -219,33 +219,33 @@ class GlobalSupplyChainMap {
     // 4. Render Multi-Source Intelligence Signals (X/Twitter, Google News)
     (data.signals || []).forEach(sig => {
       const isX = sig.source_platform === "X_TWITTER";
-      const iconColor = isX ? "#0284c7" : "#ea580c";
-      const iconLetter = isX ? "𝕏" : "G";
+      const iconColor = isX ? "#144336" : "#78450E";
+      const iconLetter = isX ? "X" : "G";
 
       const signalIcon = L.divIcon({
         className: 'custom-signal-pin',
-        html: `<div style="background-color: ${iconColor}; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px; border: 2.5px solid white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); cursor: pointer;" title="${sig.headline}">${iconLetter}</div>`,
-        iconSize: [26, 26],
-        iconAnchor: [13, 13]
+        html: `<div style="background-color: ${iconColor}; color: white; width: 22px; height: 22px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: monospace; font-size: 11px; border: 1.5px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.25); cursor: pointer;" title="${sig.headline}">[${iconLetter}]</div>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
       });
 
       const marker = L.marker([sig.lat, sig.lng], { icon: signalIcon }).addTo(this.map);
       marker.bindPopup(`
-        <div class="p-3 text-xs space-y-2 font-sans max-w-xs">
+        <div class="p-3 text-xs space-y-2 font-sans max-w-xs bg-white border border-[#D8D5CD]">
           <div class="flex items-center justify-between">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isX ? 'bg-sky-100 text-sky-800' : 'bg-orange-100 text-orange-800'}">
-              ${isX ? '𝕏 Twitter Alert' : 'Google News'}
+            <span class="stamp-tag ${isX ? 'stamp-operational' : 'stamp-disrupted'}">
+              ${isX ? 'X Intelligence' : 'News Wire'}
             </span>
-            <span class="text-[10px] text-slate-500 font-mono">${sig.signal_id}</span>
+            <span class="text-[10px] text-[#5A645C] font-mono">${sig.signal_id}</span>
           </div>
-          <div class="font-bold text-slate-900 leading-snug">${sig.headline}</div>
-          <p class="text-slate-600 text-[11px] leading-relaxed">${sig.content}</p>
-          <div class="pt-1 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+          <div class="font-bold text-[#1C201D] font-serif text-sm leading-snug">${sig.headline}</div>
+          <p class="text-[#2C332D] text-[11px] leading-relaxed font-sans">${sig.content}</p>
+          <div class="pt-1 border-t border-[#D8D5CD] flex items-center justify-between text-[10px] text-[#5A645C] font-mono">
             <span>Predicted Shock: +${sig.predicted_delay_shock_days}d</span>
-            <span class="font-bold text-red-600">${sig.urgency_tier}</span>
+            <span class="font-bold text-[#8F2718]">${sig.urgency_tier}</span>
           </div>
-          <button onclick="window.inspectAlternativeAndCompliance('${sig.component_id}', '${sig.signal_id}')" class="w-full mt-2 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-bold shadow-sm transition">
-            ⚖️ Evaluate Alternative Path & Policies
+          <button onclick="window.inspectAlternativeAndCompliance('${sig.component_id}', '${sig.signal_id}')" class="btn-craft-primary w-full text-xs font-mono uppercase tracking-wider justify-center mt-2">
+            [ Evaluate Alternative Path & Policies ]
           </button>
         </div>
       `);

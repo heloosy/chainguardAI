@@ -360,7 +360,7 @@ async function runAgenticSimulation(presetName = "CUSTOM") {
   const decisionBox = document.getElementById("agentic-decision-box");
   if (traceBox) {
     traceBox.innerHTML = `
-      <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-center space-x-2">
+      <div class="p-4 bg-blue-50 border border-blue-200 rounded-none text-xs text-blue-900 flex items-center space-x-2">
         <svg class="w-4 h-4 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
         <span class="font-bold">Autonomous Agentic Reasoning Cycle in Progress... Coordinating Sentinel, Diagnostic, Planning & SAP Agents</span>
       </div>
@@ -396,32 +396,32 @@ function renderAgenticThoughtTrace(trace, fullCycle) {
   container.innerHTML = "";
 
   const colorStyles = {
-    blue: "border-blue-500 bg-blue-50/40 text-blue-900",
-    amber: "border-amber-500 bg-amber-50/40 text-amber-900",
-    emerald: "border-emerald-500 bg-emerald-50/40 text-emerald-900",
-    indigo: "border-indigo-500 bg-indigo-50/40 text-indigo-900"
+    blue: "border-[#144336] bg-[#E8F1EC] text-[#144336]",
+    amber: "border-[#78450E] bg-[#FDF7EB] text-[#78450E]",
+    emerald: "border-[#144336] bg-[#E8F1EC] text-[#144336]",
+    forest: "border-[#144336] bg-[#E8F1EC] text-[#144336]"
   };
 
   const badgeStyles = {
-    blue: "bg-blue-100 text-blue-800",
-    amber: "bg-amber-100 text-amber-800",
-    emerald: "bg-emerald-100 text-emerald-800",
-    indigo: "bg-indigo-100 text-indigo-800"
+    blue: "stamp-tag stamp-operational",
+    amber: "stamp-tag stamp-disrupted",
+    emerald: "stamp-tag stamp-operational",
+    forest: "stamp-tag stamp-operational"
   };
 
   trace.forEach((step, idx) => {
     const el = document.createElement("div");
-    const styleClass = colorStyles[step.color] || colorStyles.blue;
-    const badgeClass = badgeStyles[step.color] || badgeStyles.blue;
+    const styleClass = colorStyles[step.color] || colorStyles.forest;
+    const badgeClass = badgeStyles[step.color] || badgeStyles.forest;
 
-    el.className = `agent-step-card p-4 rounded-xl border border-slate-200 ${styleClass} text-xs space-y-1.5 opacity-0 transform translate-y-2 transition-all duration-300`;
+    el.className = `agent-step-card p-3 rounded-none border border-[#D8D5CD] ${styleClass} text-xs space-y-1.5 opacity-0 transform translate-y-2 transition-all duration-300`;
     el.innerHTML = `
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
-          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeClass}">STEP ${step.step} • ${step.agent}</span>
-          <span class="text-slate-500 text-[11px] font-medium font-sans">(${step.role})</span>
+          <span class="${badgeClass}">STEP ${step.step} • ${step.agent}</span>
+          <span class="text-[#5A645C] text-[11px] font-medium font-sans">(${step.role})</span>
         </div>
-        <span class="font-mono text-slate-400 text-[10px]">${step.timestamp}</span>
+        <span class="font-mono text-[#5A645C] text-[10px]">${step.timestamp}</span>
       </div>
       <p class="text-slate-800 font-sans leading-relaxed text-xs">
         ${step.thought}
@@ -668,7 +668,7 @@ function handleNodeSelect(node) {
   const inspector = document.getElementById("node-inspector");
   if (!inspector) return;
   inspector.innerHTML = `
-    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs">
+    <div class="p-4 bg-slate-50 rounded-none border border-slate-200 space-y-2 text-xs">
       <div class="flex items-center justify-between">
         <span class="px-2 py-0.5 text-xs font-semibold rounded bg-blue-100 text-blue-700 border border-blue-200">${node.type}</span>
         <span class="font-mono text-xs text-slate-500">${node.id}</span>
@@ -715,7 +715,7 @@ function renderRecommendationsList(recommendations) {
 
       <!-- Side-by-Side Comparison -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200 space-y-3">
+        <div class="p-4 rounded-none bg-emerald-50/50 border border-emerald-200 space-y-3">
           <div class="flex items-center justify-between">
             <span class="font-bold text-emerald-800 text-sm">PROPOSED INTERVENTION</span>
             <span class="text-xs font-mono bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Risk: ${top.post_action_delay_risk_pct}%</span>
@@ -727,7 +727,7 @@ function renderRecommendationsList(recommendations) {
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-red-50/50 border border-red-200 space-y-3">
+        <div class="p-4 rounded-none bg-red-50/50 border border-red-200 space-y-3">
           <div class="flex items-center justify-between">
             <span class="font-bold text-red-800 text-sm">STATUS QUO (DO NOTHING)</span>
             <span class="text-xs font-mono bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded">Risk: ${dn.post_action_delay_risk_pct}%</span>
@@ -1055,7 +1055,7 @@ async function loadDispatchedWarnings() {
     }
 
     container.innerHTML = currentWarnings.map(w => `
-      <div class="p-4 bg-white rounded-xl border border-slate-200 space-y-2 text-xs shadow-sm">
+      <div class="p-4 bg-white rounded-none border border-slate-200 space-y-2 text-xs shadow-sm">
         <div class="flex items-center justify-between">
           <span class="px-2.5 py-0.5 rounded text-[11px] font-bold ${w.severity === 'CRITICAL' ? 'badge-critical' : 'badge-elevated'}">${w.severity}</span>
           <span class="font-mono text-slate-400 text-[10px]">${w.warning_id} • ${new Date(w.timestamp).toLocaleTimeString()}</span>
@@ -1087,7 +1087,7 @@ async function loadSapMD04(materialId = "CMP-MCU-01") {
     const headerEl = document.getElementById("sap-md04-header");
     if (headerEl) {
       headerEl.innerHTML = `
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-none border border-slate-200 text-xs">
           <div><span class="text-slate-500 block text-[10px] uppercase font-semibold">Material / Desc</span><span class="font-bold text-slate-900">${data.Material} (${data.Material_Description})</span></div>
           <div><span class="text-slate-500 block text-[10px] uppercase font-semibold">Plant / MRP Controller</span><span class="font-bold text-slate-900">${data.Plant}</span></div>
           <div><span class="text-slate-500 block text-[10px] uppercase font-semibold">MRP Type / Diagnosis</span><span class="font-mono font-bold ${data.MRP_Status.includes('CRITICAL') ? 'text-red-600' : 'text-emerald-600'}">${data.MRP_Type} (${data.MRP_Status})</span></div>
@@ -1155,7 +1155,7 @@ async function triggerSapBapiPO() {
     if (outBox) {
       outBox.classList.remove("hidden");
       outBox.innerHTML = `
-        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-300 space-y-2 text-xs">
+        <div class="p-4 bg-emerald-50 rounded-none border border-emerald-300 space-y-2 text-xs">
           <div class="flex items-center justify-between">
             <span class="font-bold text-emerald-800 text-sm">SAP S/4HANA BAPI_PO_CREATE1 Successful</span>
             <span class="font-mono text-emerald-900 font-bold">PO: ${res.generated_sap_po_number}</span>
@@ -1204,7 +1204,7 @@ async function runSingleInference() {
     if (resultBox) {
       resultBox.classList.remove("hidden");
       resultBox.innerHTML = `
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+        <div class="p-4 bg-slate-50 rounded-none border border-slate-200 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-slate-700 uppercase">Live Model Inference Output</span>
             <span class="px-2 py-0.5 text-xs rounded-full ${res.risk_assessment.risk_tier === 'CRITICAL' ? 'badge-critical' : 'badge-low'}">
@@ -1442,7 +1442,7 @@ async function loadSourceSignals() {
     const signals = data.signals || [];
     
     if (signals.length === 0) {
-      container.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-500 col-span-2">No signals detected.</div>`;
+      container.innerHTML = `<div class="p-4 bg-slate-50 border border-slate-200 rounded-none text-xs text-slate-500 col-span-2">No signals detected.</div>`;
       return;
     }
 
@@ -1453,7 +1453,7 @@ async function loadSourceSignals() {
       const timeStr = new Date(sig.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       return `
-        <div class="p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-300 transition shadow-sm space-y-2 flex flex-col justify-between">
+        <div class="p-4 rounded-none border border-slate-200 bg-white hover:border-blue-300 transition shadow-sm space-y-2 flex flex-col justify-between">
           <div class="space-y-1.5">
             <div class="flex items-center justify-between text-xs">
               <div class="flex items-center space-x-1.5">
@@ -1474,8 +1474,8 @@ async function loadSourceSignals() {
               </span>
               <span class="font-mono text-red-600 font-bold text-[10px]">Shock: +${sig.predicted_delay_shock_days}d</span>
             </div>
-            <button onclick="inspectAlternativeAndCompliance('${sig.component_id}', '${sig.signal_id}')" class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded text-[11px] border border-blue-200 transition">
-              ⚖️ Evaluate Alternative ➔
+            <button onclick="inspectAlternativeAndCompliance('${sig.component_id}', '${sig.signal_id}')" class="btn-craft-primary text-[10px] font-mono uppercase tracking-wider">
+              [ Evaluate Alternative ➔ ]
             </button>
           </div>
         </div>
@@ -1601,7 +1601,7 @@ async function runComplianceEvaluation() {
     if (altIssues) {
       altIssues.innerHTML = (alt.emerging_issues || []).map(i => `
         <li class="flex items-start space-x-2">
-          <span class="text-amber-500 font-bold">⚡</span>
+          <span class="font-mono text-xs text-[#78450E] font-bold">[!]</span>
           <span>${i}</span>
         </li>
       `).join("");
@@ -1612,10 +1612,10 @@ async function runComplianceEvaluation() {
     const mitigationsContainer = document.getElementById("compliance-mitigations-container");
     if (mitigationsContainer) {
       mitigationsContainer.innerHTML = mitigations.map(m => `
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
+        <div class="p-3 rounded-none border border-[#D8D5CD] bg-white space-y-2">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-xs text-slate-900">${m.policy_name}</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200">
+            <span class="font-bold text-xs text-[#1C201D] font-serif">${m.policy_name}</span>
+            <span class="stamp-tag stamp-operational">
               ${m.compliance_status}
             </span>
           </div>
@@ -1656,7 +1656,7 @@ async function loadStageProgression() {
         const icon = isPast ? "✓" : isCurr ? "▶" : `${s.stage_index}`;
 
         return `
-          <div class="p-3 rounded-xl border ${borderClass} text-xs flex flex-col items-center justify-center space-y-1">
+          <div class="p-3 rounded-none border ${borderClass} text-xs flex flex-col items-center justify-center space-y-1">
             <span class="w-6 h-6 rounded-full ${isPast ? 'bg-emerald-600' : isCurr ? 'bg-blue-600' : 'bg-slate-300'} text-white flex items-center justify-center font-bold text-xs">
               ${icon}
             </span>
@@ -1690,7 +1690,7 @@ async function loadStageProgression() {
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
               <!-- Emerging Issue -->
-              <div class="p-3 bg-red-50 rounded-xl border border-red-200 space-y-1">
+              <div class="p-3 bg-red-50 rounded-none border border-red-200 space-y-1">
                 <div class="flex items-center justify-between text-red-900 font-bold">
                   <span>⚠️ Emerging Disruption Issue:</span>
                   <span class="px-1.5 py-0.2 bg-red-200 text-red-800 rounded text-[10px]">${s.emerging_issue.category}</span>
@@ -1702,7 +1702,7 @@ async function loadStageProgression() {
               </div>
 
               <!-- Mitigation Plan -->
-              <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1">
+              <div class="p-3 bg-emerald-50 rounded-none border border-emerald-200 space-y-1">
                 <div class="flex items-center justify-between text-emerald-900 font-bold">
                   <span>🛡️ Mitigation & Action:</span>
                   <span class="px-1.5 py-0.2 bg-emerald-200 text-emerald-800 rounded text-[10px] font-mono">${s.mitigation.action_code}</span>
