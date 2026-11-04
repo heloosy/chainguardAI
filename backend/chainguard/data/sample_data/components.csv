@@ -1,0 +1,8 @@
+component_id,name,supplier_id,alternative_supplier_id,category,criticality,unit_cost_usd,current_stock,safety_stock,reorder_point,daily_consumption_rate,consumption_std,holding_cost_rate,facility_id
+CMP-MCU-01,32-Bit Automotive Master MCU,SUP-001,SUP-007,Microcontrollers,High,85.0,420.0,350.0,650.0,70.0,8.5,0.2,FAC-DETROIT
+CMP-SEN-02,Multi-Spectrum LiDAR Transceiver,SUP-002,,Sensors,High,240.0,680.0,200.0,400.0,35.0,4.0,0.22,FAC-DETROIT
+CMP-BAT-03,48V High-Yield Battery Management Unit,SUP-003,SUP-008,Power,High,310.0,210.0,180.0,450.0,30.0,5.2,0.25,FAC-AUSTIN
+CMP-SUB-04,Dielectric Multilayer Substrate,SUP-004,,Passive,Medium,18.0,3400.0,800.0,1500.0,140.0,12.0,0.15,FAC-DETROIT
+CMP-HAR-05,High-Voltage Shielded Harness,SUP-005,,Harness,Medium,45.0,820.0,300.0,600.0,40.0,3.8,0.18,FAC-AUSTIN
+CMP-ENC-06,Milled IP68 Aluminum Housing,SUP-006,,Structural,Low,62.0,950.0,250.0,500.0,45.0,4.1,0.12,FAC-DETROIT
+CMP-SNS-05,Solid-State Radar Front-End Unit,SUP-009,SUP-002,Sensors,High,165.0,280.0,200.0,380.0,50.0,6.0,0.2,FAC-DETROIT

@@ -1,0 +1,6 @@
+shipment_id,po_id,component_id,supplier_id,carrier,transport_mode,origin_location,destination_facility_id,departure_date,scheduled_arrival_date,current_status,days_in_transit,eta_days_remaining,last_milestone_deviation_days,weather_severity_index,port_congestion_days,geopolitical_risk_score
+SHP-801,PO-501,CMP-MCU-01,SUP-001,TransPacific Maritime (Simulated),Ocean,"Kaohsiung Port, TW",FAC-DETROIT,2026-10-17,2026-11-05,At Port,15.0,4.0,281.0,8.5,102.7,10.0
+SHP-802,PO-502,CMP-SEN-02,SUP-002,Lufthansa Cargo (Simulated),Air,"Frankfurt, DE",FAC-DETROIT,2026-10-30,2026-11-05,In Transit,2.0,4.0,0.2,2.1,0.5,1.2
+SHP-803,PO-503,CMP-BAT-03,SUP-003,Hanjin Logistics (Simulated),Ocean,"Busan, KR",FAC-AUSTIN,2026-10-22,2026-11-07,In Transit,10.0,6.0,1.8,5.4,3.2,4.5
+SHP-804,PO-504,CMP-SUB-04,SUP-004,Nippon Express Air (Simulated),Air,"Osaka, JP",FAC-DETROIT,2026-10-29,2026-11-05,In Transit,3.0,4.0,0.1,1.8,0.8,2.0
+SHP-805,PO-505,CMP-SNS-05,SUP-009,Maersk Line (Simulated),Ocean,"Port of Chennai, IN",FAC-DETROIT,2026-10-22,2026-11-05,At Port,10.0,4.0,88.2,8.5,1.2,1.5

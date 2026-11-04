@@ -1,0 +1,4 @@
+order_id,customer_name,product_id,quantity,contract_value_usd,promised_delivery_date,late_penalty_usd_per_day,sla_priority,destination_market
+ORD-OEM-901,Titan Mobility Systems,PRD-EV-CORE,300,1250000.0,2026-11-10,25000.0,Tier 1 Strategic,North America
+ORD-OEM-902,Nordic Fleet Solutions,PRD-EV-CORE,180,780000.0,2026-11-13,14000.0,Tier 1 Strategic,Europe
+ORD-IND-903,Helios Robotics Logistics,PRD-ROBOT-V3,150,920000.0,2026-11-11,18500.0,Standard Commercial,North America

@@ -1,0 +1,10 @@
+supplier_id,name,country,tier,category,capacity_utilization,historical_on_time_rate,financial_health_score,lead_time_days_mean,lead_time_days_std,lead_time_drift_pct
+SUP-001,Apex Semiconductor (Simulated Benchmark),Taiwan,1,Microcontrollers & SoCs,0.94,0.74,88.0,21.0,4.8,24.5
+SUP-002,Nordic Precision Sensors (Simulated Benchmark),Germany,1,Optical & LiDAR Sensors,0.76,0.93,94.0,12.0,1.5,-2.0
+SUP-003,Pacific Power Cells (Simulated Benchmark),South Korea,1,Li-Ion Battery Modules,0.89,0.81,85.0,18.0,3.6,14.2
+SUP-004,Kyoto High-Density Ceramics (Simulated Benchmark),Japan,2,Passive Components & Substrates,0.72,0.96,96.0,14.0,1.2,0.5
+SUP-005,Shenzhen Harness & Cabling (Simulated Benchmark),China,1,Wire Harnesses & Connectors,0.83,0.88,79.0,10.0,2.1,5.0
+SUP-006,Detroit Stampings & Enclosures (Simulated Benchmark),USA,1,Aluminum Enclosures,0.68,0.95,91.0,6.0,0.9,-1.2
+SUP-007,Silicon Saxony Fab (Simulated Benchmark - Alt),Germany,1,Microcontrollers & SoCs,0.71,0.94,92.0,14.0,2.0,-1.5
+SUP-008,Austin Micro Devices (Simulated Benchmark - Alt),USA,1,Li-Ion Battery Modules,0.65,0.96,95.0,7.0,1.1,-3.0
+SUP-009,Apex Sensor & Telemetry India (Simulated Benchmark),India,2,Sensors & RF Modules,0.82,0.91,89.0,16.0,2.5,3.0

@@ -1,0 +1,3 @@
+facility_id,name,type,location,lat,lng,daily_capacity_units,idle_cost_usd_per_hour,operational_status
+FAC-DETROIT,Detroit Advanced Manufacturing Plant (Plant 1010),Assembly & Integration Hub,"Detroit, MI, USA",42.3314,-83.0458,500.0,18400.0,ACTIVE_PRODUCTION
+FAC-AUSTIN,Austin Clean-Tech Propulsion Facility (Plant 2020),Battery & Powertrain Center,"Austin, TX, USA",30.2672,-97.7431,350.0,14200.0,ACTIVE_PRODUCTION

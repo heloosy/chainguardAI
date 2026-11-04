@@ -1,0 +1,13 @@
+parent_id,child_id,parent_type,child_type,quantity_required
+CMP-MCU-01,CMP-SUB-04,Component,Component,1.0
+ASM-AUTOPILOT,CMP-MCU-01,Assembly,Component,1.0
+ASM-AUTOPILOT,CMP-SEN-02,Assembly,Component,2.0
+ASM-AUTOPILOT,CMP-ENC-06,Assembly,Component,1.0
+ASM-AUTOPILOT,CMP-SNS-05,Assembly,Component,1.0
+ASM-POWERTRAIN,CMP-BAT-03,Assembly,Component,1.0
+ASM-POWERTRAIN,CMP-HAR-05,Assembly,Component,1.0
+PRD-EV-CORE,ASM-AUTOPILOT,Product,Assembly,1.0
+PRD-EV-CORE,ASM-POWERTRAIN,Product,Assembly,1.0
+PRD-ROBOT-V3,ASM-AUTOPILOT,Product,Assembly,1.0
+FAC-DETROIT,PRD-EV-CORE,Facility,Product,1.0
+FAC-AUSTIN,PRD-ROBOT-V3,Facility,Product,1.0
